@@ -14,9 +14,9 @@
     <link rel="manifest" href="manifest.json" />
 
     <!-- Favicons -->
-    <link rel="apple-touch-icon" href="assets/img/favicon180.png" sizes="180x180">
-    <link rel="icon" href="assets/img/favicon32.png" sizes="32x32" type="image/png">
-    <link rel="icon" href="assets/img/favicon16.png" sizes="16x16" type="image/png">
+    <link rel="apple-touch-icon" href="assets/img/logo_tunas.png" sizes="180x180">
+    <link rel="icon" href="assets/img/logo_tunas.png" sizes="32x32" type="image/png">
+    <link rel="icon" href="assets/img/logo_tunas.png" sizes="16x16" type="image/png">
 
     <!-- Google fonts-->
     <link rel="preconnect" href="https://fonts.googleapis.com/">
