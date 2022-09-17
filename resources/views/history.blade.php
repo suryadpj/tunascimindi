@@ -144,11 +144,11 @@
                 dataType:"json",
                 success:function(html)
                 {
-                    $('#nomorpkb').append(html.data.pkb_no);
-                    $('#kategoripkb').append(html.data.service_category);
-                    $('#kilometerpkb').append(html.data.kilometer);
-                    $('#deskripsipkb').append(html.data.operation_desc);
-                    $('#tanggalpkb').append(html.data.pkb_date);
+                    $('#nomorpkb').html(html.data.pkb_no);
+                    $('#kategoripkb').html(html.data.service_category);
+                    $('#kilometerpkb').html(html.data.kilometer);
+                    $('#deskripsipkb').html(html.data.operation_desc);
+                    $('#tanggalpkb').html(html.data.pkb_date);
                     $('.modal-title').text("Detail data");
                     $('#modalshow').modal('show');
                 }
