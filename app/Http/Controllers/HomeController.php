@@ -49,6 +49,10 @@ class HomeController extends Controller
                     $nextservice = 0;
                 }
             }
+            else
+            {
+                $nextservice = 0;
+            }
             $cr7data = DB::table('cr7data')->where('no_polisi',$profil->no_polisi)->orderBy('ID','desc')->first();
             $cr7count = DB::table('cr7data')->where('no_polisi',$profil->no_polisi)->orderBy('ID','desc')->count();
             return view('profilefirst',['datae' => $data,'profil' => $profil,'nextserv' => $nextservice,'lastservice' => $lastservice,'lastservicecount' => $lastservicecount,'cr7data' => $cr7data,'cr7count' => $cr7count]);
