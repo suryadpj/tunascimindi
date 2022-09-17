@@ -213,7 +213,7 @@
                                         <div class="col">E-Catalog</div>
                                         <div class="arrow"><i class="bi bi-chevron-right"></i></div>
                                     </a></li>
-                                <li><a class="dropdown-item nav-link {{{ (Request::is('promo') ? 'active' : '') }}} " href="promo">
+                                <li><a class="dropdown-item nav-link {{{ (Request::is('promosales') ? 'active' : '') }}} " href="promosales">
                                         <div class="avatar avatar-40 rounded icon"><i class="bi bi-calendar-check"></i>
                                         </div>
                                         <div class="col">Promo</div>
@@ -270,7 +270,7 @@
         </div>
         <!-- main page content ends -->
 
-
+        @yield('footer')
     </main>
     <!-- Page ends-->
 

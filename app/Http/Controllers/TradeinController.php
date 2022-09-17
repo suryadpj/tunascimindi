@@ -36,7 +36,32 @@ class TradeinController extends Controller
 
     public function model()
     {
-        return view('tradeinmodel');
+        $model = DB::table('tradeincar')->select('model')->where('deleted',0)->groupby('model')->get();
+        return view('tradeinmodel2',['model' => $model]);
+    }
+    public function year($id)
+    {
+        $year = DB::table('tradeincar')->select('model','tahun')->where('deleted',0)->where('model',$id)->groupby('model','tahun')->get();
+        $yearone = DB::table('tradeincar')->select('model','tahun')->where('deleted',0)->where('model',$id)->groupby('model','tahun')->first();
+        return view('tradeinyear',['year' => $year,'yearone' => $yearone]);
+    }
+    public function variants($id,$id2)
+    {
+        $variants = DB::table('tradeincar')->select('model','tahun','type')->where('deleted',0)->where('model',$id)->where('tahun',$id2)->groupby('model','tahun','type')->get();
+        $variantsone = DB::table('tradeincar')->select('model','tahun','type')->where('deleted',0)->where('model',$id)->where('tahun',$id2)->groupby('model','tahun','type')->first();
+        return view('tradeinvariants',['variants' => $variants,'variantsone' => $variantsone]);
+    }
+    public function transmisi($id,$id2,$id3)
+    {
+        $transmisi = DB::table('tradeincar')->select('model','tahun','type','transmisi')->where('deleted',0)->where('model',$id)->where('tahun',$id2)->where('type',$id3)->groupby('model','tahun','type','transmisi')->get();
+        $transmisione = DB::table('tradeincar')->select('model','tahun','type','transmisi')->where('deleted',0)->where('model',$id)->where('tahun',$id2)->where('type',$id3)->groupby('model','tahun','type','transmisi')->first();
+        return view('tradeintransmisi',['transmisi' => $transmisi,'transmisione' => $transmisione]);
+    }
+    public function detail($id,$id2,$id3,$id4)
+    {
+        $transmisi = DB::table('tradeincar')->select('model','tahun','type','transmisi')->where('deleted',0)->where('model',$id2)->where('tahun',$id3)->where('type',$id4)->groupby('model','tahun','type','transmisi')->get();
+        $transmisione = DB::table('tradeincar')->select('model','tahun','type','transmisi')->where('deleted',0)->where('model',$id2)->where('tahun',$id3)->where('type',$id4)->groupby('model','tahun','type','transmisi')->first();
+        return view('tradeintransmisi',['transmisi' => $transmisi,'transmisione' => $transmisione]);
     }
 
     /**

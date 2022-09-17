@@ -133,19 +133,19 @@
                     <input type="hidden" name="hidden_id" id="hidden_id" />
                     <div class="modal-body">
                         <div class="form-group row">
-                            <label for="perihal" class="col-sm-5 col-form-label">Nama yang direferensikan</label>
+                            <label for="perihal" class="col-sm-5 col-form-label">Nama yang direferensikan :<span class="text-danger">*</span></label>
                             <div class="col-sm-7">
                                 <input type="text" class="form-control" name="nama_referensi" id="nama_referensi" placeholder="Nama">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="perihal" class="col-sm-5 col-form-label">Nomor HP</label>
+                            <label for="perihal" class="col-sm-5 col-form-label">Nomor HP :<span class="text-danger">*</span></label>
                             <div class="col-sm-7">
                                 <input type="number" class="form-control" name="nomorhp_referensi" id="nomorhp_referensi" placeholder="Nomor HP referensi">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="perihal" class="col-sm-5 col-form-label">Kendaraan</label>
+                            <label for="perihal" class="col-sm-5 col-form-label required">Kendaraan :<span class="text-danger">*</span></label>
                             <div class="col-sm-7">
                                 <select class="form-control" name="kendaraan" width="100%">
                                     <option>Pilih kendaraan yang direferensikan</option>
@@ -153,6 +153,12 @@
                                         <option value="{{ $brr->ID }}">{{ $brr->alt }}</option>
                                     @endforeach
                                 </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="perihal" class="col-sm-5 col-form-label">Rekomendasi Sales Anda :</label>
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control" name="sales_referensi" id="sales_referensi" placeholder="Isi nama sales">
                             </div>
                         </div>
                     </div>

@@ -3,7 +3,7 @@
 @section('content')
     <div class="row mb-3">
         <div class="col">
-            <h6 class="title">Promo</h6>
+            <h6 class="title">{{ $profil->promo }}</h6>
         </div>
     </div>
     <div class="row">
@@ -20,22 +20,35 @@
                             <div class="col align-self-center ps-0">
                                 <p title="rekomendasi" class="text-color-theme mb-1">{{ $a->alt }}</p>
                                 <p class="text-muted size-12">{{ $a->penjelasan }}</p>
-                                @if ($a->jempol == 1)
-                                    <button type="button" class="btn btn-primary" title="Rekomendasi" data-toggle="tooltip" data-placement="left" title="Tooltip on left"><i class="bi bi-hand-thumbs-up-fill" title="Rekomendasi"></i></button>
-                                @endif
-                                <button type="button" class="btn btn-primary like" id="{{ $a->ID }}"><i class="bi bi-heart-fill"></i>
-                                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="jumlahlike{{ $a->ID }}">
-                                      {{ $a->like }}
-                                    </span></button>
-                                &nbsp;
-                                &nbsp;
-                                <button type="button" class="booknow btn btn-primary" id="{{ $a->ID }}">Book Now</button>
+                                <br>
+                                <div class="row">
+                                    <div class="col-auto align-self-center">
+                                        @if ($a->jempol == 1)
+                                            <button type="button" class="btn btn-primary" title="Rekomendasi" data-toggle="tooltip" data-placement="left" title="Tooltip on left"><i class="bi bi-hand-thumbs-up-fill" title="Rekomendasi"></i></button>
+                                        @endif
+                                        <button type="button" class="btn btn-primary like" id="{{ $a->ID }}"><i class="bi bi-heart-fill"></i>
+                                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="jumlahlike{{ $a->ID }}">
+                                            {{ $a->like }}
+                                            </span>
+                                        </button>
+                                    </div>
+                                    <div class="col align-self-center text-end">
+                                        <button type="button" class="booknow btn btn-primary text-end" id="{{ $a->ID }}">Book Now</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </a>
             </div>
         @endforeach
+        @if ($datapromocount == 0)
+            <br>
+            <br>
+            <br>
+            <br>
+            <h4 align="center"><br>Nantikan promo terbaik dari kami</h4>
+        @endif
 
     <!-- modal-->
     <div class="modal fade" id="booknowmodal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">

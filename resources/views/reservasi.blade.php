@@ -3,63 +3,94 @@
 @section('content')
     <div class="row mb-3">
         <div class="col">
-            <h6 class="title">History Service</h6>
+            <h6 class="title">Data Reservasi</h6>
         </div>
     </div>
-    <!-- wallet balance -->
-    <div class="card shadow-sm mb-4">
-        <div class="card-body">
-            <p class="text-muted mb-3">
-                <table width="100%" id="myTable" class="table align-middle table-row-dashed fs-6 gy-5">
-                    <thead>
-                        <tr>
-                            <th>Status</th>
-                            <th>Detail</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @php $no = 1; @endphp
-                        @foreach ($reservasi as $a)
-                            <tr>
-                                <td>
-                                    @switch($a->status)
-                                        @case(1)
-                                            Booking
-                                        @break
-                                        @case(2)
-                                            Booked
-                                        @break
-                                        @case(3)
-                                            Done
-                                        @break
-                                        @case(4)
-                                            Reschedule
-                                        @break
-                                        @case(5)
-                                            Cancel
-                                        @break
+    @foreach ($reservasi as $a)
+    <div class="row">
+        <div class="col-12 col-md-6">
+            <div class="card shadow-sm mb-4">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-auto">
+                            @switch($a->segmen)
+                                @case(1)<div class="avatar avatar-40 alert-success text-success rounded-circle"><i class="bi bi-percent size-20"></i></div> @break
+                                @case(2)<div class="avatar avatar-40 alert-danger text-danger rounded-circle"><i class="bi bi-car-front size-20"></i></div> @break
+                                @case(3)<div class="avatar avatar-40 alert-info text-info rounded-circle"><i class="bi bi-bookmark-check size-20"></i></div> @break
+                            @endswitch
+                        </div>
+                        <div class="col align-self-center ps-0">
+                            <p class="mb-0">
+                                @switch($a->segmen)
+                                    @case(1) Promo @break
+                                    @case(2) Tes Drive @break
+                                    @case(3) Booking Service @break
+                                    @default
+                                @endswitch
+                            </p>
+                            <p class="text-muted size-12">
+                                @switch($a->segmen)
+                                    @case(1) {{ $a->tgl }} - {{ $a->waktu }} @break
+                                    @case(2) {{ $a->tgl }} @break
+                                    @case(3) {{ $a->tgl }} - {{ $a->waktu }} @break
+                                    @default
+                                @endswitch
+                            </p>
+                            <p class="small text-muted">
+                                @switch($a->segmen)
+                                    @case(1) {{ $a->alt }} @break
+                                    @case(2) {{ $a->keterangan }} @break
+                                    @case(3) {{ number_format($a->km,0) }} KM - {{ $a->job }} @break
+                                    @default
+                                @endswitch
+                            </p>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-auto align-self-center">
+                            Status :
+                            @switch($a->status)
+                                @case(1)
+                                    Booking
+                                @break
+                                @case(2)
+                                    Booked
+                                @break
+                                @case(3)
+                                    Done
+                                @break
+                                @case(4)
+                                    Reschedule
+                                @break
+                                @case(5)
+                                    Cancel
+                                @break
 
-                                        @default
+                                @default
 
-                                    @endswitch
-                                </td>
-                                <td>Tanggal:{{ $a->tgl }} <br> Waktu: {{ $a->waktu }} <br>Job : {{ $a->alt }}</td>
-                                <td>
-                                    <a href="#" title="Detail" id="{{ $a->ID }}" class="detail avatar avatar-50 shadow-sm mb-2 rounded-10 theme-bg text-white"><i class="bi bi-search"></i></a>
-                                    {{-- <a href="#" title="Finding" id="{{ $a->ID }}" class="finding avatar avatar-50 shadow-sm mb-2 rounded-10 theme-bg text-white" data-bs-toggle="modal" data-bs-target="#staticBackdrop2"><i class="bi bi-ui-checks"></i></a> --}}
-                                </td>
-                            </tr>
-                            @php $no = $no+1; @endphp
-                        @endforeach
-                    </tbody>
-                </table>
-            </p>
+                            @endswitch
+                        </div>
+                        <div class="col align-self-center text-end">
+                            <p class="small">
+                                @switch($a->segmen)
+                                    @case(1) <a href="#" title="Detail" id="{{ $a->ID }}" class="promo btn btn-info shadow-sm mb-1 rounded-10 theme-bg text-white">Detail</a> @break
+                                    @case(2) <a href="#" title="Detail" id="{{ $a->ID }}" class="tesdrive btn btn btn-info shadow-sm mb-1 rounded-10 theme-bg text-white">Detail</a> @break
+                                    @case(3) <a href="#" title="Detail" id="{{ $a->ID }}" class="bookingservice btn btn-info shadow-sm mb-1 rounded-10 theme-bg text-white">Detail</a> @break
+                                    @default
+                                @endswitch
+
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+    @endforeach
 
     <!-- modal-->
-    <div class="modal fade" id="modalshow" tabindex="-1" aria-hidden="true">
+    <div class="modal fade" id="modalservice" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -69,29 +100,34 @@
                 <div class="modal-body">
                     <table width="100%">
                         <tr>
-                            <th>Nomor PKB</th>
+                            <th>Nomor reservasi</th>
                             <th>:</th>
-                            <td><span id="nomorpkb"></span></td>
+                            <td><span id="nomorreserv"></span></td>
                         </tr>
                         <tr>
-                            <th>Tanggal PKB</th>
+                            <th>Tanggal</th>
                             <th>:</th>
-                            <td><span id="tanggalpkb"></span></td>
+                            <td><span id="tanggalreserv"></span></td>
                         </tr>
                         <tr>
-                            <th>Kategori</th>
+                            <th>Waktu</th>
                             <th>:</th>
-                            <td><span id="kategoripkb"></span></td>
+                            <td><span id="waktureserv"></span></td>
                         </tr>
                         <tr>
-                            <th>Kilometer</th>
+                            <th>Job</th>
                             <th>:</th>
-                            <td><span id="kilometerpkb"></span></td>
+                            <td><span id="kmreserv"></span></td>
                         </tr>
                         <tr>
                             <th>Deksripsi Pekerjaan</th>
                             <th>:</th>
-                            <td><span id="deskripsipkb"></span></td>
+                            <td><span id="deskripsireserv"></span></td>
+                        </tr>
+                        <tr>
+                            <th>Status</th>
+                            <th>:</th>
+                            <td><span id="statusreserv"></span></td>
                         </tr>
                     </table>
                 </div>
@@ -101,7 +137,7 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="staticBackdrop1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal fade" id="modaltesdrive" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -109,8 +145,28 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    1. Engine Components 6 item <br>
-                    2. Chassis & Body 10 Item
+                    <table width="100%">
+                        <tr>
+                            <th>Unit</th>
+                            <th>:</th>
+                            <td><span id="unittesdrive"></span></td>
+                        </tr>
+                        <tr>
+                            <th>Tanggal</th>
+                            <th>:</th>
+                            <td><span id="tanggaltesdrive"></span></td>
+                        </tr>
+                        <tr>
+                            <th>Nama / Nomor HP</th>
+                            <th>:</th>
+                            <td><span id="kontaktesdrive"></span></td>
+                        </tr>
+                        <tr>
+                            <th>Status</th>
+                            <th>:</th>
+                            <td><span id="statustesdrive"></span></td>
+                        </tr>
+                    </table>
                 </div>
                 <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -118,7 +174,7 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal fade" id="modalpromo" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -126,12 +182,31 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    1. Ketebalan ban dibawah standar
-                    2. Saluran air wiper bocor
+                    <table width="100%">
+                        <tr>
+                            <th>Promo</th>
+                            <th>:</th>
+                            <td><span id="promo"></span></td>
+                        </tr>
+                        <tr>
+                            <th>Tanggal</th>
+                            <th>:</th>
+                            <td><span id="tanggalpromo"></span></td>
+                        </tr>
+                        <tr>
+                            <th>Waktu</th>
+                            <th>:</th>
+                            <td><span id="waktupromo"></span></td>
+                        </tr>
+                        <tr>
+                            <th>Status</th>
+                            <th>:</th>
+                            <td><span id="statuspromo"></span></td>
+                        </tr>
+                    </table>
                 </div>
                 <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Saran Perbaikan</button>
                 </div>
             </div>
         </div>
@@ -149,21 +224,113 @@
         var oTable = $('#myTable').DataTable({
             responsive: true,
         });
-        $(document).on('click', '.detail', function(){
+        $(document).on('click', '.bookingservice', function(){
             var id = $(this).attr('id');
             $('#form_result').html('');
             $.ajax({
-                url:"history/"+id,
+                url:"reservasi/"+id,
                 dataType:"json",
                 success:function(html)
                 {
-                    $('#nomorpkb').append(html.data.pkb_no);
-                    $('#kategoripkb').append(html.data.service_category);
-                    $('#kilometerpkb').append(html.data.kilometer);
-                    $('#deskripsipkb').append(html.data.operation_desc);
-                    $('#tanggalpkb').append(html.data.pkb_date);
+                    $('#nomorreserv').append('RSV00' + html.data.ID);
+                    $('#tanggalreserv').append(html.data.tgl);
+                    $('#waktureserv').append(html.data.waktu);
+                    $('#kmreserv').append(html.data.km + ' KM');
+                    $('#deskripsireserv').append(html.data.job);
+                    if(html.data.status == 1)
+                    {
+                        $('#statusreserv').append('Menunggu respon petugas');
+                    }
+                    else if(html.data.status == 1)
+                    {
+                        $('#statusreserv').append('Dihubungi');
+                    }
+                    else if(html.data.status == 3)
+                    {
+                        $('#statusreserv').append('Done');
+                    }
+                    else if(html.data.status == 4)
+                    {
+                        $('#statusreserv').append('Cancel');
+                    }
+                    else
+                    {
+                        $('#statusreserv').append('-');
+                    }
                     $('.modal-title').text("Detail data");
-                    $('#modalshow').modal('show');
+                    $('#modalservice').modal('show');
+                }
+            })
+        });
+        $(document).on('click', '.promo', function(){
+            var id = $(this).attr('id');
+            $('#form_result').html('');
+            $.ajax({
+                url:"reservasi/"+id,
+                dataType:"json",
+                success:function(html)
+                {
+                    $('#promo').html(html.data.alt);
+                    $('#tanggalpromo').html(html.data.tgl);
+                    $('#waktupromo').html(html.data.waktu);
+                    if(html.data.status == 1)
+                    {
+                        $('#statuspromo').html('Menunggu respon petugas');
+                    }
+                    else if(html.data.status == 1)
+                    {
+                        $('#statuspromo').html('Dihubungi');
+                    }
+                    else if(html.data.status == 3)
+                    {
+                        $('#statuspromo').html('Done');
+                    }
+                    else if(html.data.status == 4)
+                    {
+                        $('#statuspromo').html('Cancel');
+                    }
+                    else
+                    {
+                        $('#statuspromo').html('-');
+                    }
+                    $('.modal-title').text("Detail data");
+                    $('#modalpromo').modal('show');
+                }
+            })
+        });
+        $(document).on('click', '.tesdrive', function(){
+            var id = $(this).attr('id');
+            $('#form_result').html('');
+            $.ajax({
+                url:"reservasi/"+id,
+                dataType:"json",
+                success:function(html)
+                {
+                    $('#unittesdrive').html(html.data.keterangan);
+                    $('#tanggaltesdrive').html(html.data.tgl);
+                    $('#kontaktesdrive').append(html.data.nama + ' / ' + html.data.nomorhp);
+                    if(html.data.status == 1)
+                    {
+                        $('#statustesdrive').html('Menunggu respon petugas');
+                    }
+                    else if(html.data.status == 1)
+                    {
+                        $('#statustesdrive').html('Dihubungi');
+                    }
+                    else if(html.data.status == 3)
+                    {
+                        $('#statustesdrive').html('Done');
+                    }
+                    else if(html.data.status == 4)
+                    {
+                        $('#statustesdrive').html('Cancel');
+                    }
+                    else
+                    {
+                        $('#statuspromo').html('-');
+                    }
+                    $('.modal-title').text("Detail data");
+                    $('#modaltesdrive').modal('show');
                 }
             })
         });
