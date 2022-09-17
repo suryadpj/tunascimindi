@@ -67,7 +67,7 @@ class EcatalogController extends Controller
         $rules = array(
             'nama_referensi'        =>  'required',
             'nomorhp_referensi'     =>  'required',
-            'kendaraan_referensi'             =>  'required',
+            'kendaraan'             =>  'required',
         );
 
         $error = Validator::make($request->all(), $rules,$messages);
@@ -84,6 +84,7 @@ class EcatalogController extends Controller
             'nama_referensi'        =>  $request->nama_referensi,
             'nomorhp_referensi'     =>  $request->nomorhp_referensi,
             'IDBrosur'              =>  $request->kendaraan,
+            'salesreferensi'              =>  $request->sales_referensi,
             'status'                =>  0,
             'deleted'               =>  0,
         );
