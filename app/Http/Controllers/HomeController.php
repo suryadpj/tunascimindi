@@ -76,6 +76,10 @@ class HomeController extends Controller
                     $nextservice = 0;
                 }
             }
+            else
+            {
+                $nextservice = 0;
+            }
             $cr7data = DB::table('cr7data')->where('no_polisi',$profil->no_polisi)->orderBy('ID','desc')->first();
             $cr7count = DB::table('cr7data')->where('no_polisi',$profil->no_polisi)->orderBy('ID','desc')->count();
             return view('home',['sb' => $segmen_service_berkala,'gr' => $segmen_general_repair,'nextserv' => $nextservice,'bp' => $segmen_body_paint,'profil' => $profil,'lastservice' => $lastservice,'lastservicecount' => $lastservicecount,'cr7data' => $cr7data,'cr7count' => $cr7count,]);
