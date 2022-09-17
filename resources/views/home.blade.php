@@ -333,6 +333,7 @@
             </div>
         </div>
     </div>
+    @if ($nextserv)
     <div class="modal fade" id="booknowmodal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -378,6 +379,7 @@
             </div>
         </div>
     </div>
+    @endif
 @endsection
 
 @section('footer')
