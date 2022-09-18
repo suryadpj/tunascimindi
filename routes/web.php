@@ -24,6 +24,8 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::post('/home/booknow', [App\Http\Controllers\HomeController::class, 'booknow'])->name('home.booknow');
 Route::post('referensi', [App\Http\Controllers\EcatalogController::class, 'referensistore'])->name('ecatalog.referensistore');
 Route::resource('card', App\Http\Controllers\CardController::class);
+Route::get('pageservice', [App\Http\Controllers\PagesController::class, 'pageservice'])->name('page.service');
+Route::get('pagesales', [App\Http\Controllers\PagesController::class, 'pagesales'])->name('page.sales');
 Route::resource('history', App\Http\Controllers\HistoryController::class);
 Route::resource('ecatalog', App\Http\Controllers\EcatalogController::class);
 Route::resource('aksesoris', App\Http\Controllers\AksesoriController::class);

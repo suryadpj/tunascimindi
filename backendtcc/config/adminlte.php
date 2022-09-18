@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'title' => 'Tunas Toyota Cipondoh Backend',
+    'title' => 'Tunas Toyota Cimindi Backend',
     'title_prefix' => '',
     'title_postfix' => '',
 
@@ -63,12 +63,12 @@ return [
     |
     */
 
-    'logo' => '<b>CJ-ONE</b>Backend',
+    'logo' => '<b>Tunas Cimindi </b>Backend',
     'logo_img' => 'img/logo_tunas.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
-    'logo_img_alt' => 'CJ-ONE Backend',
+    'logo_img_alt' => 'Tunas Cimindi  Backend',
 
     /*
     |--------------------------------------------------------------------------
@@ -86,7 +86,7 @@ return [
         'enabled' => true,
         'img' => [
             'path' => 'img/logo_tunas.png',
-            'alt' => 'CJ-ONE Backend',
+            'alt' => 'Tunas Cimindi Backend',
             'effect' => 'animation_wobble',
             'width' => 60,
             'height' => 60,

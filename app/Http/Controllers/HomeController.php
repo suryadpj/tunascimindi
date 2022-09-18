@@ -42,7 +42,7 @@ class HomeController extends Controller
             $lastservicecount = DB::table('pkbdata')->where('nomor_rangka',$data_user->nomor_rangka)->orderBy('pkb_date','desc')->count();
             if($lastservicecount > 0)
             {
-                $nextservice = DB::table('job_sbe')->leftjoin('reservasi','reservasi.IDParent','job_sbe.ID')->where('km','>',$lastservice->kilometer)->where('segmen','3')->orderBy('km','asc')->first();
+                $nextservice = DB::table('job_sbe')->where('km','>',$lastservice->jobkm)->orderBy('km','asc')->first();
                 $countnextservice = $nextservice->count();
                 if($countnextservice == 0)
                 {
@@ -69,8 +69,8 @@ class HomeController extends Controller
             $lastservicecount = DB::table('pkbdata')->where('nomor_rangka',$data_user->nomor_rangka)->orderBy('pkb_date','desc')->count();
             if($lastservicecount > 0)
             {
-                $nextservice = DB::table('job_sbe')->leftjoin('reservasi','reservasi.IDParent','job_sbe.ID')->where('km','>',$lastservice->kilometer)->where('segmen','3')->orderBy('km','asc')->first();
-                $countnextservice = DB::table('job_sbe')->where('km','>',$lastservice->kilometer)->orderBy('km','asc')->count();
+                $nextservice = DB::table('job_sbe')->where('km','>',$lastservice->jobkm)->orderBy('km','asc')->first();
+                $countnextservice = DB::table('job_sbe')->where('km','>',$lastservice->jobkm)->orderBy('km','asc')->count();
                 if($countnextservice == 0)
                 {
                     $nextservice = 0;

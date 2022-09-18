@@ -130,11 +130,7 @@
                                         </div>
                                         <div class="col align-self-center text-end">
                                             <p class="small">
-                                                @if($nextserv->segmen == 3)
-                                                    <a href="#" class="booked btn btn-success" disabled>Booked</a>
-                                                @else
                                                     <a href="#" class="booknow btn btn-success">Book Now</a>
-                                                @endif
                                             </p>
                                         </div>
                                     </div>
@@ -159,7 +155,7 @@
             <div class="swiper-container connectionwiper">
                 <div class="swiper-wrapper">
                     <div class="swiper-slide">
-                        <a href="history" class="card text-center">
+                        <a href="pageservice" class="card text-center">
                             <div class="card-body">
                                 <div class="avatar avatar-50 shadow-sm mb-2 rounded-10 theme-bg text-white">
                                     <i class="bi bi bi-clock-history"></i>
@@ -170,7 +166,7 @@
                     </div>
 
                     <div class="swiper-slide">
-                        <a href="ecatalog" class="card text-center">
+                        <a href="pagesales" class="card text-center">
                             <div class="card-body">
                                 <div class="avatar avatar-50 shadow-sm mb-2 rounded-10 btn-danger text-white">
                                     <i class="bi bi-card-list"></i>

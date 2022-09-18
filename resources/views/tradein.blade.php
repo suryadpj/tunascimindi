@@ -161,6 +161,7 @@
 
             var countform;
             countform = ele.id.split('-')[1];
+            console.log(countform)
 
             //load komponen berdasarkan step/langkah
             if(countform == 1) {
@@ -207,69 +208,64 @@
                 temp1.disabled = false;
             } else if(countform == 4)
             {
-                $('#formbooknow').on('submit', function(event){
-                    event.preventDefault();
-                    console.log('load-tarif');
-                    var id = $(this).attr('id');
-                    $.ajax({
-                        url:"{{ route('tradein.store') }}",
-                        method:"POST",
-                        data: new FormData(this),
-                        contentType: false,
-                        cache:false,
-                        processData: false,
-                        dataType:"json",
-                        beforeSend:function(){
-                            $('#action_button').html('<i disable class="fa fa-spinner fa-spin"></i>').attr('disabled', true);
-                        },
-                        success:function(data)
+                var id = $(this).attr('id');
+                selectedCarModel = ele.getAttribute('data-model');
+                selectedCarYear = ele.getAttribute('data-year');
+                selectedCarVariant = ele.getAttribute('data-variant');
+                selectedCarTransmition = ele.getAttribute('data-transmition');
+                $.ajax({
+                    type: "POST",
+                    url: "tradein",
+                    dataType: 'JSON',
+                    data:{
+                        'model': selectedCarModel,
+                        'year': selectedCarYear,
+                        'variant': selectedCarVariant,
+                        'transmition': selectedCarTransmition,
+                        '_token': '{{ csrf_token() }}',
+                    },
+                    success:function(data)
+                    {
+                        var html = '';
+                        if(data.errors)
                         {
-                            var html = '';
-                            if(data.errors)
+                            html = '';
+                            for(var count = 0; count < data.errors.length; count++)
                             {
-                                html = '';
-                                for(var count = 0; count < data.errors.length; count++)
-                                {
-                                    html += data.errors[count] + ', ';
-                                }
-                                swal.fire({
-                                    icon: 'warning',
-                                    title: 'Data gagal disimpan',
-                                    text: html
-                                })
-                                $('#action_button').html('Save changes').attr('disabled', false);
+                                html += data.errors[count] + ', ';
                             }
-                            if(data.duplicate)
-                            {
-                                swal.fire({
-                                    icon: 'warning',
-                                    title: 'Data gagal disimpan',
-                                    text: html
-                                })
-                                $('#action_button').html('Save changes').attr('disabled', false);
-                            }
-                            if(data.success)
-                            {
-                                $('#booknowmodal').modal('hide');
-                                $('#formbooknow')[0].reset();
-                                $('#action_button').html('Save changes').attr('disabled', false);
-                                swal.fire({
-                                    icon: 'success',
-                                    title: 'Data berhasil disimpan',
-                                    text: 'Data referensi anda akan diteruskan petugas kami untuk dihubungi. Terima kasih'
-                                })
-                            }
-                        },
-                        error: function(xhr, status, error) {
-                            var errorMessage = xhr.status + ': ' + xhr.statusText
                             swal.fire({
-                                icon: 'error',
+                                icon: 'warning',
                                 title: 'Data gagal disimpan',
-                                text: errorMessage
+                                text: html
                             })
                             $('#action_button').html('Save changes').attr('disabled', false);
                         }
-                    })
+                        if(data.duplicate)
+                        {
+                            swal.fire({
+                                icon: 'warning',
+                                title: 'Data gagal disimpan',
+                                text: html
+                            })
+                            $('#action_button').html('Save changes').attr('disabled', false);
+                        }
+                        if(data.success)
+                        {
+                            $('#formtradein')[0].reset();
+                            $('#rootComponent').html('<br><b>' + data.success + '</b>');
+                            Swal.fire('Data trade in berhasil disimpan', '', 'success')
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        var errorMessage = xhr.status + ': ' + xhr.statusText
+                        swal.fire({
+                            icon: 'error',
+                            title: 'Data gagal disimpan',
+                            text: errorMessage
+                        })
+                        $('#action_button').html('Save changes').attr('disabled', false);
+                    }
                 });
             }
         }

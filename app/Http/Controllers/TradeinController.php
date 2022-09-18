@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Log;
 use App\Models\profil;
+use Validator;
 
 class TradeinController extends Controller
 {
@@ -82,7 +83,43 @@ class TradeinController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $messages = [
+            'required' => ':attribute wajib diinput',
+            'min' => ':attribute harus diisi minimal :min karakter',
+            'max' => ':attribute harus diisi maksimal :max karakter',
+            'numeric' => ':attribute harus diisi angka',
+        ];
+        $rules = array(
+            'model'        =>  'required',
+            'year'     =>  'required',
+            'variant'             =>  'required',
+            'transmition'             =>  'required',
+        );
+
+        $error = Validator::make($request->all(), $rules,$messages);
+
+        if($error->fails())
+        {
+            return response()->json(['errors' => $error->errors()->all()]);
+        }
+
+        $data_user = Auth::user();
+
+        $form_data = array(
+            'IDUser'                =>  $data_user->id,
+            'model'        =>  $request->model,
+            'year'     =>  $request->year,
+            'varian'              =>  $request->variant,
+            'transmisi'              =>  $request->transmition,
+            'IDUserFollowUp'                =>  0,
+            'deleted'               =>  0,
+        );
+
+        DB::table('tradeindata')->insert($form_data);
+
+        $harga = DB::table('tradeincar')->where('model',$request->model)->where('tahun',$request->year)->where('type',$request->variant)->where('transmisi',$request->transmition)->first();
+
+        return response()->json(['success' => 'Harga kisaran Rp. '.number_format($harga->harga,0)]);
     }
 
     /**

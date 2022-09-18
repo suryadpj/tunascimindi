@@ -204,7 +204,6 @@
             event.preventDefault();
             if($('#action').val() == 'Add')
             {
-
                 $.ajax({
                     url:"{{ route('ecatalog.referensistore') }}",
                     method:"POST",
