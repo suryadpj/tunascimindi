@@ -495,6 +495,16 @@ return [
                 ],
             ],
         ],
+        'Webpushr' => [
+            'active' => true,
+            'files' => [
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => 'vendor/webpushr/webpushr-sw.js',
+                ],
+            ],
+        ],
         'Chartjs' => [
             'active' => false,
             'files' => [
