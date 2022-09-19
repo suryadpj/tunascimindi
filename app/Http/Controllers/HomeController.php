@@ -43,7 +43,7 @@ class HomeController extends Controller
             if($lastservicecount > 0)
             {
                 $nextservice = DB::table('job_sbe')->where('km','>',$lastservice->jobkm)->orderBy('km','asc')->first();
-                $countnextservice = $nextservice->count();
+                $countnextservice = DB::table('job_sbe')->where('km','>',$lastservice->jobkm)->orderBy('km','asc')->count();
                 if($countnextservice == 0)
                 {
                     $nextservice = 0;
