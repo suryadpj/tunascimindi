@@ -93,5 +93,5 @@
             </a>
         </p>
     @endif
-    <p align="center">&copy Tunas Toyota Cipondoh - Backend 2022</p>
+    <p align="center">&copy Tunas Toyota Cimindi - Backend 2022</p>
 @stop
