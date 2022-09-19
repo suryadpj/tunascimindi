@@ -8,7 +8,7 @@
     <meta name="author" content="">
     <meta name="generator" content="">
     <link rel="canonical" href="https://tunastoyotacipondoh.co.id" />
-    <title>Tunas Toyota Cipondoh - Mobile Web Apps</title>
+    <title>Tunas Toyota Cimindi - Mobile Web Apps</title>
 
     <!-- manifest meta -->
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -45,7 +45,7 @@
                             </a>
                         </div>
                         <div class="col align-self-center">
-                            <h5>Pendaftaran Aplikasi TCC Mobile</h5>
+                            <h5>Pendaftaran Aplikasi Tunas Toyota Cimindi</h5>
                         </div>
                         <div class="col-auto">
                             <a class="btn btn-light btn-44 invisible"></a>
@@ -73,10 +73,10 @@
                         <label for="country">Negara</label>
                     </div>
                     <div class="form-floating is-valid mb-3">
-                        <input type="text" maxlength="13" class="form-control" name="nomorhp"
-                            placeholder="Nomor HP" id="nomorhp" onkeypress="return hanyaAngka(event)">
-                        <label for="nomorhp">Nomor HP (contoh : 0812xxx,021585xx)</label>
-                        @error('nomorhp')
+                        <input type="text" maxlength="13" class="form-control" name="phone"
+                            placeholder="Nomor HP" id="phone" onkeypress="return hanyaAngka(event)">
+                        <label for="phone">Nomor HP (contoh : 0812xxx,021585xx)</label>
+                        @error('phone')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
@@ -194,6 +194,16 @@
                         $('#action_button').html('Save changes').attr('disabled', false);
                     }
                     if(data.tidakada)
+                    {
+                        swal.fire({
+                            icon: 'warning',
+                            title: 'Data gagal disimpan',
+                            text: data.tidakada
+                        })
+
+                        $('#action_button').html('Save changes').attr('disabled', false);
+                    }
+                    if(data.duplicate)
                     {
                         swal.fire({
                             icon: 'warning',

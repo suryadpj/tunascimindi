@@ -8,7 +8,7 @@
     <meta name="author" content="">
     <meta name="generator" content="">
     <link rel="canonical" href="https://tunastoyotacipondoh.co.id" />
-    <title>Tunas Toyota Cipondoh - Mobile Web Apps</title>
+    <title>Tunas Toyota Cimindi - Mobile Web Apps</title>
 
     <!-- manifest meta -->
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -46,7 +46,7 @@
                             </a>
                         </div>
                         <div class="col align-self-center">
-                            <h5>Pendaftaran Aplikasi TCC Mobile</h5>
+                            <h5>Pendaftaran Aplikasi Tunas Toyota Cimindi</h5>
                         </div>
                         <div class="col-auto">
                             <a class="btn btn-light btn-44 invisible"></a>

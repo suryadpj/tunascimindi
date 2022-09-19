@@ -33,11 +33,14 @@ class NewRegisterController extends Controller
             'max' => ':attribute harus diisi maksimal :max karakter',
             'numeric' => ':attribute harus diisi angka',
             'confirmed' => ':attribute tidak sama, ulangi kembali',
+            'unique' => ':attribute sudah terdaftar, silahkan periksa kembali data anda',
+            'phone.unique' => 'Nomor HP sudah terdaftar, silahkan periksa kembali data anda',
+            'nomor_rangka.unique' => 'Nomor rangka sudah terdaftar, silahkan periksa kembali data anda',
         ];
         $rules = array(
             'nama' => ['required', 'string', 'max:255'],
-            'nomorhp' => ['required'],
-            'nomor_rangka' => ['required', 'string', 'max:255'],
+            'phone' => ['required', 'unique:users'],
+            'nomor_rangka' => ['required', 'string', 'max:255', 'unique:users'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         );
