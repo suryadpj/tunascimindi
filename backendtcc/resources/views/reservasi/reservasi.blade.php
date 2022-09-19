@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', 'Customer Data')
+@section('title', 'Data Reservasi')
 
 @section('content_header')
-    <h1 class="m-0 text-dark">Customer Data</h1>
+    <h1 class="m-0 text-dark">Reservasi Data</h1>
 @stop
 
 @section('content')
@@ -26,24 +26,7 @@
                     </div>
                     <div class="col-sm-2">
                         <div class="form-group">
-                            <input type="text" autocomplete="off" class="form-control" name="search_domisili" placeholder="Domisili">
-                        </div>
-                    </div>
-                    <div class="col-sm-2">
-                        <div class="form-group">
-                            <input type="text" autocomplete="off" class="form-control" name="search_kendaraan" placeholder="Kendaraan">
-                        </div>
-                    </div>
-                    <div class="col-sm-2">
-                        <div class="form-group">
-                            <select class="form-control select2" name="search_membership" id="search_membership"  style="width: 100%;">
-                                <option value=''>Pilih Membership</option>
-                                    <option value="1">Platinum</option>
-                                    <option value="2">Gold</option>
-                                    <option value="3">Silver</option>
-                                    <option value="4">Bronze</option>
-                                    <option value="5">New Member</option>
-                            </select>
+                            <input type="date" autocomplete="off" class="form-control" name="search_tanggal" placeholder="tanggal">
                         </div>
                     </div>
                     <div class="col-sm-2">
@@ -64,7 +47,7 @@
             <div class="card-body">
                 <div align="right">
                     <!-- <button type="button" name="create_barang" id="create_barang" class="btn btn-info btn-sm">Tambah Nama Barang</button> -->
-                    <button type="button" name="create_record" id="create_record" class="btn btn-success btn-sm"><i class="fas fa-plus"></i> Tambah Data</button>
+                    {{-- <button type="button" name="create_record" id="create_record" class="btn btn-success btn-sm"><i class="fas fa-plus"></i> Tambah Data</button> --}}
                 </div>
                 <div class="card-body table-responsive p-0">
                 <span id="form_result_save"></span>
@@ -77,13 +60,11 @@
                                 <tr>
                                     <th></th>
                                     <th>No</th>
-                                    <th>Creator</th>
-                                    <th>Pelanggan</th>
-                                    <th>Nomor HP</th>
-                                    <th>Domisili</th>
-                                    <th>Kendaraan</th>
-                                    <th>Membership</th>
-                                    <th>Sales</th>
+                                    <th>User</th>
+                                    <th>Kategori</th>
+                                    <th>Status</th>
+                                    <th>Waktu</th>
+                                    <th>Keterangan</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -92,11 +73,13 @@
                         @if($user->admin == 1)
                             <div class="row">
                                 <div class="col-sm-2">
-                                    <label>Update PIC Sales :</label>
+                                    <label>Update Status :</label>
                                     <div class="form-group">
-                                        <select class="form-control select2" name="IDSales">
-                                            <option>Pilih PIC</option>
-                                            <option value="99">Sales A</option>
+                                        <select class="form-control select2" name="statusreservasi">
+                                            <option>Pilih status</option>
+                                            <option value="2">Dihubungi</option>
+                                            <option value="3">Done</option>
+                                            <option value="4">Cancel</option>
                                         </select>
                                     </div>
                                 </div>
@@ -115,37 +98,6 @@
     </div>
 </div>
 
-<div class="modal fade bd-example-modal-lg" id="modal_catatan">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Default Modal</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <form method="post" id="sample_form2" class="form-horizontal" enctype="multipart/form-data">
-                <span id="form_result"></span>
-                @csrf
-                <input type="hidden" name="hidden_id" id="hidden_id" />
-                <div class="modal-body">
-                    <div class="form-group row">
-                        <label for="formFile"  class="col-sm-5 col-form-label">Upload File Customer</label>
-                        <div class="col-sm-7">
-                            <span id="lampiran"></span>
-                            <input class="form-control" type="file" name="file" id="formFile" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer justify-content-between">
-                    <input type="hidden" name="action" id="action" />
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="submit" name="action_button" value="Add" id="action_button" class="btn btn-primary">Save Data</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
 <div class="modal fade bd-example-modal-lg" id="modaleditcustomer">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -416,12 +368,12 @@ $(document).ready(function(){
                     {extend:'print',title: 'Data Customer Tunas Toyota Cipondoh'},
         ],
         ajax:{
-            url: "{{ route('customer.index') }}",
+            url: "{{ route('reservasidata.index') }}",
             data: function (d) {
                 d.namapelanggan = $('input[name=search_nama]').val();
                 d.nomorrangka = $('input[name=search_nomorrangka]').val();
                 d.domisili = $('input[name=search_domisili]').val();
-                d.kendaraan = $('input[name=search_kendaraan]').val();
+                d.tanggalreservasi = $('input[name=search_tanggal]').val();
                 d.membership = $("#search_membership option:selected").val();
             }
         },
@@ -433,12 +385,10 @@ $(document).ready(function(){
                 }
             },
             {"data":"name"},
-            {"data":"nama_pelanggan"},
             {"data":"kolom_kedua"},
-            {"data":"domisili"},
+            {"data":"kolom_kelima"},
             {"data":"kolom_ketiga"},
             {"data":"kolom_keempat"},
-            {"data":"kolom_kelima"},
             {"data":"action",orderable: false},
         ],
       'columnDefs': [
@@ -512,7 +462,7 @@ $(document).ready(function(){
         $('#idcheck').val(id);
 
         $.ajax({
-            url: "customer/tosales",
+            url: "reservasidata",
             method:"POST",
             data: new FormData(this),
             contentType: false,
@@ -521,7 +471,7 @@ $(document).ready(function(){
             dataType:"json",
             success: function (data) {
                 oTable.draw();
-                Swal.fire('Data berhasil dihapus', '', 'success')
+                Swal.fire('Data berhasil diperbarui', '', 'success')
             },
             error: function (xhr) {
                 console.log(xhr.responseText);
@@ -555,195 +505,11 @@ $(document).ready(function(){
             });
     });
 
-    $('#create_record').click(function(){
-        $('#sample_form2')[0].reset();
-        $('.select2').val(null).trigger('change');
-        $('.select2').select2();
-        $('#lampiran').html('');
-        // $('#cari').val(null).trigger('change');
-        // $('#area').val(null).trigger('change');
-        $('.modal-title').text("Upload Dokumen Customer");
-        $('#action_button').val("Add");
-        $('#action').val("Add");
-        $('#modal_catatan').modal('show');
-    });
-
-    $(document).on('click', '.edit', function(){
-        var id = $(this).attr('id');
-        console.log('edit')
-        $.ajax({
-            url:"customer/"+id,
-            dataType:"json",
-            success:function(html)
-            {
-                $('#edit_form')[0].reset();
-                $('#vincode').val(html.data.vincode);
-                $('#no_polisi').val(html.data.no_polisi);
-                $('#nama_pelanggan').val(html.data.nama_pelanggan);
-                $('#phone1').val(html.data.phone1);
-                $('#tanggal_lahir').val(html.data.tanggal_lahir);
-                $('#domisili').val(html.data.domisili);
-                $('#hobi').val(html.data.hobi);
-                $('#food_drink').val(html.data.food_drink);
-                $('#terlibat_ssc').val(html.data.terlibat_ssc);
-                $('#tanggal_pengerjaan_ssc').val(html.data.tanggal_pengerjaan_ssc);
-                $('#masa_berlaku_stnk').val(html.data.masa_berlaku_stnk);
-                $('#unit').val(html.data.unit);
-                $('#tahun').val(html.data.tahun);
-                $('#pertamadatang').val(html.data.pertamadatang);
-                $("#status").select2().val(html.data.status).trigger("change");
-                $("#membership").select2().val(html.data.membership).trigger("change");
-                $("#gbsb").select2().val(html.data.gbsb).trigger("change");
-                $("#tcare").select2().val(html.data.tcare).trigger("change");
-                $('#hidden_id2').val(html.data.ID);
-                $('.modal-title').text("Edit Customer Data");
-                $('#action_button2').val("Edit");
-                $('#action2').val("Edit");
-                $('#modaleditcustomer').modal('show');
-            }
-        })
-    });
-
-    $('#edit_form').on('submit', function(event){
-        event.preventDefault();
-        $.ajax({
-            url:"{{ route('customer.updatedata') }}",
-            method:"POST",
-            data: new FormData(this),
-            contentType: false,
-            cache:false,
-            processData: false,
-            dataType:"json",
-            beforeSend:function(){
-                $('#action_button2').html('<i disable class="fa fa-spinner fa-spin"></i>').attr('disabled', true);
-            },
-            success:function(data)
-            {
-                var html = '';
-                if(data.errors)
-                {
-                    html = '';
-                    for(var count = 0; count < data.errors.length; count++)
-                    {
-                        html += data.errors[count] + ', ';
-                    }
-                    swal.fire({
-                        icon: 'warning',
-                        title: 'Data gagal disimpan',
-                        text: html
-                    })
-
-                    $('#action_button2').html('Save changes').attr('disabled', false);
-                }
-                if(data.duplicate)
-                {
-                    swal.fire({
-                        icon: 'warning',
-                        title: 'Data gagal disimpan',
-                        text: html
-                    })
-
-                    $('#action_button2').html('Save changes').attr('disabled', false);
-                }
-                if(data.success)
-                {
-                    $('#modaleditcustomer').modal('hide');
-                    $('#edit_form')[0].reset();
-                    oTable.draw();
-                    $('#action_button2').html('Save changes').attr('disabled', false);
-                    $('#user_table').DataTable().ajax.reload();
-                    swal.fire({
-                        icon: 'success',
-                        title: 'Data berhasil disimpan',
-                        text: data.success
-                    })
-                }
-            },
-            error: function(xhr, status, error) {
-                var errorMessage = xhr.status + ': ' + xhr.statusText
-                swal.fire({
-                    icon: 'error',
-                    title: 'Data gagal disimpan',
-                    text: errorMessage
-                })
-
-                $('#action_button2').html('Save changes').attr('disabled', false);
-            }
-        })
-    });
-    $('#sample_form2').on('submit', function(event){
-        event.preventDefault();
-        $.ajax({
-            url:"{{ route('customer.store') }}",
-            method:"POST",
-            data: new FormData(this),
-            contentType: false,
-            cache:false,
-            processData: false,
-            dataType:"json",
-            beforeSend:function(){
-                $('#action_button').html('<i disable class="fa fa-spinner fa-spin"></i>').attr('disabled', true);
-            },
-            success:function(data)
-            {
-                var html = '';
-                if(data.errors)
-                {
-                    html = '';
-                    for(var count = 0; count < data.errors.length; count++)
-                    {
-                        html += data.errors[count] + ', ';
-                    }
-                    swal.fire({
-                        icon: 'warning',
-                        title: 'Data gagal disimpan',
-                        text: html
-                    })
-
-                    $('#action_button').html('Save changes').attr('disabled', false);
-                }
-                if(data.duplicate)
-                {
-                    swal.fire({
-                        icon: 'warning',
-                        title: 'Data gagal disimpan',
-                        text: html
-                    })
-
-                    $('#action_button').html('Save changes').attr('disabled', false);
-                }
-                if(data.success)
-                {
-                    $('#modal_catatan').modal('hide');
-                    $('#sample_form2')[0].reset();
-                    oTable.draw();
-                    $('#action_button').html('Save changes').attr('disabled', false);
-                    $('#user_table').DataTable().ajax.reload();
-                    swal.fire({
-                        icon: 'success',
-                        title: 'Data berhasil disimpan',
-                        text: data.success
-                    })
-                }
-            },
-            error: function(xhr, status, error) {
-                var errorMessage = xhr.status + ': ' + xhr.statusText
-                swal.fire({
-                    icon: 'error',
-                    title: 'Data gagal disimpan',
-                    text: errorMessage
-                })
-
-                $('#action_button').html('Save changes').attr('disabled', false);
-            }
-        })
-    });
-
     $(document).on('click', '.delete', function (e) {
         e.preventDefault();
         var idd = $(this).data('id');
         Swal.fire({
-            title: "Apakah anda yakin akan menghapus data ini ?. Customer tidak akan bisa login jika tidak memiliki data disini",
+            title: "Apakah anda yakin akan menghapus data ini ?",
             icon: "question",
             showCancelButton: true,
             confirmButtonText: 'Ya',
@@ -754,7 +520,7 @@ $(document).ready(function(){
                 var id = $(this).attr('id');
                 $.ajax({
                     type: "DELETE",
-                    url: "customer/"+id,
+                    url: "reservasidata/"+id,
                     dataType: 'JSON',
                     data:{
                         'id': id,

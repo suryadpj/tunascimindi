@@ -8,6 +8,9 @@ use App\Http\Controllers\PromoController;
 use App\Http\Controllers\AksesorisController;
 use App\Http\Controllers\MediaEdukasiController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\PkbController;
+use App\Http\Controllers\Cr7Controller;
+use App\Http\Controllers\ReservasiDataController;
 
 /*
 |--------------------------------------------------------------------------
@@ -53,6 +56,13 @@ Route::delete('/dataedukasi/{$id}', [MediaEdukasiController::class, 'edit'])->na
 Route::resource('/customer', CustomerController::class);
 Route::get('/customer/data', [CustomerController::class, 'data'])->name('customer.data');
 Route::post('/customer/tosales', [CustomerController::class, 'updatesales'])->name('customer.updatesals');
+Route::post('/customer/updatedata', [CustomerController::class, 'updatedata'])->name('customer.updatedata');
+Route::resource('/pkb', PkbController::class);
+Route::get('/pkb/data', [PkbController::class, 'data'])->name('pkb.data');
+Route::resource('/cr7', Cr7Controller::class);
+Route::get('/cr7/data', [Cr7Controller::class, 'data'])->name('cr7.data');
+Route::resource('/reservasidata', ReservasiDataController::class);
+
 
 
 

@@ -299,6 +299,13 @@ return [
             // 'label'       => 4,
             // 'label_color' => 'success',
         ],
+        [
+            'text'        => 'Data Reservasi',
+            'url'         => 'reservasidata',
+            'icon'        => 'fas fa-fw fa-file',
+            // 'label'       => 4,
+            // 'label_color' => 'success',
+        ],
         ['header' => 'TCC ELEMENT'],
         [
             'text' => 'Slider Halaman Depan',
@@ -357,17 +364,17 @@ return [
                 // ],
             ],
         ],
-        ['header' => 'account_settings'],
-        [
-            'text' => 'profile',
-            'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-user',
-        ],
-        [
-            'text' => 'change_password',
-            'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-lock',
-        ],
+        // ['header' => 'account_settings'],
+        // [
+        //     'text' => 'profile',
+        //     'url'  => 'admin/settings',
+        //     'icon' => 'fas fa-fw fa-user',
+        // ],
+        // [
+        //     'text' => 'change_password',
+        //     'url'  => 'admin/settings',
+        //     'icon' => 'fas fa-fw fa-lock',
+        // ],
     ],
 
     /*
