@@ -25,7 +25,7 @@
                 <center>
                     <div class="p-3 form-style" style="background-color:white;">
                         <!-- delete class hide -->
-                        <center id="main-form" class="show">
+                        <center id="main-form" class="detail" id="detail">
                             <!-- delete class hide -->
                             <h4 class="py-3">Isi Detail Mobil Anda</h4>
                             <table width="100%">
@@ -40,6 +40,7 @@
                             </table>
                         </center>
                     <div id="rootComponent"></div>
+                    <p align="center" id="isilagi"><br><br><button type="button" class="btn btn-primary btn-style btn-frm btn-form-active" onclick="showDiv()"><b>Isi data lagi</b></button></p>
                 </center>
             </div>
         </div>
@@ -86,6 +87,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
 <script>
     $(document).ready( function () {
+        $('#isilagi').hide();
         var oTable = $('#myTable').DataTable({
             responsive: true,
         });
@@ -125,7 +127,7 @@
             } else if(countform == 4) {
                 $('#rootComponent').load('/cars/models/'+selectedCarModel+'/years/'+selectedCarYear+'/variants/'+selectedCarVariant+'/transmitions/'+selectedCarTransmition+'/detail');
             } else {
-                $('#rootComponent').load('/cars/models');
+                $('#rootComponent').load('tradein/models/list');
             }
 
             // temp2.classList.add("hide");
@@ -208,6 +210,8 @@
                 temp1.disabled = false;
             } else if(countform == 4)
             {
+                $('#isilagi').show();
+                $('.detail').hide();
                 var id = $(this).attr('id');
                 selectedCarModel = ele.getAttribute('data-model');
                 selectedCarYear = ele.getAttribute('data-year');
@@ -253,7 +257,8 @@
                         if(data.success)
                         {
                             $('#formtradein')[0].reset();
-                            $('#rootComponent').html('<br><b>' + data.success + '</b>');
+                            $('#rootComponent').load('tradein/final/'+data.success);
+                            // $('#rootComponent').html('<br><b>' + data.success + '</b>');
                             Swal.fire('Data trade in berhasil disimpan', '', 'success')
                         }
                     },
@@ -268,6 +273,11 @@
                     }
                 });
             }
+        }
+
+        function showDiv() {
+            $('.detail').show();
+            $('#isilagi').hide();
         }
 </script>
 @endsection

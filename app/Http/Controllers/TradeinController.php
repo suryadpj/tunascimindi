@@ -12,10 +12,10 @@ use Validator;
 
 class TradeinController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware('auth');
+    // }
     /**
      * Display a listing of the resource.
      *
@@ -63,6 +63,11 @@ class TradeinController extends Controller
         $transmisi = DB::table('tradeincar')->select('model','tahun','type','transmisi')->where('deleted',0)->where('model',$id2)->where('tahun',$id3)->where('type',$id4)->groupby('model','tahun','type','transmisi')->get();
         $transmisione = DB::table('tradeincar')->select('model','tahun','type','transmisi')->where('deleted',0)->where('model',$id2)->where('tahun',$id3)->where('type',$id4)->groupby('model','tahun','type','transmisi')->first();
         return view('tradeintransmisi',['transmisi' => $transmisi,'transmisione' => $transmisione]);
+    }
+    public function tradeinfinal($id)
+    {
+        $price = DB::table('tradeincar')->where('deleted',0)->where('ID',$id)->first();
+        return view('tradeinfinal',['price' => $price]);
     }
 
     /**
@@ -119,7 +124,7 @@ class TradeinController extends Controller
 
         $harga = DB::table('tradeincar')->where('model',$request->model)->where('tahun',$request->year)->where('type',$request->variant)->where('transmisi',$request->transmition)->first();
 
-        return response()->json(['success' => 'Harga kisaran Rp. '.number_format($harga->harga,0)]);
+        return response()->json(['success' => $harga->ID]);
     }
 
     /**

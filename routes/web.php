@@ -34,6 +34,7 @@ Route::get('tradein/models/list', [App\Http\Controllers\TradeinController::class
 Route::get('tradein/models/{id}/years', [App\Http\Controllers\TradeinController::class, 'year'])->name('tradein.year');
 Route::get('tradein/models/{id}/years/{id2}/variants', [App\Http\Controllers\TradeinController::class, 'variants'])->name('tradein.variants');
 Route::get('tradein/models/{id}/years/{id2}/variants/{id3}/transmisi', [App\Http\Controllers\TradeinController::class, 'transmisi'])->name('tradein.transmisi');
+Route::get('tradein/final/{id}', [App\Http\Controllers\TradeinController::class, 'tradeinfinal'])->name('tradein.final');
 Route::resource('promo', App\Http\Controllers\PromoController::class);
 Route::get('promosales', [App\Http\Controllers\PromoController::class, 'indexsales'])->name('promo.sales');
 Route::resource('media_edukasi', App\Http\Controllers\EdukasiController::class);
