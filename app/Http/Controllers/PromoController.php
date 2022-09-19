@@ -27,6 +27,7 @@ class PromoController extends Controller
     {
         $data_user = Auth::user();
         $datapromo = promo::where('deleted',0)->where('kategori',1)->get();
+        $datapromocount = promo::where('deleted',0)->where('kategori',1)->count();
         $profil = DB::table('customerdata')
                     ->select('*',DB::raw('"Promo Bengkel" as promo'),DB::raw('DATE_FORMAT(customerdata.masa_berlaku_stnk,"%d %M %Y") as berlakustnk'),DB::raw('DATE_FORMAT(customerdata.tanggal_pengerjaan_ssc,"%d %M %Y") as pengerjaanssc'))
                     ->where('vincode',$data_user->nomor_rangka)->first();
@@ -34,7 +35,7 @@ class PromoController extends Controller
         $lastservicecount = DB::table('pkbdata')->where('nomor_rangka',$data_user->nomor_rangka)->orderBy('pkb_date','desc')->count();
         $cr7data = DB::table('cr7data')->where('no_polisi',$profil->no_polisi)->orderBy('ID','desc')->first();
         $cr7count = DB::table('cr7data')->where('no_polisi',$profil->no_polisi)->orderBy('ID','desc')->count();
-        return view('promo',['profil' => $profil,'datapromo' => $datapromo,'lastservice' => $lastservice,'lastservicecount' => $lastservicecount,'cr7data' => $cr7data,'cr7count' => $cr7count]);
+        return view('promo',['profil' => $profil,'datapromocount' => $datapromocount,'datapromo' => $datapromo,'lastservice' => $lastservice,'lastservicecount' => $lastservicecount,'cr7data' => $cr7data,'cr7count' => $cr7count]);
     }
     public function indexsales()
     {

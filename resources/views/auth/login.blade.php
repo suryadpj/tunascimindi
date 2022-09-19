@@ -9,7 +9,7 @@
     <meta name="generator" content="">
     <link rel="canonical" href="https://tunastoyotacipondoh.co.id" />
     {{-- <link rel="shortcut icon" href="../resources/assets/img/logo_tunas.png" /> --}}
-    <title>Tunas Toyota Cipondoh - Customer Journey One</title>
+    <title>Tunas Toyota Cimindi - Mobile Web Apps</title>
 
     <!-- manifest meta -->
     <meta name="apple-mobile-web-app-capable" content="yes">

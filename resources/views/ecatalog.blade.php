@@ -46,7 +46,7 @@
                     </div>
                 </div>
             </p><div class="d-grid gap-2 d-md-block">
-                <button class="btn btn-primary" type="button">Pricelist</button>
+                <a target="_blank" href="../storage/app/public/files/dokumen/pricelist/Pricelist_Kendaraan_Toyota_OTR_Bandung.pdf" class="btn btn-primary" type="button">Pricelist</a>
                 <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop1">E-catalog</button>
                 <button class="referensi btn btn-primary" type="button">Referensi</button>
               </div>

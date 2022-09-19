@@ -228,6 +228,13 @@
                                 <div class="arrow"><i class="bi bi-chevron-right"></i></div>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{{ (Request::is('media_edukasi') ? 'active' : '') }}} " href="media_edukasi" tabindex="-1">
+                                <div class="avatar avatar-40 rounded icon"><i class="bi bi-collection-play-fill"></i></div>
+                                <div class="col">Media Edukasi</div>
+                                <div class="arrow"><i class="bi bi-chevron-right"></i></div>
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>
