@@ -254,7 +254,7 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label>Pertama kali datang :</label>
-                                <input type="text" autocomplete="off" class="form-control" name="pertamadatang" id="1stcome" placeholder="1stcome / pertama kali datang ke cipondoh">
+                                <input type="text" autocomplete="off" class="form-control" name="pertamadatang" id="1stcome" placeholder="1stcome / pertama kali datang ke cimindi">
                             </div>
                         </div>
                     </div>
@@ -411,9 +411,9 @@ $(document).ready(function(){
         dom: '<"html5buttons">Brtipl',
         "order": [[ 1, "desc" ]],
         buttons : [
-                    {extend: 'pdf', title:'Data Customer Tunas Toyota Cipondoh', "action": newexportaction},
-                    {extend: 'excel', title: 'Data Customer Tunas Toyota Cipondoh', "action": newexportaction},
-                    {extend:'print',title: 'Data Customer Tunas Toyota Cipondoh'},
+                    {extend: 'pdf', title:'Data Customer Tunas Toyota Cimindi', "action": newexportaction},
+                    {extend: 'excel', title: 'Data Customer Tunas Toyota Cimindi', "action": newexportaction},
+                    {extend:'print',title: 'Data Customer Tunas Toyota Cimindi'},
         ],
         ajax:{
             url: "{{ route('customer.index') }}",

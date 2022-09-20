@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', 'Data Reservasi')
+@section('title', 'Data Trade-in')
 
 @section('content_header')
-    <h1 class="m-0 text-dark">Reservasi Data</h1>
+    <h1 class="m-0 text-dark">Trade in Data</h1>
 @stop
 
 @section('content')
@@ -61,10 +61,8 @@
                                     <th></th>
                                     <th>No</th>
                                     <th>User</th>
-                                    <th>Kategori</th>
-                                    <th>Status</th>
-                                    <th>Waktu</th>
-                                    <th>Keterangan</th>
+                                    <th>Nomor HP</th>
+                                    <th>Kendaraan</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -75,7 +73,7 @@
                                 <div class="col-sm-2">
                                     <label>Update Status :</label>
                                     <div class="form-group">
-                                        <select class="form-control select2" name="statusreservasi">
+                                        <select class="form-control select2" name="statustradein">
                                             <option>Pilih status</option>
                                             <option value="2">Dihubungi</option>
                                             <option value="3">Done</option>
@@ -94,179 +92,6 @@
                     </form>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade bd-example-modal-lg" id="modaleditcustomer">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Default Modal</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <form method="post" id="edit_form" class="form-horizontal" enctype="multipart/form-data">
-                <span id="form_result"></span>
-                @csrf
-                <input type="hidden" name="hidden_id2" id="hidden_id2" />
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>Nomor Rangka :</label>
-                                <input type="text" autocomplete="off" name="vincode" id="vincode" class="form-control" placeholder="Nomor Rangka"/>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>Nomor Polisi :</label>
-                                <input type="text" autocomplete="off" class="form-control" name="no_polisi" id="no_polisi" placeholder="Nomor Polisi Kendaraan">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>Nama Pelanggan :</label>
-                                <input type="text" autocomplete="off" name="nama_pelanggan" id="nama_pelanggan" class="form-control" placeholder="Nama Pelanggan"/>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>Nomor HP :</label>
-                                <input type="number" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==13) return false;" autocomplete="off" class="form-control" name="phone1" id="phone1" placeholder="Nomor HP">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>Tanggal Lahir :</label>
-                                <input type="date" autocomplete="off" name="tanggal_lahir" id="tanggal_lahir" class="form-control" placeholder="Tanggal Lahir"/>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>Domisili :</label>
-                                <input type="text" autocomplete="off" class="form-control" name="domisili" id="domisili" placeholder="Domisili">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>Hobi :</label>
-                                <input type="date" autocomplete="off" name="hobi" id="hobi" class="form-control" placeholder="Hobi"/>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>Makanan & Minuman :</label>
-                                <input type="text" autocomplete="off" class="form-control" name="food_drink" id="food_drink" placeholder="Makanan & Minuman favorit">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>Terlibat SSC :</label>
-                                <input type="date" autocomplete="off" name="terlibat_ssc" id="terlibat_ssc" class="form-control" placeholder="Jika terlibat, silahkan isi komponen SSC nya"/>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>Tanggal Pengerjaan SSC :</label>
-                                <input type="date" autocomplete="off" class="form-control" name="tanggal_pengerjaan_ssc" id="tanggal_pengerjaan_ssc" placeholder="Isi tanggal pengerjaan SSC nya">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>Masa berlaku STNK :</label>
-                                <input type="date" autocomplete="off" name="masa_berlaku_stnk" id="masa_berlaku_stnk" class="form-control" placeholder="Masa berlaku STNK sampai kapan ?"/>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>Unit Kendaraan :</label>
-                                <input type="text" autocomplete="off" class="form-control" name="unit" id="unit" placeholder="Unit Kendaraan toyota yang dimiliki">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>Tahun :</label>
-                                <input type="number" min="1900" max="2099" step="1" autocomplete="off" name="tahun" id="tahun" class="form-control" placeholder="Tahun kendaraan"/>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>Pertama kali datang :</label>
-                                <input type="text" autocomplete="off" class="form-control" name="pertamadatang" id="1stcome" placeholder="1stcome / pertama kali datang ke cipondoh">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>Status</label>
-                                <select class="form-control select2" name="status" id="status" style="width: 100%;">
-                                    <option value='0'>Pilih data</option>
-                                    <option value="1">Aktif</option>
-                                    <option value="2">Inactive</option>
-                                    <option value="3">Loyal</option>
-                                    <option value="4">New</option>
-                                    <option value="5">Pasif</option>
-                                    </select>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>Membership</label>
-                                <select class="form-control select2" name="membership" id="membership" style="width: 100%;">
-                                    <option value='0'>Pilih data</option>
-                                    <option value="1">Platinum</option>
-                                    <option value="2">Gold</option>
-                                    <option value="3">Silver</option>
-                                    <option value="4">Bronze</option>
-                                    <option value="5">New Member</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>GBSB</label>
-                                <select class="form-control select2" name="gbsb" id="gbsb" style="width: 100%;">
-                                    <option value='0'>Pilih data</option>
-                                    <option value="1">Ya</option>
-                                    <option value="2">Tidak</option>
-                                    </select>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>T-Care</label>
-                                <select class="form-control select2" name="tcare" id="tcare" style="width: 100%;">
-                                    <option value='0'>Pilih data</option>
-                                    <option value="1">Ya</option>
-                                    <option value="2">Tidak</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer justify-content-between">
-                    <input type="hidden" name="action2" id="action2" />
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="submit" name="action_button2" value="Add" id="action_button2" class="btn btn-primary">Save Data</button>
-                </div>
-            </form>
         </div>
     </div>
 </div>
@@ -363,12 +188,12 @@ $(document).ready(function(){
         dom: '<"html5buttons">Brtipl',
         "order": [[ 1, "desc" ]],
         buttons : [
-                    {extend: 'pdf', title:'Data Reservasi Tunas Toyota Cimindi', "action": newexportaction},
-                    {extend: 'excel', title: 'Data Reservasi Tunas Toyota Cimindi', "action": newexportaction},
-                    {extend:'print',title: 'Data Reservasi Tunas Toyota Cimindi'},
+                    {extend: 'pdf', title:'Data Trade-in Tunas Toyota Cimindi', "action": newexportaction},
+                    {extend: 'excel', title: 'Data Trade-in Tunas Toyota Cimindi', "action": newexportaction},
+                    {extend:'print',title: 'Data Trade-in Tunas Toyota Cimindi'},
         ],
         ajax:{
-            url: "{{ route('reservasidata.index') }}",
+            url: "{{ route('tradein.index') }}",
             data: function (d) {
                 d.namapelanggan = $('input[name=search_nama]').val();
                 d.nomorrangka = $('input[name=search_nomorrangka]').val();
@@ -385,10 +210,8 @@ $(document).ready(function(){
                 }
             },
             {"data":"name"},
+            {"data":"phone"},
             {"data":"kolom_kedua"},
-            {"data":"kolom_kelima"},
-            {"data":"kolom_ketiga"},
-            {"data":"kolom_keempat"},
             {"data":"action",orderable: false},
         ],
       'columnDefs': [
@@ -462,7 +285,7 @@ $(document).ready(function(){
         $('#idcheck').val(id);
 
         $.ajax({
-            url: "reservasidata",
+            url: "tradein",
             method:"POST",
             data: new FormData(this),
             contentType: false,
@@ -520,7 +343,7 @@ $(document).ready(function(){
                 var id = $(this).attr('id');
                 $.ajax({
                     type: "DELETE",
-                    url: "reservasidata/"+id,
+                    url: "tradein/"+id,
                     dataType: 'JSON',
                     data:{
                         'id': id,

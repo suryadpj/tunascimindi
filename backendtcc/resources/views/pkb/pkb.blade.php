@@ -201,9 +201,9 @@ $(document).ready(function(){
         dom: '<"html5buttons">Brtipl',
         "order": [[ 3, "desc" ]],
         buttons : [
-                    {extend: 'pdf', title:'Data Customer Tunas Toyota Cipondoh', "action": newexportaction},
-                    {extend: 'excel', title: 'Data Customer Tunas Toyota Cipondoh', "action": newexportaction},
-                    {extend:'print',title: 'Data Customer Tunas Toyota Cipondoh'},
+                    {extend: 'pdf', title:'Data PKB Tunas Toyota Cimindi', "action": newexportaction},
+                    {extend: 'excel', title: 'Data PKB Tunas Toyota Cimindi', "action": newexportaction},
+                    {extend:'print',title: 'Data PKB Tunas Toyota Cimindi'},
         ],
         ajax:{
             url: "{{ route('pkb.index') }}",

@@ -306,6 +306,13 @@ return [
             // 'label'       => 4,
             // 'label_color' => 'success',
         ],
+        [
+            'text'        => 'Data Minat Trade-in',
+            'url'         => 'tradein',
+            'icon'        => 'fas fa-fw fa-file',
+            // 'label'       => 4,
+            // 'label_color' => 'success',
+        ],
         ['header' => 'TCC ELEMENT'],
         [
             'text' => 'Slider Halaman Depan',

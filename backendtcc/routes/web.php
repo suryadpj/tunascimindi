@@ -11,6 +11,7 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\PkbController;
 use App\Http\Controllers\Cr7Controller;
 use App\Http\Controllers\ReservasiDataController;
+use App\Http\Controllers\TradeInController;
 
 /*
 |--------------------------------------------------------------------------
@@ -62,6 +63,7 @@ Route::get('/pkb/data', [PkbController::class, 'data'])->name('pkb.data');
 Route::resource('/cr7', Cr7Controller::class);
 Route::get('/cr7/data', [Cr7Controller::class, 'data'])->name('cr7.data');
 Route::resource('/reservasidata', ReservasiDataController::class);
+Route::resource('/tradein', TradeInController::class);
 
 
 
