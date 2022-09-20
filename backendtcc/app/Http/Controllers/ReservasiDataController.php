@@ -25,8 +25,7 @@ class ReservasiDataController extends Controller
         if(request()->ajax())
         {
             return datatables()->of(reservasidata::
-            leftJoin('users','users.id','reservasi.IDUser')
-            ->leftJoin('customerdata','customerdata.vincode','users.nomor_rangka')
+            leftJoin('customerdata','customerdata.id','reservasi.IDUser')
             ->leftJoin('promo','promo.ID','reservasi.IDParent')
             ->select('reservasi.*',DB::raw('DATE_FORMAT(reservasi.tanggal,"%d %M %Y") as tglbuat'),'users.name','users.nomor_rangka','customerdata.no_polisi','promo.alt','promo.penjelasan')
             ->where('reservasi.deleted','0'))
