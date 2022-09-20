@@ -27,12 +27,12 @@ class ReservasiDataController extends Controller
             return datatables()->of(reservasidata::
             leftJoin('customerdata','customerdata.id','reservasi.IDUser')
             ->leftJoin('promo','promo.ID','reservasi.IDParent')
-            ->select('reservasi.*',DB::raw('DATE_FORMAT(reservasi.tanggal,"%d %M %Y") as tglbuat'),'users.name','users.nomor_rangka','customerdata.no_polisi','promo.alt','promo.penjelasan')
+            ->select('reservasi.*',DB::raw('DATE_FORMAT(reservasi.tanggal,"%d %M %Y") as tglbuat'),'customerdata.nama_pelangga as name','customerdata.no_polisi','promo.alt','promo.penjelasan')
             ->where('reservasi.deleted','0'))
             ->filter(function ($data) use ($request) {
-                if ($request->nomorrangka) {
-                    $data->where('nomor_rangka', 'like', "%{$request->get('nomorangka')}%");
-                }
+                // if ($request->nomorrangka) {
+                //     $data->where('nomor_rangka', 'like', "%{$request->get('nomorangka')}%");
+                // }
                 if ($request->nomorplat) {
                     $data->where('no_polisi', 'like', "%{$request->get('nomorplat')}%");
                 }

@@ -19,11 +19,11 @@
                             <input type="text" autocomplete="off" class="form-control" name="search_nama" placeholder="Nama Pelanggan">
                         </div>
                     </div>
-                    <div class="col-sm-2">
+                    {{-- <div class="col-sm-2">
                         <div class="form-group">
                             <input type="text" autocomplete="off" class="form-control" name="search_nomorrangka" placeholder="Nomor Rangka">
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="col-sm-2">
                         <div class="form-group">
                             <input type="date" autocomplete="off" class="form-control" name="search_tanggal" placeholder="tanggal">
