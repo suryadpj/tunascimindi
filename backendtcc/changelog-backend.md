@@ -25,8 +25,7 @@ The format is based on [Keep a Changelog](https://www.tunastoyotacimindi.co.id),
 
 ## [1.1.0] - 2022-09-23
 ### Added
-- Fitur melihat password baik di menu pendaftaran maupun menu login system.
-- Fitur zoom promo saat ditekan banner promo.
+- Fitur input promo sales / bengkel
 
 ### Changed
 
