@@ -28,8 +28,7 @@
             </div>
         </div>
         <div class="col align-self-center ps-0">
-            <h4 class="text-color-theme"><span class="fw-normal">Selamat {{ $salam }} </span>,</h4>
-            <span class="text-color-theme">{{ auth::user()->name }} {{ $profil->unit }} - {{ $profil->no_polisi }}</span>
+            <h4 class="text-color-theme"><span class="fw-normal">Selamat {{ $salam }} </span>, {{ auth::user()->name }} {{ $profil->unit }} - {{ $profil->no_polisi }}</h4>
             @if($profil->masa_berlaku_stnk != "0000-00-00")<p class="text-muted">Masa berlaku Pajak STNK hingga tanggal {{ $profil->berlakustnk }} </p>@endif
         </div>
     </div>
@@ -404,7 +403,6 @@
 
 @section('js')
 <script src="{{ asset('/sw.js') }}"></script>
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 <script type="text/javascript" src="http://afarkas.github.io/lazysizes/lazysizes.min.js"></script>
 <script>

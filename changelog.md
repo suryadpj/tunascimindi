@@ -9,15 +9,11 @@ The format is based on [Keep a Changelog](https://www.tunastoyotacimindi.co.id),
 - Fitur saran dan masukan
 
 ### Fixed
-- Perbaikan status reservasi
 - Perbaikan fitur lupa password
 - Perbaikan modul menu Aksesoris
-- Perbaikan tampilan informasi di menu home
 
 ### Changed
 - Perubahan background kartu customer
-- Pemisahan menu pricelist dan referensi dari menu E-Catalog
-- Perubahan posisi nama pada greeting di menu home
 - Perubahan tampilan informasi last service
 - Pergantian menu Tentang kami menjadi kritik & saran
 
@@ -35,13 +31,19 @@ The format is based on [Keep a Changelog](https://www.tunastoyotacimindi.co.id),
 ### Added
 - Fitur melihat password baik di menu pendaftaran maupun menu login system.
 - Fitur zoom promo saat ditekan banner promo.
+- Penambahan menu Tentang kami menjadi kritik & saran (dalam development)
 
 ### Changed
+- Pemisahan menu referensi dari menu E-Catalog
+- Perubahan posisi nama pada greeting di menu home
 
 
 ### Fixed
 - Perbaikan logic next service PKB
+- Perbaikan status reservasi
+- Perbaikan tampilan informasi di menu home
 
 
 ### Removed
+- Penghapusan menu Tentang kami
 

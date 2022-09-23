@@ -208,7 +208,7 @@
                                 </div>
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item nav-link {{{ (Request::is('ecatalog') ? 'active' : '') }}} " href="ecatalog">
+                                <li><a class="nav-link dropdown-item" href="ecatalog" role="button">
                                         <div class="avatar avatar-40 rounded icon"><i class="bi bi-calendar2"></i></div>
                                         <div class="col">E-Catalog</div>
                                         <div class="arrow"><i class="bi bi-chevron-right"></i></div>
@@ -219,6 +219,12 @@
                                         <div class="col">Promo</div>
                                         <div class="arrow"><i class="bi bi-chevron-right"></i></div>
                                     </a></li>
+                                    <li><a class="dropdown-item nav-link referensi" href="#">
+                                            <div class="avatar avatar-40 rounded icon"><i class="bi bi-calendar-check"></i>
+                                            </div>
+                                            <div class="col">Referensikan teman</div>
+                                            <div class="arrow"><i class="bi bi-chevron-right"></i></div>
+                                        </a></li>
                             </ul>
                         </li>
                         <li class="nav-item">
@@ -314,10 +320,10 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{{ (Request::is('hubungikami') ? 'active' : '') }}} " href="hubungikami">
+                    <a class="nav-link comingsoon" href="#">
                         <span>
-                            <i class="bi bi-shop"></i>
-                            <span class="nav-text">Tentang Kami</span>
+                            <i class="bi bi-envelope"></i>
+                            <span class="nav-text">Kritik & Saran</span>
                         </span>
                     </a>
                 </li>
@@ -332,6 +338,57 @@
             </ul>
         </div>
     </footer>
+    <div class="modal fade" id="referensiform" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title referensi-title" id="staticBackdropLabel">Finding</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form method="post" id="formreferensi" class="form-horizontal" enctype="multipart/form-data">
+                    <span id="form_result"></span>
+                    @csrf
+                    <input type="hidden" name="hidden_id" id="hidden_id" />
+                    <div class="modal-body">
+                        <div class="form-group row">
+                            <label for="perihal" class="col-sm-5 col-form-label">Nama yang direferensikan :<span class="text-danger">*</span></label>
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control" name="nama_referensi" id="nama_referensi" placeholder="Nama">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="perihal" class="col-sm-5 col-form-label">Nomor HP :<span class="text-danger">*</span></label>
+                            <div class="col-sm-7">
+                                <input type="number" class="form-control" name="nomorhp_referensi" id="nomorhp_referensi" placeholder="Nomor HP referensi">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="perihal" class="col-sm-5 col-form-label required">Kendaraan :<span class="text-danger">*</span></label>
+                            <div class="col-sm-7">
+                                <select class="form-control" name="kendaraan" width="100%">
+                                    <option>Pilih kendaraan yang direferensikan</option>
+                                    @foreach ($brosur as $brr)
+                                        <option value="{{ $brr->ID }}">{{ $brr->alt }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="perihal" class="col-sm-5 col-form-label">Rekomendasi Sales Anda :</label>
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control" name="sales_referensi" id="sales_referensi" placeholder="Isi nama sales">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer justify-content-between">
+                        <input type="hidden" name="action" id="action" />
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" name="action_button" value="Add" id="action_button" class="btn btn-primary">Kirim data</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
     <!-- Footer ends-->
 
 
@@ -383,7 +440,87 @@
 
     <!-- page level custom script -->
     <script src="assets/js/app2.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
+        $('.referensi').click(function(){
+            $('#formreferensi')[0].reset();
+            $('.referensi-title').text("Referensi Baru");
+            $('#action_button').val("Add");
+            $('#action').val("Add");
+            $('#referensiform').modal('show');
+        });
+        $('.comingsoon').click(function(){
+            Swal.fire(
+                'Coming Soon',
+                'Menu untuk Kritik & Saran akan segera hadir',
+                'info'
+            )
+        })
+        $('#formreferensi').on('submit', function(event){
+            event.preventDefault();
+            if($('#action').val() == 'Add')
+            {
+                $.ajax({
+                    url:"{{ route('ecatalog.referensistore') }}",
+                    method:"POST",
+                    data: new FormData(this),
+                    contentType: false,
+                    cache:false,
+                    processData: false,
+                    dataType:"json",
+                    beforeSend:function(){
+                        $('#action_button').html('<i disable class="fa fa-spinner fa-spin"></i>').attr('disabled', true);
+                    },
+                    success:function(data)
+                    {
+                        var html = '';
+                        if(data.errors)
+                        {
+                            html = '';
+                            for(var count = 0; count < data.errors.length; count++)
+                            {
+                                html += data.errors[count] + ', ';
+                            }
+                            swal.fire({
+                                icon: 'warning',
+                                title: 'Data gagal disimpan',
+                                text: html
+                            })
+                            $('#action_button').html('Save changes').attr('disabled', false);
+                        }
+                        if(data.duplicate)
+                        {
+                            swal.fire({
+                                icon: 'warning',
+                                title: 'Data gagal disimpan',
+                                text: html
+                            })
+                            $('#action_button').html('Save changes').attr('disabled', false);
+                        }
+                        if(data.success)
+                        {
+                            $('#referensiform').modal('hide');
+                            $('#formreferensi')[0].reset();
+                            $('#action_button').html('Save changes').attr('disabled', false);
+                            swal.fire({
+                                icon: 'success',
+                                title: 'Data berhasil disimpan',
+                                text: 'Data referensi anda akan diteruskan petugas kami untuk dihubungi. Terima kasih'
+                            })
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        var errorMessage = xhr.status + ': ' + xhr.statusText
+                        swal.fire({
+                            icon: 'error',
+                            title: 'Data gagal disimpan',
+                            text: errorMessage
+                        })
+                        $('#action_button').html('Save changes').attr('disabled', false);
+                    }
+                })
+            }
+        });
         <!-- start webpushr code --> <script>(function(w,d, s, id) {if(typeof(w.webpushr)!=='undefined') return;w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.async=1;js.src = "https://cdn.webpushr.com/app.min.js";fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('setup',{'key':'BMJ-ZyGue3dQxlmxChUe-tyVbrRfhh0ZbUlRWdDa9QMWF-DwQHeO4n4zneA2P63fUqvi2_Xac6W269d52he5j6E' });</script><!-- end webpushr code -->
     </script>
     @yield('js')
