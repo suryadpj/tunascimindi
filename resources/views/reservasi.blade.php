@@ -6,8 +6,8 @@
             <h6 class="title">Data Reservasi</h6>
         </div>
     </div>
-    @foreach ($reservasi as $a)
     <div class="row">
+        @foreach ($reservasi as $a)
         <div class="col-12 col-md-6">
             <div class="card shadow-sm mb-4">
                 <div class="card-body">
@@ -52,18 +52,15 @@
                             Status :
                             @switch($a->status)
                                 @case(1)
-                                    Booking
+                                    Menunggu respon petugas
                                 @break
                                 @case(2)
-                                    Booked
+                                    Dihubungi
                                 @break
                                 @case(3)
                                     Done
                                 @break
                                 @case(4)
-                                    Reschedule
-                                @break
-                                @case(5)
                                     Cancel
                                 @break
 
@@ -86,8 +83,8 @@
                 </div>
             </div>
         </div>
+        @endforeach
     </div>
-    @endforeach
 
     <!-- modal-->
     <div class="modal fade" id="modalservice" tabindex="-1" aria-hidden="true">
@@ -232,30 +229,30 @@
                 dataType:"json",
                 success:function(html)
                 {
-                    $('#nomorreserv').append('RSV00' + html.data.ID);
-                    $('#tanggalreserv').append(html.data.tgl);
-                    $('#waktureserv').append(html.data.waktu);
-                    $('#kmreserv').append(html.data.km + ' KM');
-                    $('#deskripsireserv').append(html.data.job);
+                    $('#nomorreserv').html('RSV00' + html.data.ID);
+                    $('#tanggalreserv').html(html.data.tgl);
+                    $('#waktureserv').html(html.data.waktu);
+                    $('#kmreserv').html(html.data.km + ' KM');
+                    $('#deskripsireserv').html(html.data.job);
                     if(html.data.status == 1)
                     {
-                        $('#statusreserv').append('Menunggu respon petugas');
+                        $('#statusreserv').html('Menunggu respon petugas');
                     }
-                    else if(html.data.status == 1)
+                    else if(html.data.status == 2)
                     {
-                        $('#statusreserv').append('Dihubungi');
+                        $('#statusreserv').html('Dihubungi');
                     }
                     else if(html.data.status == 3)
                     {
-                        $('#statusreserv').append('Done');
+                        $('#statusreserv').html('Done');
                     }
                     else if(html.data.status == 4)
                     {
-                        $('#statusreserv').append('Cancel');
+                        $('#statusreserv').html('Cancel');
                     }
                     else
                     {
-                        $('#statusreserv').append('-');
+                        $('#statusreserv').html('-');
                     }
                     $('.modal-title').text("Detail data");
                     $('#modalservice').modal('show');
@@ -308,7 +305,7 @@
                 {
                     $('#unittesdrive').html(html.data.keterangan);
                     $('#tanggaltesdrive').html(html.data.tgl);
-                    $('#kontaktesdrive').append(html.data.nama + ' / ' + html.data.nomorhp);
+                    $('#kontaktesdrive').html(html.data.nama + ' / ' + html.data.nomorhp);
                     if(html.data.status == 1)
                     {
                         $('#statustesdrive').html('Menunggu respon petugas');
