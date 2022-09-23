@@ -69,11 +69,18 @@ class HomeController extends Controller
             $lastservicecount = DB::table('pkbdata')->where('nomor_rangka',$data_user->nomor_rangka)->orderBy('pkb_date','desc')->count();
             if($lastservicecount > 0)
             {
-                $nextservice = DB::table('job_sbe')->where('km','>',$lastservice->jobkm)->orderBy('km','asc')->first();
-                $countnextservice = DB::table('job_sbe')->where('km','>',$lastservice->jobkm)->orderBy('km','asc')->count();
-                if($countnextservice == 0)
+                if($lastservice->jobkm == "-" || $lastservice->jobkm == "")
                 {
-                    $nextservice = 0;
+                    $nextservice = DB::table('job_sbe')->where('km',0)->orderBy('km','asc')->first();
+                }
+                else
+                {
+                    $nextservice = DB::table('job_sbe')->where('km','>',$lastservice->jobkm)->orderBy('km','asc')->first();
+                    $countnextservice = DB::table('job_sbe')->where('km','>',$lastservice->jobkm)->orderBy('km','asc')->count();
+                    if($countnextservice == 0)
+                    {
+                        $nextservice = 0;
+                    }
                 }
             }
             else

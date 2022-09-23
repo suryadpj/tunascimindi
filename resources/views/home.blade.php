@@ -106,7 +106,11 @@
                                     <div class="row">
                                         <div class="col-12">
                                             <h2 class="fw-normal mb-2">
+                                                @if ($nextserv->km == 0)
+                                                    Oil Change
+                                                @else
                                                 Service Berkala {{ number_format($nextserv->km,0) }} KM
+                                                @endif
                                             </h2>
                                             @php
                                                 $date = date_create($lastservice->pkb_date);
