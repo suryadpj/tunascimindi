@@ -52,6 +52,7 @@
                             <tr>
                                 <th>No</th>
                                 <th>Creator</th>
+                                <th>Kategori</th>
                                 <th>Promo</th>
                                 <th>Penjelasan Promo</th>
                                 <th>Action</th>
@@ -78,6 +79,16 @@
                 @csrf
                 <input type="hidden" name="hidden_id" id="hidden_id" />
                 <div class="modal-body">
+                    <div class="form-group row">
+                        <label for="perihal" class="col-sm-5 col-form-label">Kategori</label>
+                        <div class="col-sm-7">
+                            <select class="form-control select2" name="kategori" id="kategori"  style="width: 100%;">
+                                <option value=''>Pilih Kategori</option>
+                                    <option value="1">Promo Service</option>
+                                    <option value="2">Promo Sales</option>
+                            </select>
+                        </div>
+                    </div>
                     <div class="form-group row">
                         <label for="perihal" class="col-sm-5 col-form-label">Promo Rekomendasi ?</label>
                         <div class="col-sm-7">
@@ -227,6 +238,7 @@ $(document).ready(function(){
                 }
             },
             {"data":"name"},
+            {"data":"kategori"},
             {"data":"kolom_kedua"},
             {"data":"penjelasan"},
             {"data":"action",orderable: false},

@@ -77,6 +77,14 @@ class PromoController extends Controller
                     $data->where('alt', 'like', "%{$request->get('judul')}%");
                 }
             })
+            ->addColumn('kategori', function($data) use($data_user){
+                switch($data->kategori)
+                {
+                    case 1 : return "Promo Service"; break;
+                    case 2 : return "Promo Sales"; break;
+                    default : return "-";
+                }
+            })
             ->addColumn('kolom_kedua', function($data) use($data_user){
                 $kolom = '<i>'.$data->alt.'</i>';
                 $kolom .= "<br>";
@@ -136,6 +144,7 @@ class PromoController extends Controller
         // $path = $request->file('file')->store('public/files/slider/halamandepan');
 
         $rekomendasi = $request->rekomendasi;
+        $kategori = $request->kategori;
         $judul = $request->judul;
         $penjelasan = $request->penjelasan;
         $data_user = Auth::user();
@@ -145,6 +154,7 @@ class PromoController extends Controller
 
         $save->IDUser       = $data_user->id;
         $save->jempol       = $rekomendasi;
+        $save->kategori     = $kategori;
         $save->img_src      = $path.$nama_file_uniq;
         $save->img_name     = $nama_file_uniq;
         $save->alt          = $judul;
