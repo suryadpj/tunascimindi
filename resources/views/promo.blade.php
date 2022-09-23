@@ -13,7 +13,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-auto">
-                                <div class="avatar avatar-60 shadow-sm rounded-10 coverimg">
+                                <div class="imgzoom avatar avatar-60 shadow-sm rounded-10 coverimg" id="../{{ $a->img_src }}">
                                     <img src="../{{ $a->img_src }}" alt="{{ $a->alt }}">
                                 </div>
                             </div>
@@ -93,20 +93,18 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal fade" id="popupslider" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">Finding</h5>
+                <h5 class="modal-title" id="popupsliderlabel">Zoom Slider</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    1. Ketebalan ban dibawah standar
-                    2. Saluran air wiper bocor
+                    <img class="img-fluid" id="sliderimage">
                 </div>
                 <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Service Tambahan</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
@@ -168,6 +166,12 @@
                 }
             })
         });
+        $('.imgzoom').click(function(){
+            var id = $(this).attr('id');
+            $('#sliderimage').attr("src",id);
+            $('#popupslider').modal('show');
+
+        })
 
         $('#formbooknow').on('submit', function(event){
             event.preventDefault();

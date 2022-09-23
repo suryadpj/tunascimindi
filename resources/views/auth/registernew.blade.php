@@ -103,21 +103,25 @@
                         @enderror
                     </div>
                     <div class="form-floating is-valid mb-3">
-                        <input type="password" class="form-control" placeholder="Password"
+                        <input type="password" class="password-field form-control" placeholder="Password"
                             id="password" name="password">
                         <label for="password">Password</label>
+                        <button type="button" toggle=".password-field" class="btn btn-link tooltip-btn toggle-password" data-bs-toggle="tooltip"
+                            data-bs-placement="left" title="Lihat password" id="passworderror">
+                            <i class="bi bi-eye mata"></i>
+                        </button>
                         @error('password')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
                         @enderror
                     </div>
-                    <div class="form-floating is-invalid mb-3">
-                        <input type="password" class="form-control" name="password_confirmation" placeholder="Confirm Password" id="confirmpassword">
+                    <div class="form-floating is-valid mb-3">
+                        <input type="password" class="password-field form-control" name="password_confirmation" placeholder="Confirm Password" id="confirmpassword">
                         <label for="confirmpassword">Confirm Password</label>
-                        <button type="button" class="btn btn-link text-danger tooltip-btn" data-bs-toggle="tooltip"
-                            data-bs-placement="left" title="Enter valid Password" id="passworderror">
-                            <i class="bi bi-info-circle"></i>
+                        <button type="button" toggle=".password-field" class="btn btn-link tooltip-btn toggle-password" data-bs-toggle="tooltip"
+                            data-bs-placement="left" title="Lihat password" id="passworderror">
+                            <i class="bi bi-eye mata"></i>
                         </button>
                     </div>
                     <button type="submit" class="btn btn-lg btn-default w-100 mb-4 shadow">
@@ -155,6 +159,20 @@
     <!-- page level custom script -->
     <script src="assets_loginv2/js/app.js"></script>
     <script>
+        $(".toggle-password").click(function() {
+        console.log('cek')
+        // $(this).toggleClass("bi bi-eye-slash");
+        var input = $($(this).attr("toggle"));
+        if (input.attr("type") == "password") {
+        $('.mata').removeClass('bi-eye');
+        $('.mata').addClass('bi-eye-slash');
+        input.attr("type", "text");
+        } else {
+        input.attr("type", "password");
+        $('.mata').removeClass('bi-eye-slash');
+        $('.mata').addClass('bi-eye');
+        }
+        });
         function hanyaAngka(event) {
         var angka = (event.which) ? event.which : event.keyCode
         if (angka != 46 && angka > 31 && (angka < 48 || angka > 57))

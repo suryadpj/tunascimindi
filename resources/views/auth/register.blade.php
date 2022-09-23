@@ -113,10 +113,10 @@
                             </span>
                         @enderror
                     </div>
-                    <div class="form-floating is-invalid mb-3">
+                    <div class="form-floating is-valid mb-3">
                         <input type="password" class="form-control" name="password_confirmation" placeholder="Confirm Password" id="confirmpassword">
                         <label for="confirmpassword">Confirm Password</label>
-                        <button type="button" class="btn btn-link text-danger tooltip-btn" data-bs-toggle="tooltip"
+                        <button type="button" class="btn btn-link tooltip-btn" data-bs-toggle="tooltip"
                             data-bs-placement="left" title="Enter valid Password" id="passworderror">
                             <i class="bi bi-info-circle"></i>
                         </button>

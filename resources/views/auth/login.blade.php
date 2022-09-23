@@ -80,12 +80,12 @@
                         @enderror
                     </div>
 
-                    <div class="form-group form-floating is-invalid mb-3">
-                        <input id="password" placeholder="Password" autocomplete="off" type="password" class="form-control" @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+                    <div class="form-group form-floating is-valid mb-3">
+                        <input id="password" placeholder="Password" autocomplete="off" type="password" class="password-field form-control" @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
                         <label class="form-control-label" for="password">Password</label>
-                        <button type="button" class="text-danger tooltip-btn" data-bs-toggle="tooltip"
-                            data-bs-placement="left" title="Enter valid Password" id="passworderror">
-                            <i class="bi bi-info-circle"></i>
+                        <button type="button" toggle=".password-field" class="tooltip-btn toggle-password" data-bs-toggle="tooltip"
+                            data-bs-placement="left" title="Lihat password" id="passworderror">
+                            <i class="bi bi-eye" id="mata"></i>
                         </button>
                         @error('password')
                             <span class="invalid-feedback" role="alert">
@@ -138,6 +138,22 @@
 
     <!-- page level custom script -->
     <script src="../resources/assets_loginv2/js/app.js"></script>
+    <script>
+        $(".toggle-password").click(function() {
+        console.log('cek')
+        // $(this).toggleClass("bi bi-eye-slash");
+        var input = $($(this).attr("toggle"));
+        if (input.attr("type") == "password") {
+        $('#mata').removeClass('bi-eye');
+        $('#mata').addClass('bi-eye-slash');
+        input.attr("type", "text");
+        } else {
+        input.attr("type", "password");
+        $('#mata').removeClass('bi-eye-slash');
+        $('#mata').addClass('bi-eye');
+        }
+        });
+    </script>
 
 </body>
 
