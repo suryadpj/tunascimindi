@@ -44,6 +44,7 @@ Route::resource('/slider/promo', PromoController::class);
 Route::post('/slider/promo/update', [PromoController::class, 'updateslider'])->name('promoslider.updated');
 Route::get('/datapromo', [PromoController::class, 'promo'])->name('datapromo');
 Route::get('/datapromo/{id}', [PromoController::class, 'show'])->name('datapromo.show');
+Route::delete('/datapromo/{id}', [PromoController::class, 'destroy'])->name('datapromo.destroy');
 Route::post('/datapromo', [PromoController::class, 'storepromo'])->name('datapromo.store');
 Route::post('/datapromo/update', [PromoController::class, 'edit'])->name('datapromo.updated');
 Route::resource('/slider/aksesoris', AksesorisController::class);

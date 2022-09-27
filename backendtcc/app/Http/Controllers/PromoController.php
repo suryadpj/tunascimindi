@@ -297,4 +297,9 @@ class PromoController extends Controller
 
         return response()->json(['success' => 'Data berhasil dirubah']);
     }
+    public function destroy($id)
+    {
+        promo::where('ID',$id)->update(['deleted' => 1]);
+        return response()->json(['success' => 'Data berhasil dihapus.']);
+    }
 }
