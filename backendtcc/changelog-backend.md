@@ -23,7 +23,7 @@ The format is based on [Keep a Changelog](https://www.tunastoyotacimindi.co.id),
 - Responsive Web Apps.
 - Service, Sales, Trade-in dan Aftersales.
 
-## [1.1.0] - 2022-09-23
+## [1.1.0] - 2022-09-27
 ### Added
 - Fitur input promo sales / bengkel
 
@@ -31,7 +31,10 @@ The format is based on [Keep a Changelog](https://www.tunastoyotacimindi.co.id),
 
 
 ### Fixed
-- Perbaikan logic next service PKB
+- logic next service PKB
+- Kendala hapus data promo
+- edit data promo
+- download gambar promo
 
 
 ### Removed

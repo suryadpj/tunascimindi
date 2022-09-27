@@ -43,8 +43,9 @@ Route::post('/slider/ecatalog/update', [EcatalogController::class, 'updateslider
 Route::resource('/slider/promo', PromoController::class);
 Route::post('/slider/promo/update', [PromoController::class, 'updateslider'])->name('promoslider.updated');
 Route::get('/datapromo', [PromoController::class, 'promo'])->name('datapromo');
+Route::get('/datapromo/{id}', [PromoController::class, 'show'])->name('datapromo.show');
 Route::post('/datapromo', [PromoController::class, 'storepromo'])->name('datapromo.store');
-Route::post('/datapromo/update', [PromoController::class, 'updatepromo'])->name('datapromo.updated');
+Route::post('/datapromo/update', [PromoController::class, 'edit'])->name('datapromo.updated');
 Route::resource('/slider/aksesoris', AksesorisController::class);
 Route::post('/slider/aksesoris/update', [AksesorisController::class, 'updateslider'])->name('aksesorisslider.updated');
 Route::post('/ecatalog/brosur/store', [EcatalogController::class, 'storebrosur'])->name('ecatalog.storebrosur');

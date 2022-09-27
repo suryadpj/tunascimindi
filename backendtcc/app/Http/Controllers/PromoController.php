@@ -51,7 +51,7 @@ class PromoController extends Controller
                 $button = '<div class="btn-group">';
                 if($data->img_src != "")
                 {
-                    $button .= '<button type="button" class="btn btn-default"><a style="color:black" href="data_file/slider/promo/'.$data->img_src.'" title="Download"><i title="Download" class="fas fa-download"></i></a></button>';
+                    $button .= '<button type="button" class="btn btn-default"><a style="color:black" href="../data_file/slider/promo/'.$data->img_src.'" title="Download"><i title="Download" class="fas fa-download"></i></a></button>';
                 }
                     $button .= '<button type="button" name="edit" id="'.$data->ID.'" class="edit btn btn-primary btn-sm"><i title="Rubah Data" class="fas fa-edit"></i></button>';
                     $button .= '<button type="button" name="delete" id="'.$data->ID.'" class="delete btn btn-danger btn-sm"><i title="Rubah Data" class="fas fa-trash"></i></button>';
@@ -95,7 +95,7 @@ class PromoController extends Controller
                 $button = '<div class="btn-group">';
                 if($data->img_src != "")
                 {
-                    $button .= '<button type="button" class="btn btn-default"><a style="color:black" href="data_file/slider/promo/'.$data->img_src.'" title="Download"><i title="Download" class="fas fa-download"></i></a></button>';
+                    $button .= '<button type="button" class="btn btn-default"><a style="color:black" href="../../'.$data->img_src.'" title="Download"><i title="Download" class="fas fa-download"></i></a></button>';
                 }
                     $button .= '<button type="button" name="edit" id="'.$data->ID.'" class="edit btn btn-primary btn-sm"><i title="Rubah Data" class="fas fa-edit"></i></button>';
                     $button .= '<button type="button" name="delete" id="'.$data->ID.'" class="delete btn btn-danger btn-sm"><i title="Rubah Data" class="fas fa-trash"></i></button>';
@@ -188,15 +188,23 @@ class PromoController extends Controller
         }
 
         $file = $request->file('file');
-        $nama_file  = $file->getClientOriginalName();
-        // ekstensi file
-        $ekstensi   = $file->getClientOriginalExtension();
-        // isi dengan nama folder tempat kemana file diupload
-        $tujuan_upload = '../../storage/app/public/files/slider/promo/';
-        $path = 'storage/app/public/files/slider/promo/';
-        $nama_file_uniq = time()."-".$nama_file;
-        // upload file
-        $file->move($tujuan_upload,$nama_file_uniq);
+        if($file)
+        {
+            $nama_file  = $file->getClientOriginalName();
+            // ekstensi file
+            $ekstensi   = $file->getClientOriginalExtension();
+            // isi dengan nama folder tempat kemana file diupload
+            $tujuan_upload = '../../storage/app/public/files/slider/promo/';
+            $path = 'storage/app/public/files/slider/promo/';
+            $nama_file_uniq = time()."-".$nama_file;
+            // upload file
+            $file->move($tujuan_upload,$nama_file_uniq);
+        }
+        else
+        {
+            $nama_file_uniq = "";
+            $path = "";
+        }
 
         // $name = $request->file('file')->getClientOriginalName();
 
@@ -218,5 +226,75 @@ class PromoController extends Controller
         $save->save();
 
         return response()->json(['success' => 'Data berhasil ditambahkan.']);
+    }
+
+    public function show($id)
+    {
+        $data = promo::where('ID',$id)->select('*')->first();
+        return response()->json(['data' => $data]);
+    }
+
+    public function edit(request $request)
+    {
+
+        $messages = [
+            'required' => ':attribute wajib diinput',
+            'min' => ':attribute harus diisi minimal :min karakter',
+            'max' => ':attribute harus diisi maksimal :max karakter',
+            'numeric' => ':attribute harus diisi angka',
+        ];
+        $rules = array(
+            'rekomendasi'   =>  'required',
+            'judul'         =>  'required',
+            'penjelasan'    =>  'required',
+            // 'file'          =>  'mimes:jpg,jpeg,png|max:102400|required',
+        );
+
+        $error = Validator::make($request->all(), $rules,$messages);
+        if($error->fails())
+        {
+            return response()->json(['errors' => $error->errors()->all()]);
+        }
+
+        $file = $request->file('file');
+        if($file)
+        {
+            $nama_file  = $file->getClientOriginalName();
+            // ekstensi file
+            $ekstensi   = $file->getClientOriginalExtension();
+            // isi dengan nama folder tempat kemana file diupload
+            $tujuan_upload = '../../storage/app/public/files/dokumen/promo/';
+            $path = 'storage/app/public/files/dokumen/promo/';
+            $nama_file_uniq = time()."-".$nama_file;
+            // upload file
+            $file->move($tujuan_upload,$nama_file_uniq);
+
+        }
+        else
+        {
+            $nama_file_uniq = "";
+            $path = "";
+        }
+
+        $rekomendasi = $request->rekomendasi;
+        $kategori = $request->kategori;
+        $judul = $request->judul;
+        $penjelasan = $request->penjelasan;
+        $data_user = Auth::user();
+
+        $form_data = array(
+            'alt'           => $judul,
+            'penjelasan'    => $penjelasan,
+            'jempol'        => $rekomendasi,
+            'kategori'      => $kategori,
+        );
+        if(!empty($request->nama_file_uniq))
+        {
+            $form_data = array_merge($form_data, ['img_src' => $path.$nama_file_uniq,'img_name' => $nama_file_uniq]);
+        }
+
+        DB::table('promo')->where('ID',$request->hidden_id   )->update($form_data);
+
+        return response()->json(['success' => 'Data berhasil dirubah']);
     }
 }
