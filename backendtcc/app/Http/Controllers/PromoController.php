@@ -288,7 +288,7 @@ class PromoController extends Controller
             'jempol'        => $rekomendasi,
             'kategori'      => $kategori,
         );
-        if(!empty($request->nama_file_uniq))
+        if(!empty($nama_file_uniq))
         {
             $form_data = array_merge($form_data, ['img_src' => $path.$nama_file_uniq,'img_name' => $nama_file_uniq]);
         }
