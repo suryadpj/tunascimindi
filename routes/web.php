@@ -26,6 +26,7 @@ Route::post('referensi', [App\Http\Controllers\EcatalogController::class, 'refer
 Route::resource('card', App\Http\Controllers\CardController::class);
 Route::get('pageservice', [App\Http\Controllers\PagesController::class, 'pageservice'])->name('page.service');
 Route::get('pagesales', [App\Http\Controllers\PagesController::class, 'pagesales'])->name('page.sales');
+Route::get('pagesalesconsultation', [App\Http\Controllers\PagesController::class, 'pagesalesconsultation'])->name('page.salesconsultation');
 Route::resource('history', App\Http\Controllers\HistoryController::class);
 Route::resource('ecatalog', App\Http\Controllers\EcatalogController::class);
 Route::resource('aksesoris', App\Http\Controllers\AksesoriController::class);

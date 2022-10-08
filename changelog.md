@@ -47,3 +47,12 @@ The format is based on [Keep a Changelog](https://www.tunastoyotacimindi.co.id),
 ### Removed
 - Penghapusan menu Tentang kami
 
+## [1.2.0] - 2022-10-08
+## Added
+- Sub menu sales consultation
+
+## Fixed
+- Gambar informasi di menu home / utama yang tidak sesuai
+
+## Changed
+- Icon menu-menu dan sub menu

@@ -24,9 +24,9 @@
                                 <div class="row">
                                     <div class="col-auto align-self-center">
                                         @if ($a->jempol == 1)
-                                            <button type="button" class="btn btn-primary" title="Rekomendasi" data-toggle="tooltip" data-placement="left" title="Tooltip on left"><i class="bi bi-hand-thumbs-up-fill" title="Rekomendasi"></i></button>
+                                            <button type="button" class="btn btn-primary" title="Rekomendasi" data-toggle="tooltip" data-placement="left" title="Tooltip on left"><i class="bi bi-star" title="Rekomendasi"></i></button>
                                         @endif
-                                        <button type="button" class="btn btn-primary like" id="{{ $a->ID }}"><i class="bi bi-heart-fill"></i>
+                                        <button type="button" class="btn btn-primary like" id="{{ $a->ID }}"><i class="bi bi-hand-thumbs-up-fill"></i>
                                             <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="jumlahlike{{ $a->ID }}">
                                             {{ $a->like }}
                                             </span>

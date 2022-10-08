@@ -168,31 +168,31 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
                                 aria-expanded="false">
-                                <div class="avatar avatar-40 rounded icon"><i class="bi bi-person"></i></div>
+                                <div class="avatar avatar-40 rounded icon"><i class="bi bi-tools"></i></div>
                                 <div class="col">Service</div>
                                 <div class="arrow"><i class="bi bi-plus plus"></i> <i class="bi bi-dash minus"></i>
                                 </div>
                             </a>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item nav-link {{{ (Request::is('reservasi') ? 'active' : '') }}} " href="reservasi">
-                                        <div class="avatar avatar-40 rounded icon"><i class="bi bi-calendar2"></i></div>
+                                        <div class="avatar avatar-40 rounded icon"><i class="bi bi-play-fill"></i></div>
                                         <div class="col">Reservation</div>
                                         <div class="arrow"><i class="bi bi-chevron-right"></i></div>
                                     </a></li>
                                 <li><a class="dropdown-item nav-link {{{ (Request::is('history') ? 'active' : '') }}} " href="history">
-                                        <div class="avatar avatar-40 rounded icon"><i class="bi bi-calendar-check"></i>
+                                        <div class="avatar avatar-40 rounded icon"><i class="bi bi-play-fill"></i>
                                         </div>
                                         <div class="col">History</div>
                                         <div class="arrow"><i class="bi bi-chevron-right"></i></div>
                                     </a></li>
                                 <li><a class="dropdown-item nav-link {{{ (Request::is('aksesoris') ? 'active' : '') }}} " href="aksesoris">
-                                            <div class="avatar avatar-40 rounded icon"><i class="bi bi-calendar-check"></i>
+                                            <div class="avatar avatar-40 rounded icon"><i class="bi bi-play-fill"></i>
                                             </div>
                                             <div class="col">Accessories</div>
                                             <div class="arrow"><i class="bi bi-chevron-right"></i></div>
                                         </a></li>
                                 <li><a class="dropdown-item nav-link {{{ (Request::is('promo') ? 'active' : '') }}} " href="promo">
-                                                <div class="avatar avatar-40 rounded icon"><i class="bi bi-calendar-check"></i>
+                                                <div class="avatar avatar-40 rounded icon"><i class="bi bi-play-fill"></i>
                                                 </div>
                                                 <div class="col">Promo</div>
                                                 <div class="arrow"><i class="bi bi-chevron-right"></i></div>
@@ -202,29 +202,29 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
                                 aria-expanded="false">
-                                <div class="avatar avatar-40 rounded icon"><i class="bi bi-person"></i></div>
+                                <div class="avatar avatar-40 rounded icon"><i class="bi bi-car-front"></i></div>
                                 <div class="col">New Car Sales</div>
                                 <div class="arrow"><i class="bi bi-plus plus"></i> <i class="bi bi-dash minus"></i>
                                 </div>
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="nav-link dropdown-item" href="ecatalog" role="button">
-                                        <div class="avatar avatar-40 rounded icon"><i class="bi bi-calendar2"></i></div>
+                                <li><a class="nav-link dropdown-item {{{ (Request::is('ecatalog') ? 'active' : '') }}} " href="ecatalog" role="button">
+                                        <div class="avatar avatar-40 rounded icon"><i class="bi bi-play-fill"></i></div>
                                         <div class="col">E-Catalog</div>
                                         <div class="arrow"><i class="bi bi-chevron-right"></i></div>
                                     </a></li>
                                 <li><a class="dropdown-item nav-link {{{ (Request::is('promosales') ? 'active' : '') }}} " href="promosales">
-                                        <div class="avatar avatar-40 rounded icon"><i class="bi bi-calendar-check"></i>
+                                        <div class="avatar avatar-40 rounded icon"><i class="bi bi-play-fill"></i>
                                         </div>
                                         <div class="col">Promo</div>
                                         <div class="arrow"><i class="bi bi-chevron-right"></i></div>
                                     </a></li>
-                                    <li><a class="dropdown-item nav-link referensi" href="#">
-                                            <div class="avatar avatar-40 rounded icon"><i class="bi bi-calendar-check"></i>
-                                            </div>
-                                            <div class="col">Referensikan teman</div>
-                                            <div class="arrow"><i class="bi bi-chevron-right"></i></div>
-                                        </a></li>
+                                <li><a class="dropdown-item nav-link {{{ (Request::is('pagesalesconsultation') ? 'active' : '') }}} " href="pagesalesconsultation">
+                                        <div class="avatar avatar-40 rounded icon"><i class="bi bi-play-fill"></i>
+                                        </div>
+                                        <div class="col">Sales Consultation</div>
+                                        <div class="arrow"><i class="bi bi-chevron-right"></i></div>
+                                    </a></li>
                             </ul>
                         </li>
                         <li class="nav-item">

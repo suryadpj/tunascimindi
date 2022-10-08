@@ -161,7 +161,7 @@
                         <a href="pageservice" class="card text-center">
                             <div class="card-body">
                                 <div class="avatar avatar-50 shadow-sm mb-2 rounded-10 theme-bg text-white">
-                                    <i class="bi bi bi-clock-history"></i>
+                                    <i class="bi bi-tools"></i>
                                 </div>
                                 <p class="text-color-theme size-12 small">Service</p>
                             </div>
@@ -172,7 +172,7 @@
                         <a href="pagesales" class="card text-center">
                             <div class="card-body">
                                 <div class="avatar avatar-50 shadow-sm mb-2 rounded-10 btn-danger text-white">
-                                    <i class="bi bi-card-list"></i>
+                                    <i class="bi bi-car-front"></i>
                                 </div>
                                 <p class="text-color-theme size-12 small">New Car Sales</p>
                             </div>
@@ -236,8 +236,8 @@
     <div class="">
         <h2 class="color-blue" align="center"><b>MENGAPA TUNAS TOYOTA ?</b></h2>
     </div>
-    <div class="row py-3 mb-5">
-        <div class="col-md-1 col-12 py-1">
+    <div class="row py-3 mb-5 ">
+        <div class="col-md-4 col-12 py-3">
             <div class="card form-style p-3 h-100 bg-white">
                 <img class="align-self-center img-fluid" src="https://tunastoyotacimindi.com/assets/img/Group 15@2x.png" alt="" >
                 <br>
@@ -248,7 +248,7 @@
             </div>
         </div>
         <div class="col-md-4 col-12 py-3">
-        <div class="card form-style p-3 h-100 bg-white">
+            <div class="card form-style p-3 h-100 bg-white">
                 <img class="align-self-center img-fluid" src="https://tunastoyotacimindi.com/assets/img/Group 6@2x.png" alt="" >
                 <br>
                 <center>
@@ -258,7 +258,7 @@
             </div>
         </div>
         <div class="col-md-4 col-12 py-3">
-        <div class="card form-style p-3 h-100 bg-white">
+            <div class="card form-style p-3 h-100 bg-white">
                 <img class="align-self-center img-fluid" src="https://tunastoyotacimindi.com/assets/img/undraw_by_my_car_ttge@2x.png" alt="" >
                 <br>
                 <center>
