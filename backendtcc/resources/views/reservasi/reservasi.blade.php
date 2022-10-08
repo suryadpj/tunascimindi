@@ -70,27 +70,25 @@
                             </thead>
                         </table>
                         <br>
-                        @if($user->admin == 1)
-                            <div class="row">
-                                <div class="col-sm-2">
-                                    <label>Update Status :</label>
-                                    <div class="form-group">
-                                        <select class="form-control select2" name="statusreservasi">
-                                            <option>Pilih status</option>
-                                            <option value="2">Dihubungi</option>
-                                            <option value="3">Done</option>
-                                            <option value="4">Cancel</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-sm-2">
-                                    <label>Submit data</label>
-                                    <div class="form-group">
-                                        <button type="submit" id="update_button" class="btn btn-primary percent">Update Data</button>
-                                    </div>
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <label>Update Status :</label>
+                                <div class="form-group">
+                                    <select class="form-control select2" name="statusreservasi">
+                                        <option>Pilih status</option>
+                                        <option value="2">Dihubungi</option>
+                                        <option value="3">Done</option>
+                                        <option value="4">Cancel</option>
+                                    </select>
                                 </div>
                             </div>
-                        @endif
+                            <div class="col-sm-2">
+                                <label>Submit data</label>
+                                <div class="form-group">
+                                    <button type="submit" id="update_button" class="btn btn-primary percent">Update Data</button>
+                                </div>
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div>

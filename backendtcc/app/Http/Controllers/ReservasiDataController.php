@@ -104,7 +104,8 @@ class ReservasiDataController extends Controller
     public function store(Request $request)
     {
         $data_user = Auth::user();
-        reservasidata::whereIn('ID',array($request->hidden_id))->update(['status' => $request->statusreservasi,'IDuserEksekusi' => $data_user->id]);
+        $data = explode(',',$request->hidden_id);
+        reservasidata::whereIn('ID',$data)->update(['status' => $request->statusreservasi,'IDuserEksekusi' => $data_user->id]);
         return response()->json(['success' => 'Data berhasil dirubah.']);
     }
 

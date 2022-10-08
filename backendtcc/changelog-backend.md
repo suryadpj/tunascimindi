@@ -39,3 +39,6 @@ The format is based on [Keep a Changelog](https://www.tunastoyotacimindi.co.id),
 
 ### Removed
 
+## [1.1.1] - 2022-10-08
+### Fixed
+- Perbaiki menu reservasi yang tidak bisa digunakan
