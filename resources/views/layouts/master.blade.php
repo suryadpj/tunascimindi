@@ -42,7 +42,7 @@
 
 <body class="body-scroll" data-page="index">
 
-    <!-- loader section -->
+    {{-- <!-- loader section -->
     <div class="container-fluid loader-wrap">
         <div class="row h-100">
             <div class="text-center align-self-center">
@@ -53,7 +53,7 @@
             </div>
         </div>
     </div>
-    <!-- loader section ends -->
+    <!-- loader section ends --> --}}
 
     <!-- Sidebar main menu -->
     <div class="sidebar-wrap  sidebar-pushcontent">
@@ -89,71 +89,77 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="card @switch($profil->membership)
-                            @case(1)
-                               bg-secondary
-                            @break
-                            @case(2)
-                               bg-warning
-                            @break
-                            @case(3)
-                               bg-light
-                            @break
-                            @case(4)
-                               bg-danger
-                            @break
-                            @case(5)
-                               bg-white
-                            @break
-
-                            @default
-                                bg-white
-
-                        @endswitch border-0">
+                        <div class="card bg-white border-0">
                             <div class="card-body">
                                 <div class="row">
+                                    <div class="col-auto">
+                                        @switch($profil->membership)
+                                            @case(1)
+                                                <p>
+                                                    <figure class="avatar avatar-30 coverimg rounded-20">
+                                                        <img  src="assets/img/platinum.png">
+                                                    </figure>
+                                                    <a class="text-dark" href="card" > Platinum Member</a>
+                                                </p>
+                                            @break
+                                            @case(2)
+                                                <p>
+                                                    <figure class="avatar avatar-30 coverimg rounded-20">
+                                                        <img  src="assets/img/gold.png">
+                                                    </figure>
+                                                    <a class="text-dark" href="card" > Gold Member</a>
+                                                </p>
+                                            @break
+                                            @case(3)
+                                                <p>
+                                                    <figure class="avatar avatar-30 coverimg rounded-20">
+                                                        <img  src="assets/img/silver.png">
+                                                    </figure>
+                                                    <a class="text-dark" href="card" > Silver Member</a>
+                                                </p>
+                                            @break
+                                            @case(4)
+                                                <p>
+                                                    <figure class="avatar avatar-30 coverimg rounded-20">
+                                                        <img  src="assets/img/bronze.png">
+                                                    </figure>
+                                                    <a class="text-dark" href="card" >Bronze Member</a>
+                                                </p>
+                                            @break
+                                            @case(5)
+                                                <p>
+                                                    <figure class="avatar avatar-44">
+                                                        <img  src="assets/img/new-member.png">
+                                                    </figure>
+                                                    <a class="text-dark" href="card" >NEW MEMBER</a>
+                                                </p>
+                                            @break
+                                            @default
+                                                <p><a class="text-dark" href="card" ><img src="assets/img/new-member.png">Member</a>
+
+                                        @endswitch
+                                    </div>
                                     <div class="col-12">
-                                        <h1 class="display-6">{{ $profil->unit }}</h1>
+                                        <h3 class="">{{ $profil->unit }}</h3>
+                                    </div>
+                                    <div class="col-12">
+                                        <p>{{ $profil->no_polisi }}</p>
                                     </div>
                                     @if($lastservicecount > 0)
                                     <div class="col-auto">
-                                        <p class="text-muted">KM {{ $lastservice->kilometer }}</p>
+                                        <p>KM {{ $lastservice->kilometer }}</p>
                                     </div>
                                     @endif
                                     @if($lastservicecount > 0)
-                                    <div class="col-auto">
-                                        <p class="text-muted">Last Service {{ $lastservice->operation_desc }}</p>
+                                    <div class="col-12">
+                                        <p>LAST SERVICE: {{ $lastservice->operation_desc }}</p>
                                     </div>
                                     @endif
                                     @if($cr7count > 0)
                                     <div class="col-auto">
-                                        <p class="text-muted">CR7 : {{ $cr7data->keterangan }}</p>
+                                        <p>#SARAN PERBAIKAN : {{ $cr7data->keterangan }}</p>
                                     </div>
                                     @endif
-                                    <br>
-                                    <br>
-                                    <div class="col-auto">
-                                        @switch($profil->membership)
-                                            @case(1)
-                                                <p class="text-muted"><a href="card" >Platinum Member</a>
-                                            @break
-                                            @case(2)
-                                                <p class="text-muted"><a href="card" >Gold Member</a>
-                                            @break
-                                            @case(3)
-                                                <p class="text-muted"><a href="card" >Silver Member</a>
-                                            @break
-                                            @case(4)
-                                                <p class="text-muted"><a href="card" >Bronze Member</a>
-                                            @break
-                                            @case(5)
-                                                <p class="text-muted"><a class="text-dark" href="card" >New Member</a>
-                                            @break
-                                            @default
-                                                <p class="text-muted"><a class="text-dark" href="card" >Member</a>
-
-                                        @endswitch
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -338,57 +344,7 @@
             </ul>
         </div>
     </footer>
-    <div class="modal fade" id="referensiform" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl">
-            <div class="modal-content">
-                <div class="modal-header">
-                <h5 class="modal-title referensi-title" id="staticBackdropLabel">Finding</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <form method="post" id="formreferensi" class="form-horizontal" enctype="multipart/form-data">
-                    <span id="form_result"></span>
-                    @csrf
-                    <input type="hidden" name="hidden_id" id="hidden_id" />
-                    <div class="modal-body">
-                        <div class="form-group row">
-                            <label for="perihal" class="col-sm-5 col-form-label">Nama yang direferensikan :<span class="text-danger">*</span></label>
-                            <div class="col-sm-7">
-                                <input type="text" class="form-control" name="nama_referensi" id="nama_referensi" placeholder="Nama">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="perihal" class="col-sm-5 col-form-label">Nomor HP :<span class="text-danger">*</span></label>
-                            <div class="col-sm-7">
-                                <input type="number" class="form-control" name="nomorhp_referensi" id="nomorhp_referensi" placeholder="Nomor HP referensi">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="perihal" class="col-sm-5 col-form-label required">Kendaraan :<span class="text-danger">*</span></label>
-                            <div class="col-sm-7">
-                                <select class="form-control" name="kendaraan" width="100%">
-                                    <option>Pilih kendaraan yang direferensikan</option>
-                                    @foreach ($brosur as $brr)
-                                        <option value="{{ $brr->ID }}">{{ $brr->alt }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="perihal" class="col-sm-5 col-form-label">Rekomendasi Sales Anda :</label>
-                            <div class="col-sm-7">
-                                <input type="text" class="form-control" name="sales_referensi" id="sales_referensi" placeholder="Isi nama sales">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer justify-content-between">
-                        <input type="hidden" name="action" id="action" />
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="submit" name="action_button" value="Add" id="action_button" class="btn btn-primary">Kirim data</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+
     <!-- Footer ends-->
 
 

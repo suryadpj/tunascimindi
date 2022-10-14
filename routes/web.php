@@ -21,6 +21,7 @@ Route::get('pendaftaran', [App\Http\Controllers\NewRegisterController::class, 'i
 Route::post('pendaftaran', [App\Http\Controllers\NewRegisterController::class, 'store'])->name('pendaftaran.store');
 // Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/tcare-info', [App\Http\Controllers\HomeController::class, 'tcare'])->name('tcare-info');
 Route::post('/home/booknow', [App\Http\Controllers\HomeController::class, 'booknow'])->name('home.booknow');
 Route::post('referensi', [App\Http\Controllers\EcatalogController::class, 'referensistore'])->name('ecatalog.referensistore');
 Route::resource('card', App\Http\Controllers\CardController::class);
@@ -36,6 +37,7 @@ Route::get('tradein/models/{id}/years', [App\Http\Controllers\TradeinController:
 Route::get('tradein/models/{id}/years/{id2}/variants', [App\Http\Controllers\TradeinController::class, 'variants'])->name('tradein.variants');
 Route::get('tradein/models/{id}/years/{id2}/variants/{id3}/transmisi', [App\Http\Controllers\TradeinController::class, 'transmisi'])->name('tradein.transmisi');
 Route::get('tradein/final/{id}', [App\Http\Controllers\TradeinController::class, 'tradeinfinal'])->name('tradein.final');
+Route::post('tradeinspesial', [App\Http\Controllers\TradeinController::class, 'tradeinspesial'])->name('tradeinspesial');
 Route::resource('promo', App\Http\Controllers\PromoController::class);
 Route::get('promosales', [App\Http\Controllers\PromoController::class, 'indexsales'])->name('promo.sales');
 Route::resource('media_edukasi', App\Http\Controllers\EdukasiController::class);

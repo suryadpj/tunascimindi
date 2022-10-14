@@ -124,9 +124,10 @@
                                     <div class="row">
                                         <div class="col-auto align-self-center">
                                             @if ($profil->gbsb == 1)
-                                                <h4>GBSB</h4>
+                                                <h4><a class="text-white" href="#">GBSB</a></h4>
+                                                {{-- <h4><a class="text-white" href="gbsb-info">GBSB</a></h4> --}}
                                             @elseif ($profil->tcare == 1)
-                                                <h4>T-Care</h4>
+                                                <h4><a class="text-white" href="tcare-info">T-Care</a></h4>
                                             @else
 
                                             @endif

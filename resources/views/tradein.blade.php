@@ -259,7 +259,9 @@
                             $('#formtradein')[0].reset();
                             $('#rootComponent').load('tradein/final/'+data.success);
                             // $('#rootComponent').html('<br><b>' + data.success + '</b>');
-                            Swal.fire('Data trade in berhasil disimpan', '', 'success')
+                            // Swal.fire('Data trade in berhasil disimpan', '', 'success')
+                            var idrespon = data.success;
+                            console.log(idrespon)
                         }
                     },
                     error: function(xhr, status, error) {
@@ -279,6 +281,119 @@
             $('.detail').show();
             $('#isilagi').hide();
         }
+
+        $(document).on('click', '.bookingrumah', function(){
+            console.log('cek2')
+            var idrespon = $(this).attr('id');
+            $.ajax({
+                    type: "POST",
+                    url: "tradeinspesial",
+                    dataType: 'JSON',
+                    data:{
+                        'id': idrespon,
+                        'location': 1,
+                        '_token': '{{ csrf_token() }}',
+                    },
+                    success:function(data)
+                    {
+                        var html = '';
+                        if(data.errors)
+                        {
+                            html = '';
+                            for(var count = 0; count < data.errors.length; count++)
+                            {
+                                html += data.errors[count] + ', ';
+                            }
+                            swal.fire({
+                                icon: 'warning',
+                                title: 'Data gagal disimpan',
+                                text: html
+                            })
+                            $('#action_button').html('Save changes').attr('disabled', false);
+                        }
+                        if(data.duplicate)
+                        {
+                            swal.fire({
+                                icon: 'warning',
+                                title: 'Data gagal disimpan',
+                                text: html
+                            })
+                            $('#action_button').html('Save changes').attr('disabled', false);
+                        }
+                        if(data.success)
+                        {
+                            // $('#rootComponent').load('tradein/final/'+data.success);
+                            // $('#rootComponent').html('<br><b>' + data.success + '</b>');
+                            Swal.fire('Data trade in berhasil disimpan', '', 'success')
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        var errorMessage = xhr.status + ': ' + xhr.statusText
+                        swal.fire({
+                            icon: 'error',
+                            title: 'Data gagal disimpan',
+                            text: errorMessage
+                        })
+                        $('#action_button').html('Save changes').attr('disabled', false);
+                    }
+                });
+        });
+        $(document).on('click', '.bookingdealer', function(){
+            console.log('cek2')
+            var idrespon = $(this).attr('id');
+            $.ajax({
+                    type: "POST",
+                    url: "tradeinspesial",
+                    dataType: 'JSON',
+                    data:{
+                        'id': idrespon,
+                        'location': 2,
+                        '_token': '{{ csrf_token() }}',
+                    },
+                    success:function(data)
+                    {
+                        var html = '';
+                        if(data.errors)
+                        {
+                            html = '';
+                            for(var count = 0; count < data.errors.length; count++)
+                            {
+                                html += data.errors[count] + ', ';
+                            }
+                            swal.fire({
+                                icon: 'warning',
+                                title: 'Data gagal disimpan',
+                                text: html
+                            })
+                            $('#action_button').html('Save changes').attr('disabled', false);
+                        }
+                        if(data.duplicate)
+                        {
+                            swal.fire({
+                                icon: 'warning',
+                                title: 'Data gagal disimpan',
+                                text: html
+                            })
+                            $('#action_button').html('Save changes').attr('disabled', false);
+                        }
+                        if(data.success)
+                        {
+                            // $('#rootComponent').load('tradein/final/'+data.success);
+                            // $('#rootComponent').html('<br><b>' + data.success + '</b>');
+                            Swal.fire('Data trade in berhasil disimpan', '', 'success')
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        var errorMessage = xhr.status + ': ' + xhr.statusText
+                        swal.fire({
+                            icon: 'error',
+                            title: 'Data gagal disimpan',
+                            text: errorMessage
+                        })
+                        $('#action_button').html('Save changes').attr('disabled', false);
+                    }
+                });
+        });
 </script>
 @endsection
 

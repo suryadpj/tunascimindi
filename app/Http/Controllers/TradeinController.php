@@ -68,7 +68,8 @@ class TradeinController extends Controller
     public function tradeinfinal($id)
     {
         $price = DB::table('tradeincar')->where('deleted',0)->where('ID',$id)->first();
-        return view('tradeinfinal',['price' => $price]);
+        $insert = DB::table('tradeindata')->where('deleted',0)->where('IDUser',Auth::user()->id)->orderBy('ID','desc')->first();
+        return view('tradeinfinal',['price' => $price,'tradeinput' => $insert]);
     }
 
     /**
@@ -126,6 +127,20 @@ class TradeinController extends Controller
         $harga = DB::table('tradeincar')->where('model',$request->model)->where('tahun',$request->year)->where('type',$request->variant)->where('transmisi',$request->transmition)->first();
 
         return response()->json(['success' => $harga->ID]);
+    }
+
+    public function tradeinspesial(request $request)
+    {
+
+        $data_user = Auth::user();
+
+        $form_data = array(
+            'location'        =>  $request->location,
+        );
+
+        DB::table('tradeindata')->where('ID',$request->id)->update($form_data);
+        return response()->json(['success' => 'data berhasil disimpan']);
+
     }
 
     /**
