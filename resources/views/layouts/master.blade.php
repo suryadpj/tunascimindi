@@ -128,7 +128,7 @@
                                             @break
                                             @case(5)
                                                 <p>
-                                                    <figure class="avatar avatar-44">
+                                                    <figure class="avatar avatar-30 coverimg rounded-20">
                                                         <img  src="assets/img/new-member.png">
                                                     </figure>
                                                     <a class="text-dark" href="card" > NEW MEMBER</a>
@@ -136,7 +136,7 @@
                                             @break
                                             @default
                                                 <p>
-                                                    <figure class="avatar avatar-44">
+                                                    <figure class="avatar avatar-30 coverimg rounded-20">
                                                         <img  src="assets/img/new-member.png">
                                                     </figure>
                                                     <a class="text-dark" href="card" > Member</a>
