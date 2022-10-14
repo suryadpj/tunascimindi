@@ -42,7 +42,7 @@
 
 <body class="body-scroll" data-page="index">
 
-    {{-- <!-- loader section -->
+    <!-- loader section -->
     <div class="container-fluid loader-wrap">
         <div class="row h-100">
             <div class="text-center align-self-center">
@@ -53,7 +53,7 @@
             </div>
         </div>
     </div>
-    <!-- loader section ends --> --}}
+    <!-- loader section ends -->
 
     <!-- Sidebar main menu -->
     <div class="sidebar-wrap  sidebar-pushcontent">
