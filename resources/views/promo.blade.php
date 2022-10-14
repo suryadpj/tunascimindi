@@ -90,6 +90,7 @@
                         <button type="button" class="btn btn-default" data-bs-dismiss="modal">Close</button>
                         <button type="submit" name="action_button" value="Add" id="action_button" class="btn btn-primary">Save Data</button>
                     </div>
+                </form>
             </div>
         </div>
     </div>
@@ -159,6 +160,7 @@
                 success:function(html)
                 {
                     $('#nama_promo').val(html.data.alt);
+                    console.log(html.data.ID)
                     $('#hidden_id').val(html.data.ID);
                     $('#action_button').val("Book now");
                     $('#action').val("book");
