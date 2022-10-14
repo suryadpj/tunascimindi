@@ -123,7 +123,7 @@
                                                     <figure class="avatar avatar-30 coverimg rounded-20">
                                                         <img  src="assets/img/bronze.png">
                                                     </figure>
-                                                    <a class="text-dark" href="card" >Bronze Member</a>
+                                                    <a class="text-dark" href="card" > Bronze Member</a>
                                                 </p>
                                             @break
                                             @case(5)
@@ -131,12 +131,16 @@
                                                     <figure class="avatar avatar-44">
                                                         <img  src="assets/img/new-member.png">
                                                     </figure>
-                                                    <a class="text-dark" href="card" >NEW MEMBER</a>
+                                                    <a class="text-dark" href="card" > NEW MEMBER</a>
                                                 </p>
                                             @break
                                             @default
-                                                <p><a class="text-dark" href="card" ><img src="assets/img/new-member.png">Member</a>
-
+                                                <p>
+                                                    <figure class="avatar avatar-44">
+                                                        <img  src="assets/img/new-member.png">
+                                                    </figure>
+                                                    <a class="text-dark" href="card" > Member</a>
+                                                </p>
                                         @endswitch
                                     </div>
                                     <div class="col-12">

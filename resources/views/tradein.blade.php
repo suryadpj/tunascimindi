@@ -40,7 +40,7 @@
                             </table>
                         </center>
                     <div id="rootComponent"></div>
-                    <p align="center" id="isilagi"><br><br><button type="button" class="btn btn-primary btn-style btn-frm btn-form-active" onclick="showDiv()"><b>Isi data lagi</b></button></p>
+                    {{-- <p align="center" id="isilagi"><br><br><button type="button" class="btn btn-primary btn-style btn-frm btn-form-active" onclick="showDiv()"><b>Isi data lagi</b></button></p> --}}
                 </center>
             </div>
         </div>
