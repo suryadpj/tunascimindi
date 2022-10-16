@@ -300,11 +300,22 @@ return [
             // 'label_color' => 'success',
         ],
         [
-            'text'        => 'Data Reservasi',
-            'url'         => 'reservasidata',
-            'icon'        => 'fas fa-fw fa-file',
-            // 'label'       => 4,
-            // 'label_color' => 'success',
+            'text'    => 'Data Reservasi',
+            'icon'    => 'fas fa-fw fa-file',
+            'submenu' => [
+                [
+                    'text' => 'Promo Sales',
+                    'url'  => 'promo/sales',
+                ],
+                [
+                    'text' => 'Promo Service',
+                    'url'  => 'promo/bengkel',
+                ],
+                [
+                    'text' => 'Service',
+                    'url'  => 'reservasidata',
+                ],
+            ],
         ],
         [
             'text'        => 'Data Minat Trade-in',

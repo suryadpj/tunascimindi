@@ -29,13 +29,14 @@ class ReservasiDataController extends Controller
             ->leftJoin('customerdata','customerdata.vincode','users.nomor_rangka')
             ->leftJoin('promo','promo.ID','reservasi.IDParent')
             ->select('reservasi.*',DB::raw('DATE_FORMAT(reservasi.tanggal,"%d %M %Y") as tglbuat'),'name','customerdata.no_polisi','promo.alt','promo.penjelasan')
-            ->where('reservasi.deleted','0'))
+            ->where('reservasi.deleted','0')
+            ->where('segmen',3))
             ->filter(function ($data) use ($request) {
                 // if ($request->nomorrangka) {
                 //     $data->where('nomor_rangka', 'like', "%{$request->get('nomorangka')}%");
                 // }
-                if ($request->nomorplat) {
-                    $data->where('no_polisi', 'like', "%{$request->get('nomorplat')}%");
+                if ($request->namapelanggan) {
+                    $data->where('users.name', 'like', "%{$request->get('namapelanggan')}%");
                 }
                 if ($request->tanggalreservasi) {
                     $data->where('reservasi.tanggal', 'like', "%{$request->get('tanggalreservasi')}%");
@@ -83,6 +84,140 @@ class ReservasiDataController extends Controller
             ->make(true);
         }
         return view('reservasi.reservasi',['user' => $data_user]);
+    }
+    public function datasales(request $request)
+    {
+        $data_user = Auth::user();
+        if(request()->ajax())
+        {
+            return datatables()->of(reservasidata::
+            leftJoin('users','users.id','reservasi.IDUser')
+            ->leftJoin('customerdata','customerdata.vincode','users.nomor_rangka')
+            ->leftJoin('promo','promo.ID','reservasi.IDParent')
+            ->select('reservasi.*',DB::raw('DATE_FORMAT(reservasi.tanggal,"%d %M %Y") as tglbuat'),'name','customerdata.no_polisi','promo.alt','promo.penjelasan')
+            ->where('reservasi.deleted','0')
+            ->where('segmen',1)
+            ->where('promo.kategori',2))
+            ->filter(function ($data) use ($request) {
+                // if ($request->nomorrangka) {
+                //     $data->where('nomor_rangka', 'like', "%{$request->get('nomorangka')}%");
+                // }
+                if ($request->namapelanggan) {
+                    $data->where('users.name', 'like', "%{$request->get('namapelanggan')}%");
+                }
+                if ($request->tanggalreservasi) {
+                    $data->where('reservasi.tanggal', 'like', "%{$request->get('tanggalreservasi')}%");
+                }
+            })
+            ->addColumn('kolom_kedua', function($data) use($data_user){
+                switch($data->segmen)
+                {
+                    case 1 :  return "Promo"; break;
+                    case 2 :  return "Tes Drive"; break;
+                    case 3 :  return "Booking Service"; break;
+                    default : return "-";
+                }
+            })
+            ->addColumn('kolom_ketiga', function($data) use($data_user){
+                $kolom = $data->tglbuat;
+                $kolom .= "<br>";
+                $kolom .= $data->waktu;
+                return $kolom;
+            })
+            ->addColumn('kolom_keempat', function($data) use($data_user){
+                switch($data->segmen)
+                {
+                    case 1 :  return $data->alt." <br> ".$data->penjelasan; break;
+                    case 2 :  return "Tes Drive"; break;
+                    case 3 :  return "Booking Service"; break;
+                    default : return "-";
+                }
+            })
+            ->addColumn('kolom_kelima', function($data) use($data_user){
+                switch($data->status)
+                {
+                    case 1 :  return "Menunggu respon"; break;
+                    case 2 :  return "Dihubungi"; break;
+                    case 3 :  return "Done"; break;
+                    case 4 :  return "Cancel"; break;
+                    default : return "-";
+                }
+            })
+            ->addColumn('action', function($data) use($data_user){
+                $button = '<div class="btn-group">';
+                    $button .= '<button type="button" name="delete" id="'.$data->ID.'" class="delete btn btn-danger btn-sm"><i title="Rubah Data" class="fas fa-trash"></i></button>';
+                return $button;})
+            ->rawColumns(['action','kolom_kedua','kolom_ketiga','kolom_keempat','kolom_kelima'])
+            ->make(true);
+        }
+        return view('reservasi.reservasisales',['user' => $data_user]);
+    }
+    public function databengkel(request $request)
+    {
+        $data_user = Auth::user();
+        if(request()->ajax())
+        {
+            return datatables()->of(reservasidata::
+            leftJoin('users','users.id','reservasi.IDUser')
+            ->leftJoin('customerdata','customerdata.vincode','users.nomor_rangka')
+            ->leftJoin('promo','promo.ID','reservasi.IDParent')
+            ->select('reservasi.*',DB::raw('DATE_FORMAT(reservasi.tanggal,"%d %M %Y") as tglbuat'),'name','customerdata.no_polisi','promo.alt','promo.penjelasan')
+            ->where('reservasi.deleted','0')
+            ->where('segmen',1)
+            ->where('promo.kategori',1))
+            ->filter(function ($data) use ($request) {
+                // if ($request->nomorrangka) {
+                //     $data->where('nomor_rangka', 'like', "%{$request->get('nomorangka')}%");
+                // }
+                if ($request->namapelanggan) {
+                    $data->where('users.name', 'like', "%{$request->get('namapelanggan')}%");
+                }
+                if ($request->tanggalreservasi) {
+                    $data->where('reservasi.tanggal', 'like', "%{$request->get('tanggalreservasi')}%");
+                }
+            })
+            ->addColumn('kolom_kedua', function($data) use($data_user){
+                switch($data->segmen)
+                {
+                    case 1 :  return "Promo"; break;
+                    case 2 :  return "Tes Drive"; break;
+                    case 3 :  return "Booking Service"; break;
+                    default : return "-";
+                }
+            })
+            ->addColumn('kolom_ketiga', function($data) use($data_user){
+                $kolom = $data->tglbuat;
+                $kolom .= "<br>";
+                $kolom .= $data->waktu;
+                return $kolom;
+            })
+            ->addColumn('kolom_keempat', function($data) use($data_user){
+                switch($data->segmen)
+                {
+                    case 1 :  return $data->alt." <br> ".$data->penjelasan; break;
+                    case 2 :  return "Tes Drive"; break;
+                    case 3 :  return "Booking Service"; break;
+                    default : return "-";
+                }
+            })
+            ->addColumn('kolom_kelima', function($data) use($data_user){
+                switch($data->status)
+                {
+                    case 1 :  return "Menunggu respon"; break;
+                    case 2 :  return "Dihubungi"; break;
+                    case 3 :  return "Done"; break;
+                    case 4 :  return "Cancel"; break;
+                    default : return "-";
+                }
+            })
+            ->addColumn('action', function($data) use($data_user){
+                $button = '<div class="btn-group">';
+                    $button .= '<button type="button" name="delete" id="'.$data->ID.'" class="delete btn btn-danger btn-sm"><i title="Rubah Data" class="fas fa-trash"></i></button>';
+                return $button;})
+            ->rawColumns(['action','kolom_kedua','kolom_ketiga','kolom_keempat','kolom_kelima'])
+            ->make(true);
+        }
+        return view('reservasi.reservasibengkel',['user' => $data_user]);
     }
 
     /**

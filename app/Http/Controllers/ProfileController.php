@@ -13,10 +13,10 @@ use Validator;
 
 class ProfileController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware('auth');
+    // }
     /**
      * Display a listing of the resource.
      *
@@ -34,6 +34,10 @@ class ProfileController extends Controller
         $cr7count = DB::table('cr7data')->where('no_polisi',$profil->no_polisi)->orderBy('ID','desc')->count();
         $segmen_brosur = DB::table('brosurecatalog')->where('deleted',0)->get();
         return view('profile',['brosur' => $segmen_brosur,'profil' => $profil,'lastservice' => $lastservice,'lastservicecount' => $lastservicecount,'cr7data' => $cr7data,'cr7count' => $cr7count]);
+    }
+    public function lupapassword()
+    {
+        return view('auth.lupapassword');
     }
 
     /**

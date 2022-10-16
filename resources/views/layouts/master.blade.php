@@ -330,7 +330,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link comingsoon" href="#">
+                    <a class="nav-link" href="kritiksaran">
                         <span>
                             <i class="bi bi-envelope"></i>
                             <span class="nav-text">Kritik & Saran</span>

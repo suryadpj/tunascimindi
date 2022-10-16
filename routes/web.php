@@ -44,6 +44,10 @@ Route::resource('media_edukasi', App\Http\Controllers\EdukasiController::class);
 Route::resource('profile', App\Http\Controllers\ProfileController::class);
 Route::resource('reservasi', App\Http\Controllers\ReservasiController::class);
 Route::get('/profilefirst', [App\Http\Controllers\ProfileController::class, 'profilefirst'])->name('profilefirst');
+Route::get('/lupapassword', [App\Http\Controllers\ProfileController::class, 'lupapassword'])->name('lupapassword');
 Route::get('/hubungikami', [App\Http\Controllers\HubungiKamiController::class, 'index'])->name('hubungikami');
+Route::get('/kritiksaran', [App\Http\Controllers\KritikSaranController::class, 'index'])->name('kritiksaran');
+Route::post('/kritiksaran', [App\Http\Controllers\KritikSaranController::class, 'store'])->name('kritiksaran.store');
+
 
 

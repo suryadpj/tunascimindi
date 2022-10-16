@@ -111,11 +111,19 @@
                                                 Service Berkala {{ number_format($nextserv->km,0) }} KM
                                                 @endif
                                             </h2>
-                                            @php
-                                                $date = date_create($lastservice->pkb_date);
-                                                date_add($date, date_interval_create_from_date_string('+6 months'));
-                                                $datea= date_format($date, 'd F Y');
-                                            @endphp
+                                            @if($lastservice == 0)
+                                                @php
+                                                    $date = date_create(date('Y-m-d'));
+                                                    date_add($date, date_interval_create_from_date_string('+6 months'));
+                                                    $datea= date_format($date, 'd F Y');
+                                                @endphp
+                                            @else
+                                                @php
+                                                    $date = date_create($lastservice->pkb_date);
+                                                    date_add($date, date_interval_create_from_date_string('+6 months'));
+                                                    $datea= date_format($date, 'd F Y');
+                                                @endphp
+                                            @endif
                                             <p class="mb-0 text-muted size-7">Job : {{ $nextserv->job }}</p>
                                             <p class="mb-0 text-muted size-7">Service sebelum : {{ $datea }}</p>
                                         </div>

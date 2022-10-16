@@ -3,7 +3,7 @@
 @section('title', 'Data Reservasi')
 
 @section('content_header')
-    <h1 class="m-0 text-dark">Reservasi Data</h1>
+    <h1 class="m-0 text-dark">Reservasi Data - Promo Sales</h1>
 @stop
 
 @section('content')
@@ -367,7 +367,7 @@ $(document).ready(function(){
                     {extend:'print',title: 'Data Reservasi Tunas Toyota Cimindi'},
         ],
         ajax:{
-            url: "{{ route('reservasidata.index') }}",
+            url: "{{ route('reservasidata.sales') }}",
             data: function (d) {
                 d.namapelanggan = $('input[name=search_nama]').val();
                 d.nomorrangka = $('input[name=search_nomorrangka]').val();

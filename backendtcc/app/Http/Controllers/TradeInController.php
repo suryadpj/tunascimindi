@@ -51,6 +51,15 @@ class TradeInController extends Controller
                 return $show;
 
             })
+            ->addColumn('hitung', function($data) use($data_user){
+                switch($data->location)
+                {
+                    case 1 : return "Di Rumah"; break;
+                    case 2 : return "Di Bengkel"; break;
+                    default : return 'Tidak memilih';
+                }
+
+            })
             ->addColumn('action', function($data) use($data_user){
                 $button = '<div class="btn-group">';
                     $button .= '<button type="button" name="delete" id="'.$data->ID.'" class="delete btn btn-danger btn-sm"><i title="Rubah Data" class="fas fa-trash"></i></button>';

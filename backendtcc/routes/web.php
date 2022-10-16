@@ -65,6 +65,9 @@ Route::get('/pkb/data', [PkbController::class, 'data'])->name('pkb.data');
 Route::resource('/cr7', Cr7Controller::class);
 Route::get('/cr7/data', [Cr7Controller::class, 'data'])->name('cr7.data');
 Route::resource('/reservasidata', ReservasiDataController::class);
+Route::get('/promo/sales', [ReservasiDataController::class, 'datasales'])->name('reservasidata.sales');
+Route::get('/promo/bengkel', [ReservasiDataController::class, 'databengkel'])->name('reservasidata.bengkel');
+
 Route::resource('/tradein', TradeInController::class);
 
 

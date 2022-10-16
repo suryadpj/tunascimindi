@@ -94,7 +94,7 @@
                         @enderror
                     </div>
                     <p class="mb-3 text-center">
-                        <a href="forgot-password.html" class="">
+                        <a href="lupapassword" class="">
                             Lupa password anda ?
                         </a>
                     </p>

@@ -63,6 +63,7 @@
                                     <th>User</th>
                                     <th>Nomor HP</th>
                                     <th>Kendaraan</th>
+                                    <th>Penghitungan</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -212,6 +213,7 @@ $(document).ready(function(){
             {"data":"name"},
             {"data":"phone"},
             {"data":"kolom_kedua"},
+            {"data":"hitung"},
             {"data":"action",orderable: false},
         ],
       'columnDefs': [
