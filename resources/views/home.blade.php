@@ -111,7 +111,7 @@
                                                 Service Berkala {{ number_format($nextserv->km,0) }} KM
                                                 @endif
                                             </h2>
-                                            @if($lastservice == 0)
+                                            @if($lastservice == "0")
                                                 @php
                                                     $date = date_create(date('Y-m-d'));
                                                     date_add($date, date_interval_create_from_date_string('+6 months'));

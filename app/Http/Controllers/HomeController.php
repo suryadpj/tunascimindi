@@ -87,7 +87,7 @@ class HomeController extends Controller
             else
             {
                 $nextservice = DB::table('job_sbe')->where('km',0)->orderBy('km','asc')->first();
-                $lastservice=0;
+                $lastservice="0";
             }
             $cr7data = DB::table('cr7data')->where('no_polisi',$profil->no_polisi)->orderBy('ID','desc')->first();
             $cr7count = DB::table('cr7data')->where('no_polisi',$profil->no_polisi)->orderBy('ID','desc')->count();
