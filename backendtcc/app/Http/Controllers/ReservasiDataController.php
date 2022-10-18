@@ -219,6 +219,67 @@ class ReservasiDataController extends Controller
         }
         return view('reservasi.reservasibengkel',['user' => $data_user]);
     }
+    public function dataaksesoris(request $request)
+    {
+        $data_user = Auth::user();
+        if(request()->ajax())
+        {
+            return datatables()->of(reservasidata::
+            leftJoin('users','users.id','reservasi.IDUser')
+            ->leftJoin('customerdata','customerdata.vincode','users.nomor_rangka')
+            ->leftJoin('aksesoris','aksesoris.ID','reservasi.IDParent')
+            ->select('reservasi.*',DB::raw('DATE_FORMAT(reservasi.tanggal,"%d %M %Y") as tglbuat'),'name','customerdata.no_polisi','aksesoris.alt','aksesoris.penjelasan')
+            ->where('reservasi.deleted','0')
+            ->where('segmen',4))
+            ->filter(function ($data) use ($request) {
+                // if ($request->nomorrangka) {
+                //     $data->where('nomor_rangka', 'like', "%{$request->get('nomorangka')}%");
+                // }
+                if ($request->namapelanggan) {
+                    $data->where('users.name', 'like', "%{$request->get('namapelanggan')}%");
+                }
+                if ($request->tanggalreservasi) {
+                    $data->where('reservasi.tanggal', 'like', "%{$request->get('tanggalreservasi')}%");
+                }
+            })
+            ->addColumn('kolom_kedua', function($data) use($data_user){
+                switch($data->segmen)
+                {
+                    case 1 :  return "Promo"; break;
+                    case 2 :  return "Tes Drive"; break;
+                    case 3 :  return "Booking Service"; break;
+                    case 4 :  return "Aksesoris"; break;
+                    default : return "-";
+                }
+            })
+            ->addColumn('kolom_ketiga', function($data) use($data_user){
+                $kolom = $data->tglbuat;
+                $kolom .= "<br>";
+                $kolom .= $data->waktu;
+                return $kolom;
+            })
+            ->addColumn('kolom_keempat', function($data) use($data_user){
+                return "Pembelian Aksesoris ".$data->alt;
+            })
+            ->addColumn('kolom_kelima', function($data) use($data_user){
+                switch($data->status)
+                {
+                    case 1 :  return "Menunggu respon"; break;
+                    case 2 :  return "Dihubungi"; break;
+                    case 3 :  return "Done"; break;
+                    case 4 :  return "Cancel"; break;
+                    default : return "-";
+                }
+            })
+            ->addColumn('action', function($data) use($data_user){
+                $button = '<div class="btn-group">';
+                    $button .= '<button type="button" name="delete" id="'.$data->ID.'" class="delete btn btn-danger btn-sm"><i title="Rubah Data" class="fas fa-trash"></i></button>';
+                return $button;})
+            ->rawColumns(['action','kolom_kedua','kolom_ketiga','kolom_keempat','kolom_kelima'])
+            ->make(true);
+        }
+        return view('reservasi.reservasiaksesoris',['user' => $data_user]);
+    }
 
     /**
      * Show the form for creating a new resource.

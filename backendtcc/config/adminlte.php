@@ -312,6 +312,10 @@ return [
                     'url'  => 'promo/bengkel',
                 ],
                 [
+                    'text' => 'Aksesoris',
+                    'url'  => 'aksesoris/reservasi',
+                ],
+                [
                     'text' => 'Service',
                     'url'  => 'reservasidata',
                 ],
@@ -348,6 +352,10 @@ return [
             'text'    => 'Aksesoris',
             'icon'    => 'fas fa-fw fa-file',
             'submenu' => [
+                [
+                    'text' => 'Daftar Aksesoris',
+                    'url'  => 'dataaksesoris',
+                ],
                 [
                     'text' => 'Slider',
                     'url'  => 'slider/aksesoris',

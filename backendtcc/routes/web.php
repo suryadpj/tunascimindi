@@ -48,6 +48,11 @@ Route::delete('/datapromo/{id}', [PromoController::class, 'destroy'])->name('dat
 Route::post('/datapromo', [PromoController::class, 'storepromo'])->name('datapromo.store');
 Route::post('/datapromo/update', [PromoController::class, 'edit'])->name('datapromo.updated');
 Route::resource('/slider/aksesoris', AksesorisController::class);
+Route::get('/dataaksesoris', [AksesorisController::class, 'dataaksesoris'])->name('dataaksesoris');
+Route::post('/dataaksesoris', [AksesorisController::class, 'storeaksesoris'])->name('dataaksesoris.store');
+Route::get('/dataaksesoris/{id}', [AksesorisController::class, 'showaksesoris'])->name('dataaksesoris.show');
+Route::post('/dataaksesoris/update', [AksesorisController::class, 'editaksesoris'])->name('dataaksesoris.updated');
+Route::delete('/dataaksesoris/{id}', [AksesorisController::class, 'destroy'])->name('dataaksesoris.destroy');
 Route::post('/slider/aksesoris/update', [AksesorisController::class, 'updateslider'])->name('aksesorisslider.updated');
 Route::post('/ecatalog/brosur/store', [EcatalogController::class, 'storebrosur'])->name('ecatalog.storebrosur');
 Route::get('/ecatalog/brosur', [EcatalogController::class, 'brosur'])->name('ecatalog.brosur');
@@ -67,6 +72,7 @@ Route::get('/cr7/data', [Cr7Controller::class, 'data'])->name('cr7.data');
 Route::resource('/reservasidata', ReservasiDataController::class);
 Route::get('/promo/sales', [ReservasiDataController::class, 'datasales'])->name('reservasidata.sales');
 Route::get('/promo/bengkel', [ReservasiDataController::class, 'databengkel'])->name('reservasidata.bengkel');
+Route::get('/aksesoris/reservasi', [ReservasiDataController::class, 'dataaksesoris'])->name('reservasidata.aksesoris');
 
 Route::resource('/tradein', TradeInController::class);
 
