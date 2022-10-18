@@ -49,6 +49,7 @@
             <br>
             <h4 align="center"><br>Nantikan promo terbaik dari kami</h4>
         @endif
+    </div>
 
     <!-- modal-->
     <div class="modal fade" id="booknowmodal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">

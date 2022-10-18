@@ -20,8 +20,9 @@ class ReservasiController extends Controller
         $data_user = Auth::user();
         $reservasi = DB::table('reservasi')
                     ->leftjoin('promo','promo.ID','reservasi.IDParent')
+                    ->leftjoin('aksesoris','aksesoris.ID','reservasi.IDParent')
                     ->leftJoin('job_sbe as a','a.ID','reservasi.IDParent')
-                    ->select('reservasi.*','promo.alt','a.km','a.job',DB::raw('DATE_FORMAT(reservasi.tanggal,"%d %M %Y") as tgl'))->where('reservasi.IDUser',$data_user->id)->orderBy('reservasi.tanggal','desc')->get();
+                    ->select('reservasi.*','promo.alt','aksesoris.alt as aksesorisp','a.km','a.job',DB::raw('DATE_FORMAT(reservasi.tanggal,"%d %M %Y") as tgl'))->where('reservasi.IDUser',$data_user->id)->orderBy('reservasi.tanggal','desc')->get();
         $profil = DB::table('customerdata')
                     ->select('*',DB::raw('DATE_FORMAT(customerdata.masa_berlaku_stnk,"%d %M %Y") as berlakustnk'),DB::raw('DATE_FORMAT(customerdata.tanggal_pengerjaan_ssc,"%d %M %Y") as pengerjaanssc'))
                     ->where('vincode',$data_user->nomor_rangka)->first();
@@ -38,8 +39,9 @@ class ReservasiController extends Controller
         $data=DB::table('reservasi')
         ->leftjoin('job_sbe','job_sbe.ID','reservasi.IDParent')
         ->leftjoin('promo','promo.ID','reservasi.IDParent')
+        ->leftjoin('aksesoris','aksesoris.ID','reservasi.IDParent')
         ->where('reservasi.ID',$id)
-        ->select('reservasi.*',DB::raw('DATE_FORMAT(reservasi.tanggal,"%d %M %Y") as tgl'),'job_sbe.km','job_sbe.job','promo.alt')
+        ->select('reservasi.*',DB::raw('DATE_FORMAT(reservasi.tanggal,"%d %M %Y") as tgl'),'job_sbe.km','job_sbe.job','promo.alt','aksesoris.alt as aksesorisp')
         ->first();
         return response()->json(['data' => $data]);
     }

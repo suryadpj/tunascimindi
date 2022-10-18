@@ -52,8 +52,54 @@
             </p>
         </div>
     </div>
+    <div class="row">
+        @foreach ($dataakses as $a)
+            <div class="col-12 col-md-6 col-lg-4">
+                <a class="card mb-3">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-auto">
+                                <div class="imgzoom avatar avatar-60 shadow-sm rounded-10 coverimg" id="../{{ $a->img_src }}">
+                                    <img src="../{{ $a->img_src }}" alt="{{ $a->alt }}">
+                                </div>
+                            </div>
+                            <div class="col align-self-center ps-0">
+                                <p title="rekomendasi" class="text-color-theme mb-1">{{ $a->alt }}</p>
+                                <p class="text-muted size-12">{{ $a->penjelasan }}</p>
+                                <br>
+                                <div class="row">
+                                    <div class="col-auto align-self-center">
+                                        {{-- @if ($a->jempol == 1)
+                                            <button type="button" class="btn btn-primary" title="Rekomendasi" data-toggle="tooltip" data-placement="left" title="Tooltip on left"><i class="bi bi-star" title="Rekomendasi"></i></button>
+                                        @endif
+                                        <button type="button" class="btn btn-primary like" id="{{ $a->ID }}"><i class="bi bi-hand-thumbs-up-fill"></i>
+                                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="jumlahlike{{ $a->ID }}">
+                                            {{ $a->like }}
+                                            </span>
+                                        </button> --}}
+                                        {{-- <button href="" class="download btn btn-primary text-end" title="Rekomendasi" data-toggle="tooltip" data-placement="left" title="Tooltip on left"><i class="bi bi-download" title="Rekomendasi"></i></butt> --}}
+                                    </div>
+                                    <div class="col align-self-center text-end">
+                                        <button onclick="window.location.href='{{ $a->link }}';target='_blank';" class="download btn btn-primary text-end" title="Rekomendasi" data-toggle="tooltip" data-placement="left" title="Tooltip on left"><i class="bi bi-download" title="Rekomendasi"></i></button>
+                                        <button type="button" class="booknow btn btn-primary text-end" id="{{ $a->ID }}">Beli</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        @endforeach
+        @if ($dataaksescount == 0)
+            <br>
+            <br>
+            <br>
+            <br>
+            <h4 align="center"><br>Nantikan penawaran aksesoris terbaik dari kami</h4>
+        @endif
+    </div>
 
-    <div class="row mb-3">
+    {{-- <div class="row mb-3">
         <div class="col-12 px-0">
             <!-- swiper users connections -->
             <div class="swiper-container connectionwiper">
@@ -92,152 +138,50 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
 
     <!-- modal-->
-    <div class="modal fade" id="staticBackdrop1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal fade" id="booknowmodal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">GPS Tracker</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div id="carouselExampleIndicators1" class="carousel slide" data-bs-ride="carousel">
-                        <div class="carousel-indicators">
-                            <button type="button" data-bs-target="#carouselExampleIndicators1" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                            <button type="button" data-bs-target="#carouselExampleIndicators1" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                            <button type="button" data-bs-target="#carouselExampleIndicators1" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                        </div>
-                        <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                <img src="../resources/assets_loginv2/img/news4.jpg" class="d-block w-100" alt="...">
-                                <div class="carousel-caption d-none d-md-block">
-                                  <h5>First slide label</h5>
-                                  <p>Some representative placeholder content for the first slide.</p>
-                                </div>
-                            </div>
-                            <div class="carousel-item">
-                                <img src="../resources/assets_loginv2/img/news5.jpg" class="d-block w-100" alt="...">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="../resources/assets_loginv2/img/news3.jpg" class="d-block w-100" alt="...">
-                            </div>
-                        </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators1" data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Previous</span>
-                        </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators1" data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Next</span>
-                        </button>
+                <form id="formbooknow">
+                    @csrf
+                    <input type="hidden" name="hidden_id" id="hidden_id" />
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Beli Aksesoris</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <p align="center">
-                        Model : Sienta, Innova, Avanza, Rush, Agya
-                    </p>
-                </div>
-                <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Download</button>
-                <button type="button" class="btn btn-primary">Buy</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">50 Anniversary</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div id="carouselExampleIndicators1" class="carousel slide" data-bs-ride="carousel">
-                        <div class="carousel-indicators">
-                            <button type="button" data-bs-target="#carouselExampleIndicators1" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                            <button type="button" data-bs-target="#carouselExampleIndicators1" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                            <button type="button" data-bs-target="#carouselExampleIndicators1" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                        </div>
-                        <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                <img src="../resources/assets_loginv2/img/news4.jpg" class="d-block w-100" alt="...">
-                                <div class="carousel-caption d-none d-md-block">
-                                  <h5>First slide label</h5>
-                                  <p>Some representative placeholder content for the first slide.</p>
-                                </div>
-                            </div>
-                            <div class="carousel-item">
-                                <img src="../resources/assets_loginv2/img/news5.jpg" class="d-block w-100" alt="...">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="../resources/assets_loginv2/img/news3.jpg" class="d-block w-100" alt="...">
-                            </div>
-                        </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators1" data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Previous</span>
-                        </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators1" data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Next</span>
-                        </button>
+                    <div class="modal-body">
+                        <table width="100%">
+                            <tr>
+                                <th>Nama Aksesoris</th>
+                                <th>:</th>
+                                <td><input type="text" readonly class="form-control-plaintext" id="nama_promo"></td>
+                            </tr>
+                            {{-- <tr>
+                                <th>Tanggal</th>
+                                <th>:</th>
+                                <td><input class="form-control" type="date" name="tanggal"></td>
+                            </tr>
+                            <tr>
+                                <th>Time</th>
+                                <th>:</th>
+                                <td><input class="form-control" type="time" name="waktu"></td>
+                            </tr> --}}
+                            <tr>
+                                <th>Catatan</th>
+                                <th>:</th>
+                                <td><input class="form-control" type="text" name="catatan" placeholder="Catatan tambahan"></td>
+                            </tr>
+                        </table>
                     </div>
-                </div>
-                <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Download</button>
-                <button type="button" class="btn btn-primary">Buy</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal fade" id="staticBackdrop3" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">TCO All Model</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="swiper-container connectionwiper">
-                        <div class="swiper-wrapper">
-                            <div class="swiper-slide" data-bs-toggle="modal">
-                                <a class="card text-center" href="../storage/app/public/files/dokumen/aksesoris/FA_REVISI_TCO_Flyer_CALYA_A4_RH (2) (1).pdf" target="_blank">
-                                    <div class="card-body">
-                                        <div class="avatar avatar-50 shadow-sm mb-2 rounded-50 theme-bg text-white">
-                                            Calya
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-
-                            <div class="swiper-slide" data-bs-toggle="modal">
-                                <a class="card text-center" href="../storage/app/public/files/dokumen/aksesoris/preview_R12_TCO_Flyer_A4_BMPV-V (1).pdf" target="_blank">
-                                    <div class="card-body">
-                                        <div class="avatar avatar-50 shadow-sm mb-2 rounded-50 theme-bg text-white">
-                                            Veloz
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="swiper-slide">
-                                <a class="card text-center" href="../storage/app/public/files/dokumen/aksesoris/CS AVANZA TCO3f OK (1).pdf" target="_blank">
-                                    <div class="card-body">
-                                        <div class="avatar avatar-50 shadow-sm mb-2 rounded-50 theme-bg text-white">
-                                            Avanza
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
+                    <div class="modal-footer">
+                        <input type="hidden" name="action" id="action" />
+                        <button type="button" class="btn btn-default" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" name="action_button" value="Add" id="action_button" class="btn btn-primary">Beli</button>
                     </div>
-                </div>
-                <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Buy</button>
-                </div>
+                </form>
             </div>
         </div>
     </div>
@@ -251,9 +195,84 @@
 <script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
 <script>
     $(document).ready( function () {
-        var oTable = $('#myTable').DataTable({
-            responsive: true,
-            dom: '<"html5buttons">Brtlip',
+        $('.booknow').click(function(){
+            var id = $(this).attr('id');
+            $('#formbooknow')[0].reset();
+            $.ajax({
+                url:"aksesoris/"+id,
+                dataType:"json",
+                success:function(html)
+                {
+                    $('#nama_promo').val(html.data.alt);
+                    console.log(html.data.ID)
+                    $('#hidden_id').val(html.data.ID);
+                    $('#action_button').val("Book now");
+                    $('#action').val("book");
+                    $('#booknowmodal').modal('show');
+                }
+            })
+        });
+        $('#formbooknow').on('submit', function(event){
+            event.preventDefault();
+            $.ajax({
+                url:"{{ route('aksesoris.store') }}",
+                method:"POST",
+                data: new FormData(this),
+                contentType: false,
+                cache:false,
+                processData: false,
+                dataType:"json",
+                beforeSend:function(){
+                    $('#action_button').html('loading...').attr('disabled', true);
+                },
+                success:function(data)
+                {
+                    var html = '';
+                    if(data.errors)
+                    {
+                        html = '';
+                        for(var count = 0; count < data.errors.length; count++)
+                        {
+                            html += data.errors[count] + ', ';
+                        }
+                        swal.fire({
+                            icon: 'warning',
+                            title: 'Data gagal disimpan',
+                            text: html
+                        })
+                        $('#action_button').html('Save changes').attr('disabled', false);
+                    }
+                    if(data.duplicate)
+                    {
+                        swal.fire({
+                            icon: 'warning',
+                            title: 'Data gagal disimpan',
+                            text: html
+                        })
+                        $('#action_button').html('Save changes').attr('disabled', false);
+                    }
+                    if(data.success)
+                    {
+                        $('#booknowmodal').modal('hide');
+                        $('#formbooknow')[0].reset();
+                        $('#action_button').html('Save changes').attr('disabled', false);
+                        swal.fire({
+                            icon: 'success',
+                            title: 'Data berhasil disimpan',
+                            text: 'Data pesanan anda akan diteruskan dan petugas kami akan menghubungi anda. Terima kasih'
+                        })
+                    }
+                },
+                error: function(xhr, status, error) {
+                    var errorMessage = xhr.status + ': ' + xhr.statusText
+                    swal.fire({
+                        icon: 'error',
+                        title: 'Data gagal disimpan',
+                        text: errorMessage
+                    })
+                    $('#action_button').html('Save changes').attr('disabled', false);
+                }
+            })
         });
 
     } );

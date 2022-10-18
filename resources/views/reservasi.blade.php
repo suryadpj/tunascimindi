@@ -17,6 +17,7 @@
                                 @case(1)<div class="avatar avatar-40 alert-success text-success rounded-circle"><i class="bi bi-percent size-20"></i></div> @break
                                 @case(2)<div class="avatar avatar-40 alert-danger text-danger rounded-circle"><i class="bi bi-car-front size-20"></i></div> @break
                                 @case(3)<div class="avatar avatar-40 alert-info text-info rounded-circle"><i class="bi bi-bookmark-check size-20"></i></div> @break
+                                @case(4)<div class="avatar avatar-40 alert-info text-info rounded-circle"><i class="bi bi-bookmark-check size-20"></i></div> @break
                             @endswitch
                         </div>
                         <div class="col align-self-center ps-0">
@@ -25,6 +26,7 @@
                                     @case(1) Promo @break
                                     @case(2) Tes Drive @break
                                     @case(3) Booking Service @break
+                                    @case(4) Pembelian Aksesoris @break
                                     @default
                                 @endswitch
                             </p>
@@ -41,6 +43,7 @@
                                     @case(1) {{ $a->alt }} @break
                                     @case(2) {{ $a->keterangan }} @break
                                     @case(3) {{ number_format($a->km,0) }} KM - {{ $a->job }} @break
+                                    @case(4) {{ $a->aksesorisp }} @break
                                     @default
                                 @endswitch
                             </p>
@@ -74,6 +77,7 @@
                                     @case(1) <a href="#" title="Detail" id="{{ $a->ID }}" class="promo btn btn-info shadow-sm mb-1 rounded-10 theme-bg text-white">Detail</a> @break
                                     @case(2) <a href="#" title="Detail" id="{{ $a->ID }}" class="tesdrive btn btn btn-info shadow-sm mb-1 rounded-10 theme-bg text-white">Detail</a> @break
                                     @case(3) <a href="#" title="Detail" id="{{ $a->ID }}" class="bookingservice btn btn-info shadow-sm mb-1 rounded-10 theme-bg text-white">Detail</a> @break
+                                    @case(4) <a href="#" title="Detail" id="{{ $a->ID }}" class="aksesoris btn btn-info shadow-sm mb-1 rounded-10 theme-bg text-white">Detail</a> @break
                                     @default
                                 @endswitch
 
@@ -208,6 +212,33 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="modalaksesoris" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Finding</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <table width="100%">
+                        <tr>
+                            <th>Aksesoris</th>
+                            <th>:</th>
+                            <td><span id="aksesoris"></span></td>
+                        </tr>
+                        <tr>
+                            <th>Status</th>
+                            <th>:</th>
+                            <td><span id="statusaksesoris"></span></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('css')
@@ -292,6 +323,40 @@
                     }
                     $('.modal-title').text("Detail data");
                     $('#modalpromo').modal('show');
+                }
+            })
+        });
+        $(document).on('click', '.aksesoris', function(){
+            var id = $(this).attr('id');
+            $('#form_result').html('');
+            $.ajax({
+                url:"reservasi/"+id,
+                dataType:"json",
+                success:function(html)
+                {
+                    $('#aksesoris').html(html.data.aksesorisp);
+                    if(html.data.status == 1)
+                    {
+                        $('#statusaksesoris').html('Menunggu respon petugas');
+                    }
+                    else if(html.data.status == 1)
+                    {
+                        $('#statusaksesoris').html('Dihubungi');
+                    }
+                    else if(html.data.status == 3)
+                    {
+                        $('#statusaksesoris').html('Done');
+                    }
+                    else if(html.data.status == 4)
+                    {
+                        $('#statusaksesoris').html('Cancel');
+                    }
+                    else
+                    {
+                        $('#statusaksesoris').html('-');
+                    }
+                    $('.modal-title').text("Detail data");
+                    $('#modalaksesoris').modal('show');
                 }
             })
         });
