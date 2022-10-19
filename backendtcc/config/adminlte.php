@@ -341,7 +341,7 @@ return [
             // 'label'       => 4,
             // 'label_color' => 'success',
         ],
-        ['header' => 'TCC ELEMENT'],
+        ['header' => 'MASTER DATA'],
         [
             'text' => 'Slider Halaman Depan',
             'url'  => 'slider/halamandepan',
