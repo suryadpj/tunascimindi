@@ -286,6 +286,12 @@ return [
             // 'can'  => 'manage-customer',
         ],
         [
+            'text'          => 'Register',
+            'icon'          => 'fas fa-fw fa-user',
+            'url'           => 'userdata',
+            // 'can'  => 'manage-customer',
+        ],
+        [
             'text'        => 'Data PKB',
             'url'         => 'pkb',
             'icon'        => 'fas fa-fw fa-car-tunnel',
@@ -324,6 +330,13 @@ return [
         [
             'text'        => 'Data Minat Trade-in',
             'url'         => 'tradein',
+            'icon'        => 'fas fa-fw fa-file',
+            // 'label'       => 4,
+            // 'label_color' => 'success',
+        ],
+        [
+            'text'        => 'Data Kritik & Saran',
+            'url'         => 'kritik_saran',
             'icon'        => 'fas fa-fw fa-file',
             // 'label'       => 4,
             // 'label_color' => 'success',

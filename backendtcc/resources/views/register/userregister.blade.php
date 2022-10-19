@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', 'Data Reservasi')
+@section('title', 'Customer Data')
 
 @section('content_header')
-    <h1 class="m-0 text-dark">Reservasi Data - Promo Bengkel</h1>
+    <h1 class="m-0 text-dark">Data User Terdaftar / Login</h1>
 @stop
 
 @section('content')
@@ -19,14 +19,31 @@
                             <input type="text" autocomplete="off" class="form-control" name="search_nama" placeholder="Nama Pelanggan">
                         </div>
                     </div>
-                    {{-- <div class="col-sm-2">
+                    <div class="col-sm-2">
                         <div class="form-group">
                             <input type="text" autocomplete="off" class="form-control" name="search_nomorrangka" placeholder="Nomor Rangka">
                         </div>
-                    </div> --}}
+                    </div>
                     <div class="col-sm-2">
                         <div class="form-group">
-                            <input type="date" autocomplete="off" class="form-control" name="search_tanggal" placeholder="tanggal">
+                            <input type="text" autocomplete="off" class="form-control" name="search_domisili" placeholder="Domisili">
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <input type="text" autocomplete="off" class="form-control" name="search_kendaraan" placeholder="Kendaraan">
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <select class="form-control select2" name="search_membership" id="search_membership"  style="width: 100%;">
+                                <option value=''>Pilih Membership</option>
+                                    <option value="1">Platinum</option>
+                                    <option value="2">Gold</option>
+                                    <option value="3">Silver</option>
+                                    <option value="4">Bronze</option>
+                                    <option value="5">New Member</option>
+                            </select>
                         </div>
                     </div>
                     <div class="col-sm-2">
@@ -60,36 +77,15 @@
                                 <tr>
                                     <th></th>
                                     <th>No</th>
-                                    <th>User</th>
-                                    <th>Kategori</th>
-                                    <th>Status</th>
-                                    <th>Tanggal</th>
-                                    <th>Waktu</th>
-                                    <th>Keterangan</th>
+                                    <th>Pelanggan</th>
+                                    <th>Nomor HP</th>
+                                    <th>Domisili</th>
+                                    <th>Kendaraan</th>
+                                    <th>Membership</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                         </table>
-                        <br>
-                        <div class="row">
-                            <div class="col-sm-2">
-                                <label>Update Status :</label>
-                                <div class="form-group">
-                                    <select class="form-control select2" name="statusreservasi">
-                                        <option>Pilih status</option>
-                                        <option value="2">Dihubungi</option>
-                                        <option value="3">Done</option>
-                                        <option value="4">Cancel</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-sm-2">
-                                <label>Submit data</label>
-                                <div class="form-group">
-                                    <button type="submit" id="update_button" class="btn btn-primary percent">Update Data</button>
-                                </div>
-                            </div>
-                        </div>
                     </form>
                 </div>
             </div>
@@ -97,6 +93,37 @@
     </div>
 </div>
 
+<div class="modal fade bd-example-modal-lg" id="modal_catatan">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Default Modal</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form method="post" id="sample_form2" class="form-horizontal" enctype="multipart/form-data">
+                <span id="form_result"></span>
+                @csrf
+                <input type="hidden" name="hidden_id" id="hidden_id" />
+                <div class="modal-body">
+                    <div class="form-group row">
+                        <label for="formFile"  class="col-sm-5 col-form-label">Upload File Customer</label>
+                        <div class="col-sm-7">
+                            <span id="lampiran"></span>
+                            <input class="form-control" type="file" name="file" id="formFile" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <input type="hidden" name="action" id="action" />
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" name="action_button" value="Add" id="action_button" class="btn btn-primary">Save Data</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 <div class="modal fade bd-example-modal-lg" id="modaleditcustomer">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -205,7 +232,7 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label>Pertama kali datang :</label>
-                                <input type="text" autocomplete="off" class="form-control" name="pertamadatang" id="1stcome" placeholder="1stcome / pertama kali datang ke cipondoh">
+                                <input type="text" autocomplete="off" class="form-control" name="pertamadatang" id="1stcome" placeholder="1stcome / pertama kali datang ke cimindi">
                             </div>
                         </div>
                     </div>
@@ -360,34 +387,33 @@ $(document).ready(function(){
         serverSide: true,
         retrieve: true,
         dom: '<"html5buttons">Brtipl',
-        "order": [[ 5, "asc",  ], [6, 'asc']],
+        "order": [[ 1, "desc" ]],
         buttons : [
-                    {extend: 'pdf', title:'Data Reservasi Tunas Toyota Cimindi', "action": newexportaction},
-                    {extend: 'excel', title: 'Data Reservasi Tunas Toyota Cimindi', "action": newexportaction},
-                    {extend:'print',title: 'Data Reservasi Tunas Toyota Cimindi'},
+                    {extend: 'pdf', title:'Data Customer Tunas Toyota Cimindi', "action": newexportaction},
+                    {extend: 'excel', title: 'Data Customer Tunas Toyota Cimindi', "action": newexportaction},
+                    {extend:'print',title: 'Data Customer Tunas Toyota Cimindi'},
         ],
         ajax:{
-            url: "{{ route('reservasidata.bengkel') }}",
+            url: "{{ route('userdata.index') }}",
             data: function (d) {
                 d.namapelanggan = $('input[name=search_nama]').val();
                 d.nomorrangka = $('input[name=search_nomorrangka]').val();
                 d.domisili = $('input[name=search_domisili]').val();
-                d.tanggalreservasi = $('input[name=search_tanggal]').val();
+                d.kendaraan = $('input[name=search_kendaraan]').val();
                 d.membership = $("#search_membership option:selected").val();
             }
         },
         columns: [
-            {"data":"ID"},
+            {"data":"id"},
             { "data": null,"sortable": false,
                 render: function (data, type, row, meta) {
                  return meta.row + meta.settings._iDisplayStart + 1;
                 }
             },
-            {"data":"name"},
+            {"data":"nama_pelanggan"},
             {"data":"kolom_kedua"},
-            {"data":"kolom_kelima"},
-            {"data":"tanggal"},
-            {"data":"waktu"},
+            {"data":"domisili"},
+            {"data":"kolom_ketiga"},
             {"data":"kolom_keempat"},
             {"data":"action",orderable: false},
         ],
@@ -462,7 +488,7 @@ $(document).ready(function(){
         $('#idcheck').val(id);
 
         $.ajax({
-            url: "../reservasidata",
+            url: "customer/tosales",
             method:"POST",
             data: new FormData(this),
             contentType: false,
@@ -471,10 +497,10 @@ $(document).ready(function(){
             dataType:"json",
             success: function (data) {
                 oTable.draw();
-                Swal.fire('Data berhasil diperbarui', '', 'success')
+                Swal.fire('Data berhasil dihapus', '', 'success')
             },
             error: function (xhr) {
-                console.log(xhr);
+                console.log(xhr.responseText);
             }
         });
    });
@@ -505,11 +531,195 @@ $(document).ready(function(){
             });
     });
 
+    $('#create_record').click(function(){
+        $('#sample_form2')[0].reset();
+        $('.select2').val(null).trigger('change');
+        $('.select2').select2();
+        $('#lampiran').html('');
+        // $('#cari').val(null).trigger('change');
+        // $('#area').val(null).trigger('change');
+        $('.modal-title').text("Upload Dokumen Customer");
+        $('#action_button').val("Add");
+        $('#action').val("Add");
+        $('#modal_catatan').modal('show');
+    });
+
+    $(document).on('click', '.edit', function(){
+        var id = $(this).attr('id');
+        console.log('edit')
+        $.ajax({
+            url:"customer/"+id,
+            dataType:"json",
+            success:function(html)
+            {
+                $('#edit_form')[0].reset();
+                $('#vincode').val(html.data.vincode);
+                $('#no_polisi').val(html.data.no_polisi);
+                $('#nama_pelanggan').val(html.data.nama_pelanggan);
+                $('#phone1').val(html.data.phone1);
+                $('#tanggal_lahir').val(html.data.tanggal_lahir);
+                $('#domisili').val(html.data.domisili);
+                $('#hobi').val(html.data.hobi);
+                $('#food_drink').val(html.data.food_drink);
+                $('#terlibat_ssc').val(html.data.terlibat_ssc);
+                $('#tanggal_pengerjaan_ssc').val(html.data.tanggal_pengerjaan_ssc);
+                $('#masa_berlaku_stnk').val(html.data.masa_berlaku_stnk);
+                $('#unit').val(html.data.unit);
+                $('#tahun').val(html.data.tahun);
+                $('#pertamadatang').val(html.data.pertamadatang);
+                $("#status").select2().val(html.data.status).trigger("change");
+                $("#membership").select2().val(html.data.membership).trigger("change");
+                $("#gbsb").select2().val(html.data.gbsb).trigger("change");
+                $("#tcare").select2().val(html.data.tcare).trigger("change");
+                $('#hidden_id2').val(html.data.ID);
+                $('.modal-title').text("Edit Customer Data");
+                $('#action_button2').val("Edit");
+                $('#action2').val("Edit");
+                $('#modaleditcustomer').modal('show');
+            }
+        })
+    });
+
+    $('#edit_form').on('submit', function(event){
+        event.preventDefault();
+        $.ajax({
+            url:"{{ route('customer.updatedata') }}",
+            method:"POST",
+            data: new FormData(this),
+            contentType: false,
+            cache:false,
+            processData: false,
+            dataType:"json",
+            beforeSend:function(){
+                $('#action_button2').html('<i disable class="fa fa-spinner fa-spin"></i>').attr('disabled', true);
+            },
+            success:function(data)
+            {
+                var html = '';
+                if(data.errors)
+                {
+                    html = '';
+                    for(var count = 0; count < data.errors.length; count++)
+                    {
+                        html += data.errors[count] + ', ';
+                    }
+                    swal.fire({
+                        icon: 'warning',
+                        title: 'Data gagal disimpan',
+                        text: html
+                    })
+
+                    $('#action_button2').html('Save changes').attr('disabled', false);
+                }
+                if(data.duplicate)
+                {
+                    swal.fire({
+                        icon: 'warning',
+                        title: 'Data gagal disimpan',
+                        text: html
+                    })
+
+                    $('#action_button2').html('Save changes').attr('disabled', false);
+                }
+                if(data.success)
+                {
+                    $('#modaleditcustomer').modal('hide');
+                    $('#edit_form')[0].reset();
+                    oTable.draw();
+                    $('#action_button2').html('Save changes').attr('disabled', false);
+                    $('#user_table').DataTable().ajax.reload();
+                    swal.fire({
+                        icon: 'success',
+                        title: 'Data berhasil disimpan',
+                        text: data.success
+                    })
+                }
+            },
+            error: function(xhr, status, error) {
+                var errorMessage = xhr.status + ': ' + xhr.statusText
+                swal.fire({
+                    icon: 'error',
+                    title: 'Data gagal disimpan',
+                    text: errorMessage
+                })
+
+                $('#action_button2').html('Save changes').attr('disabled', false);
+            }
+        })
+    });
+    $('#sample_form2').on('submit', function(event){
+        event.preventDefault();
+        $.ajax({
+            url:"{{ route('customer.store') }}",
+            method:"POST",
+            data: new FormData(this),
+            contentType: false,
+            cache:false,
+            processData: false,
+            dataType:"json",
+            beforeSend:function(){
+                $('#action_button').html('<i disable class="fa fa-spinner fa-spin"></i>').attr('disabled', true);
+            },
+            success:function(data)
+            {
+                var html = '';
+                if(data.errors)
+                {
+                    html = '';
+                    for(var count = 0; count < data.errors.length; count++)
+                    {
+                        html += data.errors[count] + ', ';
+                    }
+                    swal.fire({
+                        icon: 'warning',
+                        title: 'Data gagal disimpan',
+                        text: html
+                    })
+
+                    $('#action_button').html('Save changes').attr('disabled', false);
+                }
+                if(data.duplicate)
+                {
+                    swal.fire({
+                        icon: 'warning',
+                        title: 'Data gagal disimpan',
+                        text: html
+                    })
+
+                    $('#action_button').html('Save changes').attr('disabled', false);
+                }
+                if(data.success)
+                {
+                    $('#modal_catatan').modal('hide');
+                    $('#sample_form2')[0].reset();
+                    oTable.draw();
+                    $('#action_button').html('Save changes').attr('disabled', false);
+                    $('#user_table').DataTable().ajax.reload();
+                    swal.fire({
+                        icon: 'success',
+                        title: 'Data berhasil disimpan',
+                        text: data.success
+                    })
+                }
+            },
+            error: function(xhr, status, error) {
+                var errorMessage = xhr.status + ': ' + xhr.statusText
+                swal.fire({
+                    icon: 'error',
+                    title: 'Data gagal disimpan',
+                    text: errorMessage
+                })
+
+                $('#action_button').html('Save changes').attr('disabled', false);
+            }
+        })
+    });
+
     $(document).on('click', '.delete', function (e) {
         e.preventDefault();
         var idd = $(this).data('id');
         Swal.fire({
-            title: "Apakah anda yakin akan menghapus data ini ?",
+            title: "Apakah anda yakin akan menghapus data ini ?. Customer tidak akan bisa login jika data dihapus",
             icon: "question",
             showCancelButton: true,
             confirmButtonText: 'Ya',
@@ -520,7 +730,7 @@ $(document).ready(function(){
                 var id = $(this).attr('id');
                 $.ajax({
                     type: "DELETE",
-                    url: "reservasidata/"+id,
+                    url: "userdata/"+id,
                     dataType: 'JSON',
                     data:{
                         'id': id,

@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', 'Data Reservasi')
+@section('title', 'Data Kritik & Saran')
 
 @section('content_header')
-    <h1 class="m-0 text-dark">Reservasi Data - Promo Bengkel</h1>
+    <h1 class="m-0 text-dark">Data Kritik & Saran</h1>
 @stop
 
 @section('content')
@@ -61,11 +61,10 @@
                                     <th></th>
                                     <th>No</th>
                                     <th>User</th>
-                                    <th>Kategori</th>
-                                    <th>Status</th>
                                     <th>Tanggal</th>
-                                    <th>Waktu</th>
-                                    <th>Keterangan</th>
+                                    <th>Kritik</th>
+                                    <th>Saran</th>
+                                    <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -367,7 +366,7 @@ $(document).ready(function(){
                     {extend:'print',title: 'Data Reservasi Tunas Toyota Cimindi'},
         ],
         ajax:{
-            url: "{{ route('reservasidata.bengkel') }}",
+            url: "{{ route('kritik_saran.index') }}",
             data: function (d) {
                 d.namapelanggan = $('input[name=search_nama]').val();
                 d.nomorrangka = $('input[name=search_nomorrangka]').val();
@@ -384,11 +383,10 @@ $(document).ready(function(){
                 }
             },
             {"data":"name"},
-            {"data":"kolom_kedua"},
+            {"data":"tglbuat"},
+            {"data":"kritik"},
+            {"data":"saran"},
             {"data":"kolom_kelima"},
-            {"data":"tanggal"},
-            {"data":"waktu"},
-            {"data":"kolom_keempat"},
             {"data":"action",orderable: false},
         ],
       'columnDefs': [
@@ -462,7 +460,7 @@ $(document).ready(function(){
         $('#idcheck').val(id);
 
         $.ajax({
-            url: "../reservasidata",
+            url: "reservasidata",
             method:"POST",
             data: new FormData(this),
             contentType: false,
@@ -474,7 +472,7 @@ $(document).ready(function(){
                 Swal.fire('Data berhasil diperbarui', '', 'success')
             },
             error: function (xhr) {
-                console.log(xhr);
+                console.log(xhr.responseText);
             }
         });
    });
