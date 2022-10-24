@@ -28,7 +28,7 @@
             </div>
         </div>
         <div class="col align-self-center ps-0">
-            <h4 class="text-color-theme"><span class="fw-normal">Selamat {{ $salam }} </span>, {{ auth::user()->name }} {{ $profil->unit }} - {{ $profil->no_polisi }}</h4>
+            <h4 class="text-color-theme"><span class="fw-normal">Selamat {{ $salam }} </span>, <br>{{ auth::user()->name }} {{ $profil->unit }} - {{ $profil->no_polisi }}</h4>
             @if($profil->masa_berlaku_stnk != "0000-00-00")<p class="text-muted">Masa berlaku Pajak STNK hingga tanggal {{ $profil->berlakustnk }} </p>@endif
         </div>
     </div>
@@ -134,6 +134,17 @@
                                                 <h4><a class="text-white" href="tcare-info">T-Care</a></h4>
                                             @else
 
+                                            @endif
+                                            @if($profil->tahun > 0)
+                                                @php
+                                                    $tahunmobil = $profil->tahun;
+                                                    $tahunnow = date('Y');
+                                                    $selisih = $tahunnow-$tahunmobil;
+                                                    if($selisih > 4)
+                                                    {
+                                                        echo "Waktunya trade-in kendaraan anda";
+                                                    }
+                                                @endphp
                                             @endif
                                         </div>
                                         <div class="col align-self-center text-end">
