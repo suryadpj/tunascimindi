@@ -26,7 +26,7 @@ class PkbController extends Controller
         {
             return datatables()->of(pkb::
             leftJoin('users','users.id','pkbdata.IDUser')
-            ->select('pkbdata.*',DB::raw('DATE_FORMAT(pkbdata.pkb_date,"%d %M %Y") as tglbuat'),'users.name')
+            ->select('pkbdata.*',DB::raw('DATE_FORMAT(pkbdata.pkb_date,"%m/%d/%Y") as tglbuat'),'users.name')
             ->where('pkbdata.deleted','0'))
             ->filter(function ($data) use ($request) {
                 if ($request->nomorrangka) {

@@ -421,7 +421,7 @@ $(document).ready(function(){
         serverSide: true,
         retrieve: true,
         dom: '<"html5buttons">Brtipl',
-        "order": [[ 1, "desc" ]],
+        "order": [[ 3, "desc" ]],
         buttons : [
                     {extend: 'pdf', title:'Data Customer Tunas Toyota Cimindi', "action": newexportaction},
                     {extend: 'excel', title: 'Data Customer Tunas Toyota Cimindi', "action": newexportaction},

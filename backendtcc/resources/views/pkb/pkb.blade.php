@@ -221,7 +221,7 @@ $(document).ready(function(){
                 }
             },
             {"data":"name"},
-            {"data":"tglbuat"},
+            {"data":"pkb_date"},
             {"data":"kolom_kedua"},
             {"data":"service_category"},
             {"data":"kolom_ketiga"},
