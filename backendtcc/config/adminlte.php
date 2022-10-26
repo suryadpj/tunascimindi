@@ -317,29 +317,22 @@ return [
             'icon'    => 'fas fa-fw fa-file',
             'submenu' => [
                 [
-                    'text' => 'Promo Sales',
-                    'url'  => 'promo/sales',
+                    'text' => 'Service',
+                    'url'  => 'service',
                 ],
                 [
-                    'text' => 'Promo Service',
-                    'url'  => 'promo/bengkel',
+                    'text' => 'Sales',
+                    'url'  => 'sales',
                 ],
                 [
                     'text' => 'Aksesoris',
-                    'url'  => 'aksesoris/reservasi',
+                    'url'  => 'reservasi',
                 ],
                 [
-                    'text' => 'Service',
-                    'url'  => 'reservasidata',
+                    'text' => 'Trade In',
+                    'url'  => 'tradein',
                 ],
             ],
-        ],
-        [
-            'text'        => 'Data Minat Trade-in',
-            'url'         => 'tradein',
-            'icon'        => 'fas fa-fw fa-file',
-            // 'label'       => 4,
-            // 'label_color' => 'success',
         ],
         [
             'text'        => 'Data Kritik & Saran',

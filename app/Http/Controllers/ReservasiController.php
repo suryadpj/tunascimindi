@@ -22,7 +22,10 @@ class ReservasiController extends Controller
                     ->leftjoin('promo','promo.ID','reservasi.IDParent')
                     ->leftjoin('aksesoris','aksesoris.ID','reservasi.IDParent')
                     ->leftJoin('job_sbe as a','a.ID','reservasi.IDParent')
-                    ->select('reservasi.*','promo.alt','aksesoris.alt as aksesorisp','a.km','a.job',DB::raw('DATE_FORMAT(reservasi.tanggal,"%d %M %Y") as tgl'))->where('reservasi.IDUser',$data_user->id)->orderBy('reservasi.tanggal','desc')->get();
+                    ->select('reservasi.*','promo.alt','aksesoris.alt as aksesorisp','a.km','a.job',DB::raw('DATE_FORMAT(reservasi.tanggal,"%d %M %Y") as tgl'))
+                    ->where('reservasi.IDUser',$data_user->id)
+                    ->whereIn('reservasi.segmen',['1','2','3','4','7'])
+                    ->orderBy('reservasi.tanggal','desc')->get();
         $profil = DB::table('customerdata')
                     ->select('*',DB::raw('DATE_FORMAT(customerdata.masa_berlaku_stnk,"%d %M %Y") as berlakustnk'),DB::raw('DATE_FORMAT(customerdata.tanggal_pengerjaan_ssc,"%d %M %Y") as pengerjaanssc'))
                     ->where('vincode',$data_user->nomor_rangka)->first();

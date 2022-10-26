@@ -92,10 +92,18 @@ class PromoController extends Controller
         }
 
         $data_user = Auth::user();
+        if($request->hidden_id2 == 1)
+        {
+            $segmen = 1;
+        }
+        elseif($request->hidden_id2 == 2)
+        {
+            $segmen= 7;
+        }
 
         $form_data = array(
             'IDUser'            =>  $data_user->id,
-            'segmen'            =>  1,
+            'segmen'            =>  $segmen,
             'IDParent'          =>  $request->hidden_id,
             'tanggal'           =>  $request->tanggal,
             'waktu'             =>  $request->waktu,

@@ -96,8 +96,7 @@ class ReservasiDataController extends Controller
             ->leftJoin('promo','promo.ID','reservasi.IDParent')
             ->select('reservasi.*',DB::raw('DATE_FORMAT(reservasi.tanggal,"%d %M %Y") as tglbuat'),'name','customerdata.no_polisi','promo.alt','promo.penjelasan')
             ->where('reservasi.deleted','0')
-            ->where('segmen',1)
-            ->where('promo.kategori',2))
+            ->whereIn('segmen', [5, 6, 7]))
             ->filter(function ($data) use ($request) {
                 // if ($request->nomorrangka) {
                 //     $data->where('nomor_rangka', 'like', "%{$request->get('nomorangka')}%");
@@ -115,21 +114,36 @@ class ReservasiDataController extends Controller
                     case 1 :  return "Promo"; break;
                     case 2 :  return "Tes Drive"; break;
                     case 3 :  return "Booking Service"; break;
+                    case 4 :  return "Aksesoris"; break;
+                    case 5 :  return "Referensi Kendaraan"; break;
+                    case 6 :  return "Informasi"; break;
                     default : return "-";
                 }
             })
             ->addColumn('kolom_ketiga', function($data) use($data_user){
-                $kolom = $data->tglbuat;
-                $kolom .= "<br>";
-                $kolom .= $data->waktu;
-                return $kolom;
+                if($data->segmen == 1)
+                {
+                    $kolom = $data->tglbuat;
+                    $kolom .= "<br>";
+                    $kolom .= $data->waktu;
+                    return $kolom;
+                }
+                elseif($data->segmen == 5 || $data->segmen == 6)
+                {
+                    $kolom = "Nama: ".$data->nama;
+                    $kolom .= "<br>";
+                    $kolom = "Nomor HP: ".$data->nomorhp;
+                    return $kolom;
+                }
             })
             ->addColumn('kolom_keempat', function($data) use($data_user){
                 switch($data->segmen)
                 {
                     case 1 :  return $data->alt." <br> ".$data->penjelasan; break;
                     case 2 :  return "Tes Drive"; break;
-                    case 3 :  return "Booking Service"; break;
+                    case 3 :  return $data->keterangan; break;
+                    case 5 :  return "PIC SALES : ".$data->keterangan; break;
+                    case 6 :  return $data->keterangan; break;
                     default : return "-";
                 }
             })
@@ -163,8 +177,7 @@ class ReservasiDataController extends Controller
             ->leftJoin('promo','promo.ID','reservasi.IDParent')
             ->select('reservasi.*',DB::raw('DATE_FORMAT(reservasi.tanggal,"%d %M %Y") as tglbuat'),'name','customerdata.no_polisi','promo.alt','promo.penjelasan')
             ->where('reservasi.deleted','0')
-            ->where('segmen',1)
-            ->where('promo.kategori',1))
+            ->whereIn('segmen', [1, 3]))
             ->filter(function ($data) use ($request) {
                 // if ($request->nomorrangka) {
                 //     $data->where('nomor_rangka', 'like', "%{$request->get('nomorangka')}%");

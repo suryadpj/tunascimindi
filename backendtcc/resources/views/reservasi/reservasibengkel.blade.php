@@ -462,7 +462,7 @@ $(document).ready(function(){
         $('#idcheck').val(id);
 
         $.ajax({
-            url: "../reservasidata",
+            url: "reservasidata",
             method:"POST",
             data: new FormData(this),
             contentType: false,

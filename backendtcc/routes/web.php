@@ -86,9 +86,9 @@ Route::resource('/cr7', Cr7Controller::class);
 Route::get('/cr7/data', [Cr7Controller::class, 'data'])->name('cr7.data');
 Route::resource('/kritik_saran', KritikSaranController::class);
 Route::resource('/reservasidata', ReservasiDataController::class);
-Route::get('/promo/sales', [ReservasiDataController::class, 'datasales'])->name('reservasidata.sales');
-Route::get('/promo/bengkel', [ReservasiDataController::class, 'databengkel'])->name('reservasidata.bengkel');
-Route::get('/aksesoris/reservasi', [ReservasiDataController::class, 'dataaksesoris'])->name('reservasidata.aksesoris');
+Route::get('/sales', [ReservasiDataController::class, 'datasales'])->name('reservasidata.sales');
+Route::get('/service', [ReservasiDataController::class, 'databengkel'])->name('reservasidata.bengkel');
+Route::get('/reservasi', [ReservasiDataController::class, 'dataaksesoris'])->name('reservasidata.aksesoris');
 
 Route::resource('/tradein', TradeInController::class);
 

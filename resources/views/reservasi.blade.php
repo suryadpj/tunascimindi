@@ -18,6 +18,7 @@
                                 @case(2)<div class="avatar avatar-40 alert-danger text-danger rounded-circle"><i class="bi bi-car-front size-20"></i></div> @break
                                 @case(3)<div class="avatar avatar-40 alert-info text-info rounded-circle"><i class="bi bi-bookmark-check size-20"></i></div> @break
                                 @case(4)<div class="avatar avatar-40 alert-info text-info rounded-circle"><i class="bi bi-bookmark-check size-20"></i></div> @break
+                                @case(7)<div class="avatar avatar-40 alert-success text-success rounded-circle"><i class="bi bi-percent size-20"></i></div> @break
                             @endswitch
                         </div>
                         <div class="col align-self-center ps-0">
@@ -27,6 +28,7 @@
                                     @case(2) Tes Drive @break
                                     @case(3) Booking Service @break
                                     @case(4) Pembelian Aksesoris @break
+                                    @case(7) Promo @break
                                     @default
                                 @endswitch
                             </p>
@@ -35,6 +37,7 @@
                                     @case(1) {{ $a->tgl }} - {{ $a->waktu }} @break
                                     @case(2) {{ $a->tgl }} @break
                                     @case(3) {{ $a->tgl }} - {{ $a->waktu }} @break
+                                    @case(7) {{ $a->tgl }} - {{ $a->waktu }} @break
                                     @default
                                 @endswitch
                             </p>
@@ -44,6 +47,7 @@
                                     @case(2) {{ $a->keterangan }} @break
                                     @case(3) {{ number_format($a->km,0) }} KM - {{ $a->job }} @break
                                     @case(4) {{ $a->aksesorisp }} @break
+                                    @case(7) {{ $a->alt }} @break
                                     @default
                                 @endswitch
                             </p>
@@ -78,6 +82,7 @@
                                     @case(2) <a href="#" title="Detail" id="{{ $a->ID }}" class="tesdrive btn btn btn-info shadow-sm mb-1 rounded-10 theme-bg text-white">Detail</a> @break
                                     @case(3) <a href="#" title="Detail" id="{{ $a->ID }}" class="bookingservice btn btn-info shadow-sm mb-1 rounded-10 theme-bg text-white">Detail</a> @break
                                     @case(4) <a href="#" title="Detail" id="{{ $a->ID }}" class="aksesoris btn btn-info shadow-sm mb-1 rounded-10 theme-bg text-white">Detail</a> @break
+                                    @case(7) <a href="#" title="Detail" id="{{ $a->ID }}" class="promo btn btn-info shadow-sm mb-1 rounded-10 theme-bg text-white">Detail</a> @break
                                     @default
                                 @endswitch
 

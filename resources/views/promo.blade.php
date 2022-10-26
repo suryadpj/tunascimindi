@@ -58,6 +58,7 @@
                 <form id="formbooknow">
                     @csrf
                     <input type="hidden" name="hidden_id" id="hidden_id" />
+                    <input type="hidden" name="hidden_id2" id="hidden_id2" />
                     <div class="modal-header">
                     <h5 class="modal-title" id="staticBackdropLabel">Book Now</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -163,6 +164,7 @@
                     $('#nama_promo').val(html.data.alt);
                     console.log(html.data.ID)
                     $('#hidden_id').val(html.data.ID);
+                    $('#hidden_id2').val(html.data.kategori);
                     $('#action_button').val("Book now");
                     $('#action').val("book");
                     $('#booknowmodal').modal('show');

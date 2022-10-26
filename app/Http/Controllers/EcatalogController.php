@@ -81,15 +81,17 @@ class EcatalogController extends Controller
 
         $form_data = array(
             'IDUser'                =>  $data_user->id,
-            'nama_referensi'        =>  $request->nama_referensi,
-            'nomorhp_referensi'     =>  $request->nomorhp_referensi,
-            'IDBrosur'              =>  $request->kendaraan,
-            'salesreferensi'              =>  $request->sales_referensi,
+            'segmen'                =>  5,
+            'nama'                  =>  $request->nama_referensi,
+            'nomorhp'               =>  $request->nomorhp_referensi,
+            'IDParent'              =>  $request->kendaraan,
+            'keterangan'            =>  $request->sales_referensi,
             'status'                =>  0,
+            'IDUserEksekusi'        =>  0,
             'deleted'               =>  0,
         );
 
-        DB::table('referensicatalog')->insert($form_data);
+        DB::table('reservasi')->insert($form_data);
 
         return response()->json(['success' => 'Data berhasil ditambahkan.']);
     }
@@ -116,13 +118,15 @@ class EcatalogController extends Controller
 
         $form_data = array(
             'IDUser'                =>  $data_user->id,
-            'IDBrosur'              =>  $request->kendaraan,
-            'salesreferensi'              =>  $request->keterangan,
+            'segmen'                =>  6,
+            'IDParent'              =>  $request->kendaraan,
+            'keterangan'            =>  $request->keterangan,
             'status'                =>  0,
+            'IDUserEksekusi'        =>  0,
             'deleted'               =>  0,
         );
 
-        DB::table('referensicatalog')->insert($form_data);
+        DB::table('reservasi')->insert($form_data);
 
         return response()->json(['success' => 'Data berhasil ditambahkan.']);
     }
