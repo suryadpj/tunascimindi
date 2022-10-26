@@ -3,11 +3,11 @@
 @section('content')
 <div class="card shadow-sm mb-4">
     <div class="card-body text-center ">
-        <p><b>Halaman Sales Consultation</b></p>
+        <p><b>Halaman Referensi</b></p>
     </div>
     <ul class="list-group list-group-flush bg-none">
-        <li class="list-group-item"><a href="#" class="text-normal d-block">Informasi Unit<i class="float-end bi bi-arrow-right"></i></a></li>
-        <li class="list-group-item"><a href="#" class="referensi text-normal d-block">Referensi<i class="float-end bi bi-arrow-right"></i></a></li>
+        <li class="list-group-item"><a href="#" class="informasi text-normal d-block">Informasi Unit<i class="float-end bi bi-arrow-right"></i></a></li>
+        <li class="list-group-item"><a href="#" class="referensi text-normal d-block">Referensikan teman<i class="float-end bi bi-arrow-right"></i></a></li>
     </ul>
 </div>
 
@@ -58,6 +58,45 @@
                     <input type="hidden" name="action" id="action" />
                     <button type="button" class="btn btn-default" data-bs-dismiss="modal" aria-label="Close">Close</button>
                     <button type="submit" name="action_button" value="Add" id="action_button" class="btn btn-primary">Kirim data</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="informasiform" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title referensi-title" id="staticBackdropLabel">Finding</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="post" id="forminformasi" class="form-horizontal" enctype="multipart/form-data">
+                <span id="form_result"></span>
+                @csrf
+                <input type="hidden" name="hidden_id2" id="hidden_id2" />
+                <div class="modal-body">
+                    <div class="form-group row">
+                        <label for="perihal" class="col-sm-5 col-form-label required">Kendaraan :<span class="text-danger">*</span></label>
+                        <div class="col-sm-7">
+                            <select class="form-control" name="kendaraan" width="100%">
+                                <option>Pilih kendaraan yang diinginkan</option>
+                                @foreach ($brosur as $brr)
+                                    <option value="{{ $brr->ID }}">{{ $brr->alt }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="perihal" class="col-sm-5 col-form-label">Keterangan:</label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control" name="keterangan_informasi" id="keterangan_informasi" placeholder="Keterangan">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <input type="hidden" name="action2" id="action2" />
+                    <button type="button" class="btn btn-default" data-bs-dismiss="modal" aria-label="Close">Close</button>
+                    <button type="submit" name="action_button2" value="Add2" id="action_button2" class="btn btn-primary">Kirim data</button>
                 </div>
             </form>
         </div>
@@ -139,6 +178,14 @@
             $('#referensiform').modal('show');
             bsCustomFileInput.init();
         });
+        $('.informasi').click(function(){
+            $('#forminformasi')[0].reset();
+            $('.referensi-title').text("Informasi Unit");
+            $('#action_button2').val("Add");
+            $('#action2').val("Add");
+            $('#informasiform').modal('show');
+            bsCustomFileInput.init();
+        });
     $('.slider').slick({
         lazyLoad: 'ondemand',
         infinite: true,
@@ -202,6 +249,71 @@
                                 icon: 'success',
                                 title: 'Data berhasil disimpan',
                                 text: 'Data referensi anda akan diteruskan petugas kami untuk dihubungi. Terima kasih'
+                            })
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        var errorMessage = xhr.status + ': ' + xhr.statusText
+                        swal.fire({
+                            icon: 'error',
+                            title: 'Data gagal disimpan',
+                            text: errorMessage
+                        })
+                        $('#action_button').html('Save changes').attr('disabled', false);
+                    }
+                })
+            }
+        });
+        $('#forminformasi').on('submit', function(event){
+            event.preventDefault();
+            if($('#action2').val() == 'Add')
+            {
+                $.ajax({
+                    url:"{{ route('ecatalog.informasistore') }}",
+                    method:"POST",
+                    data: new FormData(this),
+                    contentType: false,
+                    cache:false,
+                    processData: false,
+                    dataType:"json",
+                    beforeSend:function(){
+                        $('#action_button2').html('<i disable class="fa fa-spinner fa-spin"></i>').attr('disabled', true);
+                    },
+                    success:function(data)
+                    {
+                        var html = '';
+                        if(data.errors)
+                        {
+                            html = '';
+                            for(var count = 0; count < data.errors.length; count++)
+                            {
+                                html += data.errors[count] + ', ';
+                            }
+                            swal.fire({
+                                icon: 'warning',
+                                title: 'Data gagal disimpan',
+                                text: html
+                            })
+                            $('#action_button2').html('Save changes').attr('disabled', false);
+                        }
+                        if(data.duplicate)
+                        {
+                            swal.fire({
+                                icon: 'warning',
+                                title: 'Data gagal disimpan',
+                                text: html
+                            })
+                            $('#action_button2').html('Save changes').attr('disabled', false);
+                        }
+                        if(data.success)
+                        {
+                            $('#informasiform').modal('hide');
+                            $('#forminformasi')[0].reset();
+                            $('#action_button2').html('Save changes').attr('disabled', false);
+                            swal.fire({
+                                icon: 'success',
+                                title: 'Data berhasil disimpan',
+                                text: 'Data informasi kendaraan yang anda inginkan telah diteruskan petugas kami untuk dihubungi. Terima kasih'
                             })
                         }
                     },

@@ -12,13 +12,13 @@ use Validator;
 use App\Models\customer;
 use App\Imports\CustomerData;
 
-class CustomerController extends Controller
+class SscController extends Controller
 {
-    // public function __construct()
-    // {
-    //     $this->middleware('auth');
-    // }
-
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index(request $request)
     {
         $data_user = Auth::user();
@@ -29,7 +29,8 @@ class CustomerController extends Controller
                 return datatables()->of(customer::
                 leftJoin('users','users.id','customerdata.IDUser')
                 ->select('customerdata.*',DB::raw('DATE_FORMAT(customerdata.created_at,"%d %M %Y") as tglbuat'),'users.name')
-                ->where('customerdata.deleted','0'))
+                ->where('customerdata.deleted','0')
+                ->where('customerdata.terlibat_ssc','!=',''))
                 ->filter(function ($data) use ($request) {
                     if ($request->namapelanggan) {
                         $data->where('nama_pelanggan', 'like', "%{$request->get('namapelanggan')}%");
@@ -94,7 +95,8 @@ class CustomerController extends Controller
                 leftJoin('users','users.id','customerdata.IDUser')
                 ->select('customerdata.*',DB::raw('DATE_FORMAT(customerdata.created_at,"%d %M %Y") as tglbuat'),'users.name')
                 ->where('customerdata.deleted','0')
-                ->where('customerdata.IDSales',$data_user->id))
+                ->where('customerdata.IDSales',$data_user->id)
+                ->where('customerdata.terlibat_ssc','!=',''))
                 ->filter(function ($data) use ($request) {
                     if ($request->namapelanggan) {
                         $data->where('nama_pelanggan', 'like', "%{$request->get('namapelanggan')}%");
@@ -145,7 +147,7 @@ class CustomerController extends Controller
                 ->rawColumns(['action','kolom_kedua','kolom_ketiga','kolom_keempat'])
                 ->make(true);}
         }
-        return view('customer.customerdata',['user' => $data_user]);
+        return view('ssc.ssc',['user' => $data_user]);
     }
 
     /**
@@ -166,33 +168,21 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        $messages = [
-            'required' => ':attribute wajib diinput',
-            'min' => ':attribute harus diisi minimal :min karakter',
-            'file.required' => 'File belum anda lampirkan',
-            'kategori_upload.required' => 'Pilih data yang akan di upload DO / PKB',
-        ];
-        $rules = array(
-            'kategori_upload'         =>  'required',
-            'file'       =>  'required',
-        );
-
-        $error = Validator::make($request->all(), $rules,$messages);
-        if($error->fails())
-        {
-            return response()->json(['errors' => $error->errors()->all()]);
-        }
-        if($request->kategori_upload == 1)
-        {
-            Excel::import(new CustomerData, $request->file('file')->store('temp'));
-        }
-        elseif($request->kategori_upload == 2)
-        {
-            Excel::import(new DOImport, $request->file('file')->store('temp'));
-        }
+        Excel::import(new sscimport, $request->file('file')->store('temp'));
         return response()->json(['success' => 'Data berhasil ditambahkan.']);
     }
 
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        $data = customer::where('ID',$id)->select('*','1stcome as pertamadatang')->first();
+        return response()->json(['data' => $data]);
+    }
     public function updatedata(Request $request)
     {
         $messages = [
@@ -214,51 +204,16 @@ class CustomerController extends Controller
         }
 
         $form_data = array(
-            'vincode'                   => $request->vincode,
-            'no_polisi'                 => $request->no_polisi,
-            'nama_pelanggan'            => $request->nama_pelanggan,
-            'phone1'                    => $request->phone1,
-            'phone2'                    => 0,
-            'domisili'                  => $request->domisili,
-            'hobi'                      => $request->hobi,
-            'food_drink'                => $request->food_drink,
             'terlibat_ssc'              => $request->terlibat_ssc,
-            'unit'                      => $request->unit,
-            'tahun'                     => $request->tahun,
-            '1stcome'             => $request->pertamadatang,
-            'status'                    => $request->status,
-            'membership'                => $request->memebrship,
-            'gbsb'                      => $request->gbsb,
-            'tcare'                     => $request->tcare,
         );
-        if(!empty($request->tanggal_lahir))
-        {
-            $form_data = array_merge($form_data, ['tanggal_lahir' => $request->tanggal_lahir]);
-        }
         if(!empty($request->tanggal_pengerjaan_ssc))
         {
             $form_data = array_merge($form_data, ['tanggal_pengerjaan_ssc' => $request->tanggal_pengerjaan_ssc]);
-        }
-        if(!empty($request->masa_berlaku_stnk))
-        {
-            $form_data = array_merge($form_data, ['masa_berlaku_stnk' => $request->masa_berlaku_stnk]);
         }
 
         DB::table('customerdata')->where('ID',$request->hidden_id2)->update($form_data);
 
         return response()->json(['success' => 'Data berhasil dirubah']);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        $data = customer::find($id)->select('*','1stcome as pertamadatang')->first();
-        return response()->json(['data' => $data]);
     }
 
     /**
@@ -292,12 +247,7 @@ class CustomerController extends Controller
      */
     public function destroy($id)
     {
-        customer::where('ID',$id)->update(['deleted' => 1]);
+        customer::where('ID',$id)->update(['terlibat_ssc' => NULL,'tanggal_pengerjaan_ssc' => null]);
         return response()->json(['success' => 'Data berhasil dihapus.']);
-    }
-    public function updatesales(request $request)
-    {
-        customer::whereIn('ID',array($request->hidden_id))->update(['membership' => $request->IDSales]);
-        return response()->json(['success' => 'Data berhasil dirubah.']);
     }
 }

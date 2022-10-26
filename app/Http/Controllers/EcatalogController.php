@@ -93,6 +93,39 @@ class EcatalogController extends Controller
 
         return response()->json(['success' => 'Data berhasil ditambahkan.']);
     }
+    public function informasistore(Request $request)
+    {
+        $messages = [
+            'required' => ':attribute wajib diinput',
+            'min' => ':attribute harus diisi minimal :min karakter',
+            'max' => ':attribute harus diisi maksimal :max karakter',
+            'numeric' => ':attribute harus diisi angka',
+        ];
+        $rules = array(
+            'kendaraan'             =>  'required',
+        );
+
+        $error = Validator::make($request->all(), $rules,$messages);
+
+        if($error->fails())
+        {
+            return response()->json(['errors' => $error->errors()->all()]);
+        }
+
+        $data_user = Auth::user();
+
+        $form_data = array(
+            'IDUser'                =>  $data_user->id,
+            'IDBrosur'              =>  $request->kendaraan,
+            'salesreferensi'              =>  $request->keterangan,
+            'status'                =>  0,
+            'deleted'               =>  0,
+        );
+
+        DB::table('referensicatalog')->insert($form_data);
+
+        return response()->json(['success' => 'Data berhasil ditambahkan.']);
+    }
 
     /**
      * Display the specified resource.

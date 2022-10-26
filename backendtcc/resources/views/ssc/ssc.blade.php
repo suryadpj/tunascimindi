@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', 'Customer Data')
+@section('title', 'SSC Data')
 
 @section('content_header')
-    <h1 class="m-0 text-dark">Customer Data</h1>
+    <h1 class="m-0 text-dark">SSC Data</h1>
 @stop
 
 @section('content')
@@ -75,41 +75,15 @@
                         <table id="user_table" class="table table-bordered table-hover table-striped table-hover ajaxTable datatable">
                             <thead>
                                 <tr>
-                                    <th></th>
                                     <th>No</th>
-                                    <th>Creator</th>
                                     <th>Pelanggan</th>
                                     <th>Nomor HP</th>
-                                    <th>Domisili</th>
-                                    <th>Kendaraan</th>
-                                    <th>Membership</th>
-                                    <th>Sales</th>
+                                    <th>SSC</th>
+                                    <th>Tanggal Pengerjaan</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                         </table>
-                        <br>
-                            <div class="row">
-                                <div class="col-sm-2">
-                                    <label>Update Segmentation :</label>
-                                    <div class="form-group">
-                                        <select class="form-control select2" name="search_membership" id="search_membership"  style="width: 100%;">
-                                            <option value=''>Pilih Membership</option>
-                                                <option value="1">Platinum</option>
-                                                <option value="2">Gold</option>
-                                                <option value="3">Silver</option>
-                                                <option value="4">Bronze</option>
-                                                <option value="5">New Member</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-sm-2">
-                                    <label>Submit data</label>
-                                    <div class="form-group">
-                                        <button type="submit" id="update_button" class="btn btn-primary percent">Update Sales</button>
-                                    </div>
-                                </div>
-                            </div>
                     </form>
                 </div>
             </div>
@@ -132,17 +106,7 @@
                 <input type="hidden" name="hidden_id" id="hidden_id" />
                 <div class="modal-body">
                     <div class="form-group row">
-                        <label for="formFile"  class="col-sm-5 col-form-label">Ketegori File</label>
-                        <div class="col-sm-7">
-                            <select class="form-control select2" name="kategori_upload" id="kategori_upload" style="width: 100%;">
-                                <option value=0 selected>Pilih Kategori</option>
-                                <option value="1">Data Customer Lama</option>
-                                <option value="2">Data DO</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="formFile"  class="col-sm-5 col-form-label">Upload File Customer</label>
+                        <label for="formFile"  class="col-sm-5 col-form-label">Upload File SSC</label>
                         <div class="col-sm-7">
                             <span id="lampiran"></span>
                             <input class="form-control" type="file" name="file" id="formFile" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
@@ -189,134 +153,14 @@
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label>Nama Pelanggan :</label>
-                                <input type="text" autocomplete="off" name="nama_pelanggan" id="nama_pelanggan" class="form-control" placeholder="Nama Pelanggan"/>
+                                <label>SSC :</label>
+                                <input type="text" autocomplete="off" name="ssc" id="ssc" class="form-control" placeholder="Terlibat SSC apa ?"/>
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label>Nomor HP :</label>
-                                <input type="number" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==13) return false;" autocomplete="off" class="form-control" name="phone1" id="phone1" placeholder="Nomor HP">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>Tanggal Lahir :</label>
-                                <input type="date" autocomplete="off" name="tanggal_lahir" id="tanggal_lahir" class="form-control" placeholder="Tanggal Lahir"/>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>Domisili :</label>
-                                <input type="text" autocomplete="off" class="form-control" name="domisili" id="domisili" placeholder="Domisili">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>Hobi :</label>
-                                <input type="date" autocomplete="off" name="hobi" id="hobi" class="form-control" placeholder="Hobi"/>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>Makanan & Minuman :</label>
-                                <input type="text" autocomplete="off" class="form-control" name="food_drink" id="food_drink" placeholder="Makanan & Minuman favorit">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>Terlibat SSC :</label>
-                                <input type="date" autocomplete="off" name="terlibat_ssc" id="terlibat_ssc" class="form-control" placeholder="Jika terlibat, silahkan isi komponen SSC nya"/>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>Tanggal Pengerjaan SSC :</label>
-                                <input type="date" autocomplete="off" class="form-control" name="tanggal_pengerjaan_ssc" id="tanggal_pengerjaan_ssc" placeholder="Isi tanggal pengerjaan SSC nya">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>Masa berlaku STNK :</label>
-                                <input type="date" autocomplete="off" name="masa_berlaku_stnk" id="masa_berlaku_stnk" class="form-control" placeholder="Masa berlaku STNK sampai kapan ?"/>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>Unit Kendaraan :</label>
-                                <input type="text" autocomplete="off" class="form-control" name="unit" id="unit" placeholder="Unit Kendaraan toyota yang dimiliki">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>Tahun :</label>
-                                <input type="number" min="1900" max="2099" step="1" autocomplete="off" name="tahun" id="tahun" class="form-control" placeholder="Tahun kendaraan"/>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>Pertama kali datang :</label>
-                                <input type="text" autocomplete="off" class="form-control" name="pertamadatang" id="1stcome" placeholder="1stcome / pertama kali datang ke cimindi">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>Status</label>
-                                <select class="form-control select2" name="status" id="status" style="width: 100%;">
-                                    <option value='0'>Pilih data</option>
-                                    <option value="1">Aktif</option>
-                                    <option value="2">Inactive</option>
-                                    <option value="3">Loyal</option>
-                                    <option value="4">New</option>
-                                    <option value="5">Pasif</option>
-                                    </select>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>Membership</label>
-                                <select class="form-control select2" name="membership" id="membership" style="width: 100%;">
-                                    <option value='0'>Pilih data</option>
-                                    <option value="1">Platinum</option>
-                                    <option value="2">Gold</option>
-                                    <option value="3">Silver</option>
-                                    <option value="4">Bronze</option>
-                                    <option value="5">New Member</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>GBSB</label>
-                                <select class="form-control select2" name="gbsb" id="gbsb" style="width: 100%;">
-                                    <option value='0'>Pilih data</option>
-                                    <option value="1">Ya</option>
-                                    <option value="2">Tidak</option>
-                                    </select>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>T-Care</label>
-                                <select class="form-control select2" name="tcare" id="tcare" style="width: 100%;">
-                                    <option value='0'>Pilih data</option>
-                                    <option value="1">Ya</option>
-                                    <option value="2">Tidak</option>
-                                </select>
+                                <label>Tanggal Pengerjaan :</label>
+                                <input type="date" autocomplete="off" name="tanggal_ssc" id="tanggal_ssc" class="form-control" placeholder="Tanggal Pengerjaan SSC"/>
                             </div>
                         </div>
                     </div>
@@ -428,7 +272,7 @@ $(document).ready(function(){
                     {extend:'print',title: 'Data Customer Tunas Toyota Cimindi'},
         ],
         ajax:{
-            url: "{{ route('customer.index') }}",
+            url: "{{ route('ssc.index') }}",
             data: function (d) {
                 d.namapelanggan = $('input[name=search_nama]').val();
                 d.nomorrangka = $('input[name=search_nomorrangka]').val();
@@ -438,29 +282,17 @@ $(document).ready(function(){
             }
         },
         columns: [
-            {"data":"ID"},
             { "data": null,"sortable": false,
                 render: function (data, type, row, meta) {
                  return meta.row + meta.settings._iDisplayStart + 1;
                 }
             },
-            {"data":"name"},
             {"data":"nama_pelanggan"},
             {"data":"kolom_kedua"},
-            {"data":"domisili"},
-            {"data":"kolom_ketiga"},
-            {"data":"kolom_keempat"},
-            {"data":"kolom_kelima"},
+            {"data":"terlibat_ssc"},
+            {"data":"tanggal_pengerjaan_ssc"},
             {"data":"action",orderable: false},
         ],
-      'columnDefs': [
-         {
-            'targets': 0,
-            'checkboxes': {
-               'selectRow': true
-            }
-         }
-      ],
       'select': {
          'style': 'multi'
       },
@@ -508,39 +340,6 @@ $(document).ready(function(){
         dt.ajax.reload();
     }
 
-
-   $('#updatesalesform').on('submit', function(e){
-        var form = this;
-        e.preventDefault();
-        var id = "";
-
-        var rows_selected = oTable.column(0).checkboxes.selected();
-        console.log(rows_selected[0])
-
-        // Iterate over all selected checkboxes
-        $.each(rows_selected, function(index, rowId){
-            id = id + rowId + ',';
-        });
-        $('#idcheck').val(id);
-
-        $.ajax({
-            url: "customer/tosales",
-            method:"POST",
-            data: new FormData(this),
-            contentType: false,
-            cache:false,
-            processData: false,
-            dataType:"json",
-            success: function (data) {
-                oTable.draw();
-                Swal.fire('Data berhasil dihapus', '', 'success')
-            },
-            error: function (xhr) {
-                console.log(xhr.responseText);
-            }
-        });
-   });
-
     $('#sample_form').on('submit', function(e) {
         oTable.draw();
         e.preventDefault();
@@ -574,7 +373,7 @@ $(document).ready(function(){
         $('#lampiran').html('');
         // $('#cari').val(null).trigger('change');
         // $('#area').val(null).trigger('change');
-        $('.modal-title').text("Upload Dokumen Customer");
+        $('.modal-title').text("Upload Dokumen SSC");
         $('#action_button').val("Add");
         $('#action').val("Add");
         $('#modal_catatan').modal('show');
@@ -584,31 +383,17 @@ $(document).ready(function(){
         var id = $(this).attr('id');
         console.log('edit')
         $.ajax({
-            url:"customer/"+id,
+            url:"ssc/"+id,
             dataType:"json",
             success:function(html)
             {
                 $('#edit_form')[0].reset();
                 $('#vincode').val(html.data.vincode);
                 $('#no_polisi').val(html.data.no_polisi);
-                $('#nama_pelanggan').val(html.data.nama_pelanggan);
-                $('#phone1').val(html.data.phone1);
-                $('#tanggal_lahir').val(html.data.tanggal_lahir);
-                $('#domisili').val(html.data.domisili);
-                $('#hobi').val(html.data.hobi);
-                $('#food_drink').val(html.data.food_drink);
-                $('#terlibat_ssc').val(html.data.terlibat_ssc);
-                $('#tanggal_pengerjaan_ssc').val(html.data.tanggal_pengerjaan_ssc);
-                $('#masa_berlaku_stnk').val(html.data.masa_berlaku_stnk);
-                $('#unit').val(html.data.unit);
-                $('#tahun').val(html.data.tahun);
-                $('#pertamadatang').val(html.data.pertamadatang);
-                $("#status").select2().val(html.data.status).trigger("change");
-                $("#membership").select2().val(html.data.membership).trigger("change");
-                $("#gbsb").select2().val(html.data.gbsb).trigger("change");
-                $("#tcare").select2().val(html.data.tcare).trigger("change");
+                $('#ssc').val(html.data.terlibat_ssc);
+                $('#tanggal_ssc').val(html.data.tanggal_pengerjaan_ssc);
                 $('#hidden_id2').val(html.data.ID);
-                $('.modal-title').text("Edit Customer Data");
+                $('.modal-title').text("Edit SSC Data");
                 $('#action_button2').val("Edit");
                 $('#action2').val("Edit");
                 $('#modaleditcustomer').modal('show');
@@ -619,7 +404,7 @@ $(document).ready(function(){
     $('#edit_form').on('submit', function(event){
         event.preventDefault();
         $.ajax({
-            url:"{{ route('customer.updatedata') }}",
+            url:"{{ route('ssc.updatedata') }}",
             method:"POST",
             data: new FormData(this),
             contentType: false,
@@ -686,7 +471,7 @@ $(document).ready(function(){
     $('#sample_form2').on('submit', function(event){
         event.preventDefault();
         $.ajax({
-            url:"{{ route('customer.store') }}",
+            url:"{{ route('ssc.store') }}",
             method:"POST",
             data: new FormData(this),
             contentType: false,
@@ -755,7 +540,7 @@ $(document).ready(function(){
         e.preventDefault();
         var idd = $(this).data('id');
         Swal.fire({
-            title: "Apakah anda yakin akan menghapus data ini ?. Customer tidak akan bisa login jika tidak memiliki data disini",
+            title: "Apakah anda yakin akan menghapus data ini ?. Pastikan pekerjaan ssc telah diselesaikan",
             icon: "question",
             showCancelButton: true,
             confirmButtonText: 'Ya',
@@ -766,7 +551,7 @@ $(document).ready(function(){
                 var id = $(this).attr('id');
                 $.ajax({
                     type: "DELETE",
-                    url: "customer/"+id,
+                    url: "ssc/"+id,
                     dataType: 'JSON',
                     data:{
                         'id': id,

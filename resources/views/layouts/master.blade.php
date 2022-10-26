@@ -232,7 +232,7 @@
                                 <li><a class="dropdown-item nav-link {{{ (Request::is('pagesalesconsultation') ? 'active' : '') }}} " href="pagesalesconsultation">
                                         <div class="avatar avatar-40 rounded icon"><i class="bi bi-play-fill"></i>
                                         </div>
-                                        <div class="col">Sales Consultation</div>
+                                        <div class="col">Referensi</div>
                                         <div class="arrow"><i class="bi bi-chevron-right"></i></div>
                                     </a></li>
                             </ul>

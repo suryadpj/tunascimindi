@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', 'Customer Data')
+@section('title', 'Sosial Media Data')
 
 @section('content_header')
-    <h1 class="m-0 text-dark">Customer Data</h1>
+    <h1 class="m-0 text-dark">Sosial Media</h1>
 @stop
 
 @section('content')
@@ -14,36 +14,9 @@
             @csrf
             <div class="card-body">
                 <div class="row">
-                    <div class="col-sm-2">
+                    <div class="col-sm-4">
                         <div class="form-group">
-                            <input type="text" autocomplete="off" class="form-control" name="search_nama" placeholder="Nama Pelanggan">
-                        </div>
-                    </div>
-                    <div class="col-sm-2">
-                        <div class="form-group">
-                            <input type="text" autocomplete="off" class="form-control" name="search_nomorrangka" placeholder="Nomor Rangka">
-                        </div>
-                    </div>
-                    <div class="col-sm-2">
-                        <div class="form-group">
-                            <input type="text" autocomplete="off" class="form-control" name="search_domisili" placeholder="Domisili">
-                        </div>
-                    </div>
-                    <div class="col-sm-2">
-                        <div class="form-group">
-                            <input type="text" autocomplete="off" class="form-control" name="search_kendaraan" placeholder="Kendaraan">
-                        </div>
-                    </div>
-                    <div class="col-sm-2">
-                        <div class="form-group">
-                            <select class="form-control select2" name="search_membership" id="search_membership"  style="width: 100%;">
-                                <option value=''>Pilih Membership</option>
-                                    <option value="1">Platinum</option>
-                                    <option value="2">Gold</option>
-                                    <option value="3">Silver</option>
-                                    <option value="4">Bronze</option>
-                                    <option value="5">New Member</option>
-                            </select>
+                            <input type="text" autocomplete="off" class="form-control" name="search_nama" placeholder="Nama Sosial Media">
                         </div>
                     </div>
                     <div class="col-sm-2">
@@ -64,7 +37,7 @@
             <div class="card-body">
                 <div align="right">
                     <!-- <button type="button" name="create_barang" id="create_barang" class="btn btn-info btn-sm">Tambah Nama Barang</button> -->
-                    <button type="button" name="create_record" id="create_record" class="btn btn-success btn-sm"><i class="fas fa-plus"></i> Tambah Data</button>
+                    {{-- <button type="button" name="create_record" id="create_record" class="btn btn-success btn-sm"><i class="fas fa-plus"></i> Tambah Data</button> --}}
                 </div>
                 <div class="card-body table-responsive p-0">
                 <span id="form_result_save"></span>
@@ -75,41 +48,13 @@
                         <table id="user_table" class="table table-bordered table-hover table-striped table-hover ajaxTable datatable">
                             <thead>
                                 <tr>
-                                    <th></th>
                                     <th>No</th>
-                                    <th>Creator</th>
-                                    <th>Pelanggan</th>
-                                    <th>Nomor HP</th>
-                                    <th>Domisili</th>
-                                    <th>Kendaraan</th>
-                                    <th>Membership</th>
-                                    <th>Sales</th>
+                                    <th>Nama</th>
+                                    <th>Link</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                         </table>
-                        <br>
-                            <div class="row">
-                                <div class="col-sm-2">
-                                    <label>Update Segmentation :</label>
-                                    <div class="form-group">
-                                        <select class="form-control select2" name="search_membership" id="search_membership"  style="width: 100%;">
-                                            <option value=''>Pilih Membership</option>
-                                                <option value="1">Platinum</option>
-                                                <option value="2">Gold</option>
-                                                <option value="3">Silver</option>
-                                                <option value="4">Bronze</option>
-                                                <option value="5">New Member</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-sm-2">
-                                    <label>Submit data</label>
-                                    <div class="form-group">
-                                        <button type="submit" id="update_button" class="btn btn-primary percent">Update Sales</button>
-                                    </div>
-                                </div>
-                            </div>
                     </form>
                 </div>
             </div>
@@ -428,39 +373,21 @@ $(document).ready(function(){
                     {extend:'print',title: 'Data Customer Tunas Toyota Cimindi'},
         ],
         ajax:{
-            url: "{{ route('customer.index') }}",
+            url: "{{ route('sosialmedia.index') }}",
             data: function (d) {
-                d.namapelanggan = $('input[name=search_nama]').val();
-                d.nomorrangka = $('input[name=search_nomorrangka]').val();
-                d.domisili = $('input[name=search_domisili]').val();
-                d.kendaraan = $('input[name=search_kendaraan]').val();
-                d.membership = $("#search_membership option:selected").val();
+                d.nama_sosmed = $('input[name=search_nama]').val();
             }
         },
         columns: [
-            {"data":"ID"},
             { "data": null,"sortable": false,
                 render: function (data, type, row, meta) {
                  return meta.row + meta.settings._iDisplayStart + 1;
                 }
             },
-            {"data":"name"},
-            {"data":"nama_pelanggan"},
-            {"data":"kolom_kedua"},
-            {"data":"domisili"},
-            {"data":"kolom_ketiga"},
-            {"data":"kolom_keempat"},
-            {"data":"kolom_kelima"},
+            {"data":"nama"},
+            {"data":"link"},
             {"data":"action",orderable: false},
         ],
-      'columnDefs': [
-         {
-            'targets': 0,
-            'checkboxes': {
-               'selectRow': true
-            }
-         }
-      ],
       'select': {
          'style': 'multi'
       },

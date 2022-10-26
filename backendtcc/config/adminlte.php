@@ -306,6 +306,13 @@ return [
             // 'label_color' => 'success',
         ],
         [
+            'text'        => 'Data SSC',
+            'url'         => 'ssc',
+            'icon'        => 'fas fa-fw fa-file',
+            // 'label'       => 4,
+            // 'label_color' => 'success',
+        ],
+        [
             'text'    => 'Data Reservasi',
             'icon'    => 'fas fa-fw fa-file',
             'submenu' => [
@@ -402,6 +409,13 @@ return [
                 //     'url'  => 'slider/promo',
                 // ],
             ],
+        ],
+        [
+            'text'        => 'Sosial Media',
+            'url'         => 'sosialmedia',
+            'icon'        => 'fas fa-fw fa-file',
+            // 'label'       => 4,
+            // 'label_color' => 'success',
         ],
         // ['header' => 'account_settings'],
         // [
