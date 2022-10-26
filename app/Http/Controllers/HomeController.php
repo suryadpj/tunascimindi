@@ -56,7 +56,8 @@ class HomeController extends Controller
             $cr7data = DB::table('cr7data')->where('no_polisi',$profil->no_polisi)->orderBy('ID','desc')->first();
             $cr7count = DB::table('cr7data')->where('no_polisi',$profil->no_polisi)->orderBy('ID','desc')->count();
             $segmen_brosur = DB::table('brosurecatalog')->where('deleted',0)->get();
-            return view('profilefirst',['brosur' => $segmen_brosur,'datae' => $data,'profil' => $profil,'nextserv' => $nextservice,'lastservice' => $lastservice,'lastservicecount' => $lastservicecount,'cr7data' => $cr7data,'cr7count' => $cr7count]);
+            $sosialmedia = DB::table('sosialmedia')->where('deleted',0)->get();
+            return view('profilefirst',['sosmed' => $sosialmedia,'brosur' => $segmen_brosur,'datae' => $data,'profil' => $profil,'nextserv' => $nextservice,'lastservice' => $lastservice,'lastservicecount' => $lastservicecount,'cr7data' => $cr7data,'cr7count' => $cr7count]);
         }
         else
         {
@@ -92,7 +93,8 @@ class HomeController extends Controller
             $cr7data = DB::table('cr7data')->where('no_polisi',$profil->no_polisi)->orderBy('ID','desc')->first();
             $cr7count = DB::table('cr7data')->where('no_polisi',$profil->no_polisi)->orderBy('ID','desc')->count();
             $segmen_brosur = DB::table('brosurecatalog')->where('deleted',0)->get();
-            return view('home',['brosur' => $segmen_brosur,'sb' => $segmen_service_berkala,'gr' => $segmen_general_repair,'nextserv' => $nextservice,'bp' => $segmen_body_paint,'profil' => $profil,'lastservice' => $lastservice,'lastservicecount' => $lastservicecount,'cr7data' => $cr7data,'cr7count' => $cr7count,]);
+            $sosialmedia = DB::table('sosialmedia')->where('deleted',0)->get();
+            return view('home',['sosmed' => $sosialmedia,'brosur' => $segmen_brosur,'sb' => $segmen_service_berkala,'gr' => $segmen_general_repair,'nextserv' => $nextservice,'bp' => $segmen_body_paint,'profil' => $profil,'lastservice' => $lastservice,'lastservicecount' => $lastservicecount,'cr7data' => $cr7data,'cr7count' => $cr7count,]);
         }
     }
     public function tcare()

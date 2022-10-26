@@ -404,8 +404,14 @@
         <center>
             <h2 class="text-white py-3 mb-0">IKUTI KAMI</h2>
             <div class="py-1">
-                <a href="#"><img class="img-fluid mx-3" src="https://tunastoyotacimindi.com/assets/img/instagram.png" alt="instagram.png" width="35"></a>
-                <a href="#"><img class="img-fluid mx-3" src="https://tunastoyotacimindi.com/assets/img/twitter-sign.png" alt="twitter.png" width="35"></a>
+                @foreach ($sosmed as $b)
+                    @if ($b->nama == "instagram")
+                    <a href="{{ $b->link }}"><img class="img-fluid mx-3" src="https://tunastoyotacimindi.com/assets/img/instagram.png" alt="instagram.png" width="35"></a>
+                    @endif
+                    @if ($b->nama == "twitter")
+                    <a href="{{ $b->link }}"><img class="img-fluid mx-3" src="https://tunastoyotacimindi.com/assets/img/twitter-sign.png" alt="twitter.png" width="35"></a>
+                    @endif
+                @endforeach
             </div>
             <div class="py-1"><div class="hr-white"></div></div>
             <h4 class="text-white mb-0 py-3">

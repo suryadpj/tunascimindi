@@ -14,14 +14,18 @@
             @csrf
             <div class="card-body">
                 <div class="row">
-                    <div class="col-sm-4">
+                    <div class="col-sm-6">
                         <div class="form-group">
                             <input type="text" autocomplete="off" class="form-control" name="search_nama" placeholder="Nama Sosial Media">
                         </div>
                     </div>
-                    <div class="col-sm-2">
+                    <div class="col-sm-1">
                         <div class="form-group">
                             <button type="submit" id="filter_button" class="btn btn-primary percent"><i class="fas fa-search"></i> Cari</button>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="form-group">
                             <button type="button" id="reset_filter_button" class="btn percent"><i class="fas fa-undo"></i> Reset</button>
                         </div>
                     </div>
@@ -120,148 +124,14 @@
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label>Nomor Rangka :</label>
-                                <input type="text" autocomplete="off" name="vincode" id="vincode" class="form-control" placeholder="Nomor Rangka"/>
+                                <label>Nama :</label>
+                                <input type="text" autocomplete="off" name="nama" id="nama" class="form-control" readonly/>
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label>Nomor Polisi :</label>
-                                <input type="text" autocomplete="off" class="form-control" name="no_polisi" id="no_polisi" placeholder="Nomor Polisi Kendaraan">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>Nama Pelanggan :</label>
-                                <input type="text" autocomplete="off" name="nama_pelanggan" id="nama_pelanggan" class="form-control" placeholder="Nama Pelanggan"/>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>Nomor HP :</label>
-                                <input type="number" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==13) return false;" autocomplete="off" class="form-control" name="phone1" id="phone1" placeholder="Nomor HP">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>Tanggal Lahir :</label>
-                                <input type="date" autocomplete="off" name="tanggal_lahir" id="tanggal_lahir" class="form-control" placeholder="Tanggal Lahir"/>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>Domisili :</label>
-                                <input type="text" autocomplete="off" class="form-control" name="domisili" id="domisili" placeholder="Domisili">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>Hobi :</label>
-                                <input type="date" autocomplete="off" name="hobi" id="hobi" class="form-control" placeholder="Hobi"/>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>Makanan & Minuman :</label>
-                                <input type="text" autocomplete="off" class="form-control" name="food_drink" id="food_drink" placeholder="Makanan & Minuman favorit">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>Terlibat SSC :</label>
-                                <input type="date" autocomplete="off" name="terlibat_ssc" id="terlibat_ssc" class="form-control" placeholder="Jika terlibat, silahkan isi komponen SSC nya"/>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>Tanggal Pengerjaan SSC :</label>
-                                <input type="date" autocomplete="off" class="form-control" name="tanggal_pengerjaan_ssc" id="tanggal_pengerjaan_ssc" placeholder="Isi tanggal pengerjaan SSC nya">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>Masa berlaku STNK :</label>
-                                <input type="date" autocomplete="off" name="masa_berlaku_stnk" id="masa_berlaku_stnk" class="form-control" placeholder="Masa berlaku STNK sampai kapan ?"/>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>Unit Kendaraan :</label>
-                                <input type="text" autocomplete="off" class="form-control" name="unit" id="unit" placeholder="Unit Kendaraan toyota yang dimiliki">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>Tahun :</label>
-                                <input type="number" min="1900" max="2099" step="1" autocomplete="off" name="tahun" id="tahun" class="form-control" placeholder="Tahun kendaraan"/>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>Pertama kali datang :</label>
-                                <input type="text" autocomplete="off" class="form-control" name="pertamadatang" id="1stcome" placeholder="1stcome / pertama kali datang ke cimindi">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>Status</label>
-                                <select class="form-control select2" name="status" id="status" style="width: 100%;">
-                                    <option value='0'>Pilih data</option>
-                                    <option value="1">Aktif</option>
-                                    <option value="2">Inactive</option>
-                                    <option value="3">Loyal</option>
-                                    <option value="4">New</option>
-                                    <option value="5">Pasif</option>
-                                    </select>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>Membership</label>
-                                <select class="form-control select2" name="membership" id="membership" style="width: 100%;">
-                                    <option value='0'>Pilih data</option>
-                                    <option value="1">Platinum</option>
-                                    <option value="2">Gold</option>
-                                    <option value="3">Silver</option>
-                                    <option value="4">Bronze</option>
-                                    <option value="5">New Member</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>GBSB</label>
-                                <select class="form-control select2" name="gbsb" id="gbsb" style="width: 100%;">
-                                    <option value='0'>Pilih data</option>
-                                    <option value="1">Ya</option>
-                                    <option value="2">Tidak</option>
-                                    </select>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>T-Care</label>
-                                <select class="form-control select2" name="tcare" id="tcare" style="width: 100%;">
-                                    <option value='0'>Pilih data</option>
-                                    <option value="1">Ya</option>
-                                    <option value="2">Tidak</option>
-                                </select>
+                                <label>Link :</label>
+                                <input type="text" autocomplete="off" class="form-control" name="link" id="link" placeholder="Link Sosial Media">
                             </div>
                         </div>
                     </div>
@@ -494,48 +364,19 @@ $(document).ready(function(){
             });
     });
 
-    $('#create_record').click(function(){
-        $('#sample_form2')[0].reset();
-        $('.select2').val(null).trigger('change');
-        $('.select2').select2();
-        $('#lampiran').html('');
-        // $('#cari').val(null).trigger('change');
-        // $('#area').val(null).trigger('change');
-        $('.modal-title').text("Upload Dokumen Customer");
-        $('#action_button').val("Add");
-        $('#action').val("Add");
-        $('#modal_catatan').modal('show');
-    });
-
     $(document).on('click', '.edit', function(){
         var id = $(this).attr('id');
         console.log('edit')
         $.ajax({
-            url:"customer/"+id,
+            url:"sosialmedia/"+id,
             dataType:"json",
             success:function(html)
             {
                 $('#edit_form')[0].reset();
-                $('#vincode').val(html.data.vincode);
-                $('#no_polisi').val(html.data.no_polisi);
-                $('#nama_pelanggan').val(html.data.nama_pelanggan);
-                $('#phone1').val(html.data.phone1);
-                $('#tanggal_lahir').val(html.data.tanggal_lahir);
-                $('#domisili').val(html.data.domisili);
-                $('#hobi').val(html.data.hobi);
-                $('#food_drink').val(html.data.food_drink);
-                $('#terlibat_ssc').val(html.data.terlibat_ssc);
-                $('#tanggal_pengerjaan_ssc').val(html.data.tanggal_pengerjaan_ssc);
-                $('#masa_berlaku_stnk').val(html.data.masa_berlaku_stnk);
-                $('#unit').val(html.data.unit);
-                $('#tahun').val(html.data.tahun);
-                $('#pertamadatang').val(html.data.pertamadatang);
-                $("#status").select2().val(html.data.status).trigger("change");
-                $("#membership").select2().val(html.data.membership).trigger("change");
-                $("#gbsb").select2().val(html.data.gbsb).trigger("change");
-                $("#tcare").select2().val(html.data.tcare).trigger("change");
-                $('#hidden_id2').val(html.data.ID);
-                $('.modal-title').text("Edit Customer Data");
+                $('#nama').val(html.data.nama);
+                $('#link').val(html.data.link);
+                $('#hidden_id2').val(html.data.id);
+                $('.modal-title').text("Edit Sosial Media");
                 $('#action_button2').val("Edit");
                 $('#action2').val("Edit");
                 $('#modaleditcustomer').modal('show');
@@ -546,7 +387,7 @@ $(document).ready(function(){
     $('#edit_form').on('submit', function(event){
         event.preventDefault();
         $.ajax({
-            url:"{{ route('customer.updatedata') }}",
+            url:"{{ route('sosialmedia.updatedata') }}",
             method:"POST",
             data: new FormData(this),
             contentType: false,

@@ -36,7 +36,6 @@ class SosialMediaController extends Controller
                 $button = '<div class="btn-group">';
                     $button .= '<button type="button" name="edit" id="'.$data->id.'" class="edit btn btn-info btn-sm"><i title="Rubah Data" class="fas fa-pen-to-square"></i></button>';
                     $button .= '&nbsp';
-                    $button .= '<button type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-sm"><i title="Hapus Data" class="fas fa-trash"></i></button>';
                 return $button;})
             ->rawColumns(['action'])
             ->make(true);
@@ -73,7 +72,34 @@ class SosialMediaController extends Controller
      */
     public function show($id)
     {
-        //
+        $data = DB::table('sosialmedia')->where('id',$id)->select('*')->first();
+        return response()->json(['data' => $data]);
+    }
+    public function updatedata(Request $request)
+    {
+        $messages = [
+            'required' => ':attribute wajib diinput',
+            'min' => ':attribute harus diisi minimal :min karakter',
+            'max' => ':attribute harus diisi maksimal :max karakter',
+            'numeric' => ':attribute harus diisi angka',
+        ];
+        $rules = array(
+            'link'         =>  'required',
+        );
+
+        $error = Validator::make($request->all(), $rules,$messages);
+        if($error->fails())
+        {
+            return response()->json(['errors' => $error->errors()->all()]);
+        }
+
+        $form_data = array(
+            'link'                   => $request->link,
+        );
+
+        DB::table('sosialmedia')->where('ID',$request->hidden_id2)->update($form_data);
+
+        return response()->json(['success' => 'Data berhasil dirubah']);
     }
 
     /**
