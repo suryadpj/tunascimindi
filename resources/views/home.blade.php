@@ -28,7 +28,7 @@
             </div>
         </div>
         <div class="col align-self-center ps-0">
-            <h4 class="text-color-theme"><span class="fw-normal">Selamat {{ $salam }} </span>, <br>{{ auth::user()->name }} {{ $profil->unit }} - {{ $profil->no_polisi }}</h4>
+            <h4 class="text-color-theme"><span class="fw-normal">Selamat {{ $salam }} </span>,{{ auth::user()->name }} <br>{{ $profil->unit }} - {{ $profil->no_polisi }}</h4>
             @if($profil->masa_berlaku_stnk != "0000-00-00")<p class="text-muted">Masa berlaku Pajak STNK hingga tanggal {{ $profil->berlakustnk }} </p>@endif
         </div>
     </div>
