@@ -21,27 +21,16 @@
                     </div>
                     <div class="col-sm-2">
                         <div class="form-group">
-                            <input type="text" autocomplete="off" class="form-control" name="search_keterangan" placeholder="Keterangan">
-                        </div>
-                    </div>
-                    <div class="col-sm-2">
-                        <div class="form-group">
                             <input type="date" autocomplete="off" class="form-control" name="search_tanggaleta" placeholder="Tanggal ETA">
                         </div>
                     </div>
-                    <div class="col-sm-2">
-                        <div class="form-group">
-                            <select class="form-control select2" name="search_statuspart" id="search_statuspart"  style="width: 100%;">
-                                <option value=''>Pilih Status Part</option>
-                                    <option value="1">Order</option>
-                                    <option value="2">Part Partial</option>
-                                    <option value="3">Part Ready</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-1">
                         <div class="form-group">
                             <button type="submit" id="filter_button" class="btn btn-primary percent"><i class="fas fa-search"></i> Cari</button>
+                        </div>
+                    </div>
+                    <div class="col-sm-1">
+                        <div class="form-group">
                             <button type="button" id="reset_filter_button" class="btn percent"><i class="fas fa-undo"></i> Reset</button>
                         </div>
                     </div>
@@ -73,7 +62,6 @@
                                     <th>Creator</th>
                                     <th>Nomor Polisi</th>
                                     <th>Keterangan</th>
-                                    <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -233,7 +221,6 @@ $(document).ready(function(){
             {"data":"name"},
             {"data":"no_polisi"},
             {"data":"keterangan"},
-            {"data":"kolom_kedua"},
             {"data":"action",orderable: false},
         ],
       'columnDefs': [

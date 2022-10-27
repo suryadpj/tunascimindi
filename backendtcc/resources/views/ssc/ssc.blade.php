@@ -80,6 +80,7 @@
                                     <th>Nomor HP</th>
                                     <th>SSC</th>
                                     <th>Tanggal Pengerjaan</th>
+                                    <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -289,8 +290,9 @@ $(document).ready(function(){
             },
             {"data":"nama_pelanggan"},
             {"data":"kolom_kedua"},
-            {"data":"terlibat_ssc"},
-            {"data":"tanggal_pengerjaan_ssc"},
+            {"data":"ssc"},
+            {"data":"repair_date"},
+            {"data":"kolom_status"},
             {"data":"action",orderable: false},
         ],
       'select': {
@@ -390,8 +392,8 @@ $(document).ready(function(){
                 $('#edit_form')[0].reset();
                 $('#vincode').val(html.data.vincode);
                 $('#no_polisi').val(html.data.no_polisi);
-                $('#ssc').val(html.data.terlibat_ssc);
-                $('#tanggal_ssc').val(html.data.tanggal_pengerjaan_ssc);
+                $('#ssc').val(html.data.ssc);
+                $('#tanggal_ssc').val(html.data.repair_date);
                 $('#hidden_id2').val(html.data.ID);
                 $('.modal-title').text("Edit SSC Data");
                 $('#action_button2').val("Edit");
@@ -463,6 +465,7 @@ $(document).ready(function(){
                     title: 'Data gagal disimpan',
                     text: errorMessage
                 })
+                console.log(xhr)
 
                 $('#action_button2').html('Save changes').attr('disabled', false);
             }
@@ -530,6 +533,7 @@ $(document).ready(function(){
                     title: 'Data gagal disimpan',
                     text: errorMessage
                 })
+                console.log(xhr)
 
                 $('#action_button').html('Save changes').attr('disabled', false);
             }

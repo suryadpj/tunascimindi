@@ -23,25 +23,20 @@ class Cr7Data implements ToModel, WithStartRow, WithCalculatedFormulas
     public function model(array $row)
     {
         $data_user = Auth::user();
-        switch($row['42'])
-        {
-            case "Order" : $statusparte = 1; break;
-            case "Part partial" : $statusparte = 2; break;
-            case "Part ready" : $statusparte = 3; break;
-            default : $statusparte = 0;
-        }
-        if($row['43'] == "" || isset($row['44'])) {$tgleta = NULL; } else {$tgleta = $row['43']; }
 
-        if($row['41'] != "")
+        if($row['3'] != "")
         {
-            return new cr7([
-                'IDUser'                    => $data_user->id,
-                'no_polisi'                 => $row['2'],
-                'keterangan'                => $row['41'],
-                'status_part'               => $statusparte,
-                'eta'                       => $tgleta,
-                'deleted'                   => 0
-            ]);
+            $cek = cr7::find($row['3']);
+            if(!$cek)
+            {
+                return new cr7([
+                    'IDUser'                    => $data_user->id,
+                    'no_polisi'                 => $row['3'],
+                    'cr71'                      => $row['8'],
+                    'cr72'                      => $row['9'],
+                    'deleted'                   => 0
+                ]);
+            }
         }
     }
 }

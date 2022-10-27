@@ -26,7 +26,7 @@ class Cr7Controller extends Controller
         {
             return datatables()->of(cr7::
             leftJoin('users','users.id','cr7data.IDUser')
-            ->select('cr7data.*',DB::raw('DATE_FORMAT(cr7data.eta,"%d %M %Y") as tglbuat'),'users.name')
+            ->select('cr7data.*',DB::raw('DATE_FORMAT(cr7data.created_at,"%d %M %Y") as tglbuat'),'users.name')
             ->where('cr7data.deleted','0'))
             ->filter(function ($data) use ($request) {
                 if ($request->nopolisi) {
@@ -35,26 +35,15 @@ class Cr7Controller extends Controller
                 if ($request->keterangan) {
                     $data->where('keterangan', 'like', "%{$request->get('keterangan')}%");
                 }
-                if ($request->statuspart) {
-                    $data->where('status_part', 'like', "%{$request->get('statuspart')}%");
-                }
                 if ($request->eta) {
-                    $data->where('eta', 'like', "%{$request->get('eta')}%");
+                    $data->where('created_at', 'like', "%{$request->get('eta')}%");
                 }
             })
-            ->addColumn('kolom_kedua', function($data) use($data_user){
-                switch($data->status_part)
+            ->addColumn('keterangan', function($data) use($data_user){
+                $kolom = "1 : ".$data->cr71;
+                if($data->cr72 != "")
                 {
-                    case 1 : $statuspart = "Order"; break;
-                    case 2 : $statuspart = "Part partial"; break;
-                    case 3 : $statuspart = "Part ready"; break;
-                    default : $statuspart = '-';
-                }
-                $kolom = $statuspart;
-                $kolom .= "<br>";
-                if($data->eta)
-                {
-                    $kolom .= "Estimasi : ".$data->tglbuat;
+                    $kolom .= "<br>2 : ".$data->cr72;
                 }
                 return $kolom;
             })
@@ -70,7 +59,7 @@ class Cr7Controller extends Controller
                 $button = '<div class="btn-group">';
                     $button .= '<button type="button" name="delete" id="'.$data->ID.'" class="delete btn btn-danger btn-sm"><i title="Rubah Data" class="fas fa-trash"></i></button>';
                 return $button;})
-            ->rawColumns(['action','kolom_kedua'])
+            ->rawColumns(['action','keterangan'])
             ->make(true);
         }
         return view('cr7.cr7',['user' => $data_user]);

@@ -138,6 +138,8 @@
                                 <option value=0 selected>Pilih Kategori</option>
                                 <option value="1">Data Customer Lama</option>
                                 <option value="2">Data DO</option>
+                                <option value="3">Update Data GBSB/TCARE</option>
+                                <option value="4">Update Data SEGMENT MEMBERSHIP</option>
                             </select>
                         </div>
                     </div>
@@ -745,6 +747,7 @@ $(document).ready(function(){
                     title: 'Data gagal disimpan',
                     text: errorMessage
                 })
+                console.log(xhr)
 
                 $('#action_button').html('Save changes').attr('disabled', false);
             }

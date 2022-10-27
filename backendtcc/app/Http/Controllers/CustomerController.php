@@ -11,6 +11,9 @@ use Maatwebsite\Excel\Facades\Excel;
 use Validator;
 use App\Models\customer;
 use App\Imports\CustomerData;
+use App\Imports\DOimport;
+use App\Imports\gbsbtcareimport;
+use App\Imports\membershipimport;
 
 class CustomerController extends Controller
 {
@@ -189,6 +192,14 @@ class CustomerController extends Controller
         elseif($request->kategori_upload == 2)
         {
             Excel::import(new DOImport, $request->file('file')->store('temp'));
+        }
+        elseif($request->kategori_upload == 3)
+        {
+            Excel::import(new gbsbtcareimport, $request->file('file')->store('temp'));
+        }
+        elseif($request->kategori_upload == 4)
+        {
+            Excel::import(new membershipimport, $request->file('file')->store('temp'));
         }
         return response()->json(['success' => 'Data berhasil ditambahkan.']);
     }

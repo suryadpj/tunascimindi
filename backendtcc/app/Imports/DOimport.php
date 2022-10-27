@@ -26,14 +26,14 @@ class DOImport implements ToModel, WithStartRow, WithCalculatedFormulas, WithVal
     {
         $data_user = Auth::user();
 
-        $cek = DB::table('customerdata')->where('vincode',$row['1'])->count();
-        if($cek  == 0 && $row['1'] != "")
+        $cek = DB::table('customerdata')->where('vincode',$row['12'])->count();
+        if($cek  == 0 && $row['12'] != "")
         {
             return new customer([
                 'IDUser'                    => $data_user->id,
-                'vincode'                   => $row['1'],
-                'no_polisi'                 => $row['2'],
-                'nama_pelanggan'            => $row['3'],
+                'vincode'                   => $row['12'],
+                'no_polisi'                 => 'BARU',
+                'nama_pelanggan'            => $row['5'],
                 'phone1'                    => 0,
                 'phone2'                    => 0,
                 'tanggal_lahir'             => NULL,
@@ -41,8 +41,8 @@ class DOImport implements ToModel, WithStartRow, WithCalculatedFormulas, WithVal
                 'hobi'                      => NULL,
                 'food_drink'                => NULL,
                 'terlibat_ssc'              => NULL,
-                'unit'                      => $row['4'],
-                'tahun'                     => $row['5'],
+                'unit'                      => $row['11'],
+                'tahun'                     => date('Y'),
                 '1stcome'                   => NULL,
                 'status'                    => NULL,
                 'membership'                => NULL,
@@ -63,7 +63,7 @@ class DOImport implements ToModel, WithStartRow, WithCalculatedFormulas, WithVal
     public function rules(): array
     {
         return [
-            '1' => 'required',
+            '12' => 'required',
             // '1' => 'unique:users',
         ];
     }

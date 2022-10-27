@@ -10,7 +10,8 @@ use Yajra\Datatables\Datatables;
 use Maatwebsite\Excel\Facades\Excel;
 use Validator;
 use App\Models\customer;
-use App\Imports\CustomerData;
+use App\Models\sscdata;
+use App\Imports\sscimport;
 
 class SscController extends Controller
 {
@@ -24,13 +25,10 @@ class SscController extends Controller
         $data_user = Auth::user();
         if(request()->ajax())
         {
-            if($data_user->admin == 1 || $data_user->admin == 0)
-            {
                 return datatables()->of(customer::
-                leftJoin('users','users.id','customerdata.IDUser')
-                ->select('customerdata.*',DB::raw('DATE_FORMAT(customerdata.created_at,"%d %M %Y") as tglbuat'),'users.name')
-                ->where('customerdata.deleted','0')
-                ->where('customerdata.terlibat_ssc','!=',''))
+                leftJoin('sscdata','sscdata.vincode','customerdata.vincode')
+                ->select('sscdata.*',DB::raw('DATE_FORMAT(sscdata.created_at,"%d %M %Y") as tglbuat'),'customerdata.nama_pelanggan','customerdata.no_polisi','customerdata.phone1','customerdata.domisili','customerdata.unit','customerdata.membership')
+                ->where('sscdata.deleted','0'))
                 ->filter(function ($data) use ($request) {
                     if ($request->namapelanggan) {
                         $data->where('nama_pelanggan', 'like', "%{$request->get('namapelanggan')}%");
@@ -51,6 +49,16 @@ class SscController extends Controller
                         $data->where('membership', '=', $request->get('membership'));
                     }
                 })
+                ->addColumn('kolom_status', function($data) use($data_user){
+                    switch($data->status)
+                    {
+                        case 0 : return "-"; break;
+                        case 1 : return "Waiting"; break;
+                        case 2 : return "Dalam Pekerjaan"; break;
+                        case 3 : return "Done"; break;
+                        case 4 : return "Cancel"; break;
+                    }
+                })
                 ->addColumn('kolom_kedua', function($data) use($data_user){
                     $kolom = $data->phone1;
                     if($data->phone2 != 0)
@@ -59,26 +67,6 @@ class SscController extends Controller
                         $kolom .= $data->phone2;
                     }
                     return $kolom;
-                })
-                ->addColumn('kolom_ketiga', function($data) use($data_user){
-                    $kolom = $data->unit;
-                    $kolom .= " ";
-                    $kolom .= $data->tahun;
-                    return $kolom;
-                })
-                ->addColumn('kolom_keempat', function($data) use($data_user){
-                    switch($data->membership)
-                    {
-                        case 0 : return "New Member"; break;
-                        case 1 : return "Platinum"; break;
-                        case 2 : return "Gold"; break;
-                        case 3 : return "Silver"; break;
-                        case 4 : return "Bronze"; break;
-                        case 5 : return "New Member"; break;
-                    }
-                })
-                ->addColumn('kolom_kelima', function($data) use($data_user){
-                    return "sales";
                 })
                 ->addColumn('action', function($data) use($data_user){
                     $button = '<div class="btn-group">';
@@ -86,66 +74,8 @@ class SscController extends Controller
                         $button .= '&nbsp';
                         $button .= '<button type="button" name="delete" id="'.$data->ID.'" class="delete btn btn-danger btn-sm"><i title="Hapus Data" class="fas fa-trash"></i></button>';
                     return $button;})
-                ->rawColumns(['action','kolom_kedua','kolom_ketiga','kolom_keempat'])
+                ->rawColumns(['action','kolom_kedua','kolom_status'])
                 ->make(true);
-            }
-            elseif($data_user->admin == 2)
-            {
-                return datatables()->of(customer::
-                leftJoin('users','users.id','customerdata.IDUser')
-                ->select('customerdata.*',DB::raw('DATE_FORMAT(customerdata.created_at,"%d %M %Y") as tglbuat'),'users.name')
-                ->where('customerdata.deleted','0')
-                ->where('customerdata.IDSales',$data_user->id)
-                ->where('customerdata.terlibat_ssc','!=',''))
-                ->filter(function ($data) use ($request) {
-                    if ($request->namapelanggan) {
-                        $data->where('nama_pelanggan', 'like', "%{$request->get('namapelanggan')}%");
-                    }
-                    if ($request->nomorrangka) {
-                        $data->where('vincode', 'like', "%{$request->get('nomorrangka')}%");
-                    }
-                    if ($request->domisili) {
-                        $data->where('domisili', 'like', "%{$request->get('domisili')}%");
-                    }
-                    if ($request->kendaraan) {
-                        $data->where('unit', 'like', "%{$request->get('kendaraan')}%");
-                    }
-                    if ($request->membership) {
-                        $data->where('membership', '=', $request->get('membership'));
-                    }
-                })
-                ->addColumn('kolom_kedua', function($data) use($data_user){
-                    $kolom = $data->phone1;
-                    if($data->phone2 != 0)
-                    {
-                        $kolom .= "<br>";
-                        $kolom .= $data->phone2;
-                    }
-                    return $kolom;
-                })
-                ->addColumn('kolom_ketiga', function($data) use($data_user){
-                    $kolom = $data->unit;
-                    $kolom .= " ";
-                    $kolom .= $data->tahun;
-                    return $kolom;
-                })
-                ->addColumn('kolom_keempat', function($data) use($data_user){
-                    switch($data->membership)
-                    {
-                        case 0 : return "New Member"; break;
-                        case 1 : return "Platinum"; break;
-                        case 2 : return "Gold"; break;
-                        case 3 : return "Silver"; break;
-                        case 4 : return "Bronze"; break;
-                        case 5 : return "New Member"; break;
-                    }
-                })
-                ->addColumn('action', function($data) use($data_user){
-                    $button = '<div class="btn-group">';
-                        $button .= '<button type="button" name="delete" id="'.$data->ID.'" class="delete btn btn-danger btn-sm"><i title="Rubah Data" class="fas fa-trash"></i></button>';
-                    return $button;})
-                ->rawColumns(['action','kolom_kedua','kolom_ketiga','kolom_keempat'])
-                ->make(true);}
         }
         return view('ssc.ssc',['user' => $data_user]);
     }
@@ -180,7 +110,7 @@ class SscController extends Controller
      */
     public function show($id)
     {
-        $data = customer::where('ID',$id)->select('*','1stcome as pertamadatang')->first();
+        $data = DB::table('sscdata')->leftjoin('customerdata','customerdata.vincode','sscdata.vincode')->where('sscdata.ID',$id)->select('sscdata.*','customerdata.nama_pelanggan','customerdata.no_polisi')->first();
         return response()->json(['data' => $data]);
     }
     public function updatedata(Request $request)
@@ -194,7 +124,7 @@ class SscController extends Controller
         $rules = array(
             'vincode'         =>  'required',
             'no_polisi'       =>  'required',
-            'nama_pelanggan'  =>  'required',
+            'ssc'             =>  'required',
         );
 
         $error = Validator::make($request->all(), $rules,$messages);
@@ -203,15 +133,13 @@ class SscController extends Controller
             return response()->json(['errors' => $error->errors()->all()]);
         }
 
-        $form_data = array(
-            'terlibat_ssc'              => $request->terlibat_ssc,
-        );
-        if(!empty($request->tanggal_pengerjaan_ssc))
+        $shark = sscdata::find($request->hidden_id2);
+        $shark->ssc       = $request->ssc;
+        if(!empty($request->tanggal_ssc))
         {
-            $form_data = array_merge($form_data, ['tanggal_pengerjaan_ssc' => $request->tanggal_pengerjaan_ssc]);
+            $shark->repair_date      = $request->tanggal_ssc;
         }
-
-        DB::table('customerdata')->where('ID',$request->hidden_id2)->update($form_data);
+        $shark->save();
 
         return response()->json(['success' => 'Data berhasil dirubah']);
     }

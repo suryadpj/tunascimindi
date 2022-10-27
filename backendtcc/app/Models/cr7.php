@@ -9,4 +9,6 @@ class cr7 extends Model
 {
     use HasFactory;
     protected $table = 'cr7data';
+    protected $primaryKey='no_polisi';
+    protected $fillable = ['IDUser','no_polisi','cr71','cr72','deleted'];
 }
