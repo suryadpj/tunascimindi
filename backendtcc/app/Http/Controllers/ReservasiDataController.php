@@ -178,7 +178,8 @@ class ReservasiDataController extends Controller
             leftJoin('users','users.id','reservasi.IDUser')
             ->leftJoin('customerdata','customerdata.vincode','users.nomor_rangka')
             ->leftJoin('promo','promo.ID','reservasi.IDParent')
-            ->select('reservasi.*',DB::raw('DATE_FORMAT(reservasi.tanggal,"%d %M %Y") as tglbuat'),'name','customerdata.no_polisi','promo.alt','promo.penjelasan')
+            ->leftJoin('job_sbe','job_sbe.ID','reservasi.IDParent')
+            ->select('reservasi.*',DB::raw('DATE_FORMAT(reservasi.tanggal,"%d %M %Y") as tglbuat'),'name','customerdata.no_polisi','promo.alt','promo.penjelasan','job_sbe.km')
             ->where('reservasi.deleted','0')
             ->whereIn('segmen', [1, 3]))
             ->filter(function ($data) use ($request) {
@@ -212,7 +213,7 @@ class ReservasiDataController extends Controller
                 {
                     case 1 :  return $data->alt." <br> ".$data->penjelasan; break;
                     case 2 :  return "Tes Drive"; break;
-                    case 3 :  return "Booking Service"; break;
+                    case 3 :  if($data->km == 0) { return "Job : Oil Change"; } else { return "Job KM: ".$data->km; } break;
                     default : return "-";
                 }
             })
