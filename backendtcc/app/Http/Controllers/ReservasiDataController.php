@@ -143,6 +143,7 @@ class ReservasiDataController extends Controller
                     case 1 :  return $data->alt." <br> ".$data->penjelasan; break;
                     case 2 :  return "Tes Drive"; break;
                     case 3 :  return $data->keterangan; break;
+                    case 4 :  return $data->keterangan; break;
                     case 5 :  return "PIC SALES : ".$data->keterangan; break;
                     case 6 :  return $data->keterangan; break;
                     case 7 :  return $data->alt." <br> ".$data->penjelasan; break;
@@ -274,7 +275,10 @@ class ReservasiDataController extends Controller
                 return $kolom;
             })
             ->addColumn('kolom_keempat', function($data) use($data_user){
-                return "Pembelian Aksesoris ".$data->alt;
+                $kolom = "Pembelian Aksesoris: ".$data->alt;
+                $kolom .= "<br>";
+                $kolom .= "Catatan: ".$data->keterangan;
+                return $kolom;
             })
             ->addColumn('kolom_kelima', function($data) use($data_user){
                 switch($data->status)
