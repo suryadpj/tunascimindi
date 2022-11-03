@@ -25,12 +25,13 @@ class Cr7Controller extends Controller
         if(request()->ajax())
         {
             return datatables()->of(cr7::
-            leftJoin('users','users.id','cr7data.IDUser')
-            ->select('cr7data.*',DB::raw('DATE_FORMAT(cr7data.created_at,"%d %M %Y") as tglbuat'),'users.name')
-            ->where('cr7data.deleted','0'))
+            leftJoin('customerdata','customerdata.no_polisi','cr7data.no_polisi')
+            ->select('cr7data.*',DB::raw('DATE_FORMAT(cr7data.created_at,"%d %M %Y") as tglbuat'),'customerdata.nama_pelanggan','customerdata.vincode','customerdata.no_polisi as no_polisi2')
+            ->where('cr7data.deleted','0')
+            ->wherenotnull('customerdata.no_polisi'))
             ->filter(function ($data) use ($request) {
                 if ($request->nopolisi) {
-                    $data->where('no_polisi', 'like', "%{$request->get('nopolisi')}%");
+                    $data->where('cr7data.no_polisi', 'like', "%{$request->get('nopolisi')}%");
                 }
                 if ($request->keterangan) {
                     $data->where('keterangan', 'like', "%{$request->get('keterangan')}%");

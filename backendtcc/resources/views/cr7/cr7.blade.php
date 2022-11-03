@@ -59,8 +59,9 @@
                                 <tr>
                                     <th></th>
                                     <th>No</th>
-                                    <th>Creator</th>
+                                    <th>Nama Pelanggan</th>
                                     <th>Nomor Polisi</th>
+                                    <th>Nomor Rangka</th>
                                     <th>Keterangan</th>
                                     <th>Action</th>
                                 </tr>
@@ -196,7 +197,7 @@ $(document).ready(function(){
         serverSide: true,
         retrieve: true,
         dom: '<"html5buttons">Brtipl',
-        "order": [[ 3, "desc" ]],
+        "order": [[ 2, "asc" ]],
         buttons : [
                     {extend: 'pdf', title:'Data CR7 Tunas Toyota Cimindi', "action": newexportaction},
                     {extend: 'excel', title: 'Data CR7 Tunas Toyota Cimindi', "action": newexportaction},
@@ -218,8 +219,9 @@ $(document).ready(function(){
                  return meta.row + meta.settings._iDisplayStart + 1;
                 }
             },
-            {"data":"name"},
-            {"data":"no_polisi"},
+            {"data":"nama_pelanggan"},
+            {"data":"no_polisi2"},
+            {"data":"vincode"},
             {"data":"keterangan"},
             {"data":"action",orderable: false},
         ],

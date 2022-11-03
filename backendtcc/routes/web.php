@@ -43,6 +43,7 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::resource('/slider/halamandepan', SliderDepanController::class);
 Route::post('/slider/halamandepan/update', [SliderDepanController::class, 'update'])->name('halamandepan.updated');
 Route::resource('/slider/ecatalog', EcatalogController::class);
+Route::delete('/deleteecatalog/{id}', [EcatalogController::class, 'destroy'])->name('ecatalogslider.destroy');
 Route::post('/slider/ecatalog/update', [EcatalogController::class, 'updateslider'])->name('ecatalogslider.updated');
 Route::resource('/slider/promo', PromoController::class);
 Route::post('/slider/promo/update', [PromoController::class, 'updateslider'])->name('promoslider.updated');

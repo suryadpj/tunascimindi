@@ -343,11 +343,6 @@ return [
         ],
         ['header' => 'MASTER DATA'],
         [
-            'text' => 'Slider Halaman Depan',
-            'url'  => 'slider/halamandepan',
-            'icon' => 'fas fa-fw fa-image',
-        ],
-        [
             'text'    => 'E-Catalog',
             'icon'    => 'fas fa-fw fa-file',
             'submenu' => [

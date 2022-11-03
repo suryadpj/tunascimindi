@@ -272,7 +272,7 @@ class EcatalogController extends Controller
      */
     public function destroy($id)
     {
-        slidercatalog::where('ID',$id)->update(['deleted' => 1]);
+        sliderecatalog::where('ID',$id)->update(['deleted' => 1]);
         return response()->json(['success' => 'Data berhasil dihapus.']);
     }
 }

@@ -523,10 +523,11 @@ $(document).ready(function(){
             }).then((result) => {
             /* Read more about isConfirmed, isDenied below */
             if (result.isConfirmed) {
+                console.log('delete')
                 var id = $(this).attr('id');
                 $.ajax({
                     type: "DELETE",
-                    url: "slider/ecatalog/"+id,
+                    url: "../deleteecatalog/"+id,
                     dataType: 'JSON',
                     data:{
                         'id': id,
