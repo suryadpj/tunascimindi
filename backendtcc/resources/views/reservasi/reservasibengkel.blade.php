@@ -66,6 +66,7 @@
                                     <th>Tanggal</th>
                                     <th>Waktu</th>
                                     <th>Keterangan</th>
+                                    <th>Catatan</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -389,6 +390,7 @@ $(document).ready(function(){
             {"data":"tanggal"},
             {"data":"waktu"},
             {"data":"kolom_keempat"},
+            {"data":"keterangan"},
             {"data":"action",orderable: false},
         ],
       'columnDefs': [
