@@ -63,6 +63,7 @@
                                     <th>User</th>
                                     <th>Kategori</th>
                                     <th>Status</th>
+                                    <th>Tanggal Input</th>
                                     <th>Tanggal</th>
                                     <th>Waktu</th>
                                     <th>Keterangan</th>
@@ -387,6 +388,7 @@ $(document).ready(function(){
             {"data":"name"},
             {"data":"kolom_kedua"},
             {"data":"kolom_kelima"},
+            {"data":"created_at"},
             {"data":"tanggal"},
             {"data":"waktu"},
             {"data":"kolom_keempat"},
