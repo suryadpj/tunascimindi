@@ -117,7 +117,7 @@ class ReservasiDataController extends Controller
                     case 4 :  return "Aksesoris"; break;
                     case 5 :  return "Referensi Kendaraan"; break;
                     case 6 :  return "Informasi"; break;
-                    case 6 :  return "Promo Sales"; break;
+                    case 7 :  return "Promo Sales"; break;
                     default : return "-";
                 }
             })
