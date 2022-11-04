@@ -94,7 +94,8 @@ class ReservasiDataController extends Controller
             leftJoin('users','users.id','reservasi.IDUser')
             ->leftJoin('customerdata','customerdata.vincode','users.nomor_rangka')
             ->leftJoin('promo','promo.ID','reservasi.IDParent')
-            ->select('reservasi.*',DB::raw('DATE_FORMAT(reservasi.tanggal,"%d %M %Y") as tglbuat'),'name','customerdata.no_polisi','promo.alt','promo.penjelasan')
+            ->leftJoin('brosurecatalog','brosurecatalog.ID','reservasi.IDParent')
+            ->select('reservasi.*',DB::raw('DATE_FORMAT(reservasi.tanggal,"%d %M %Y") as tglbuat'),DB::raw('DATE_FORMAT(reservasi.created_at,"%Y-%m-%d %H:%i:%s") as dibuat'),'customerdata.nama_pelanggan','customerdata.phone1','customerdata.no_polisi','promo.alt','promo.penjelasan','brosurecatalog.alt as kendaraan')
             ->where('reservasi.deleted','0')
             ->whereIn('segmen', [5, 6, 7]))
             ->filter(function ($data) use ($request) {
@@ -129,11 +130,16 @@ class ReservasiDataController extends Controller
                     $kolom .= $data->waktu;
                     return $kolom;
                 }
-                elseif($data->segmen == 5 || $data->segmen == 6)
+                elseif($data->segmen == 5)
                 {
                     $kolom = "Nama: ".$data->nama;
                     $kolom .= "<br>";
                     $kolom = "Nomor HP: ".$data->nomorhp;
+                    return $kolom;
+                }
+                elseif($data->segmen == 6)
+                {
+                    $kolom = "Kendaraan: ".$data->kendaraan;
                     return $kolom;
                 }
             })
@@ -179,7 +185,7 @@ class ReservasiDataController extends Controller
             ->leftJoin('customerdata','customerdata.vincode','users.nomor_rangka')
             ->leftJoin('promo','promo.ID','reservasi.IDParent')
             ->leftJoin('job_sbe','job_sbe.ID','reservasi.IDParent')
-            ->select('reservasi.*',DB::raw('DATE_FORMAT(reservasi.tanggal,"%d %M %Y") as tglbuat'),'name','customerdata.no_polisi','promo.alt','promo.penjelasan','job_sbe.km')
+            ->select('reservasi.*',DB::raw('DATE_FORMAT(reservasi.tanggal,"%d %M %Y") as tglbuat'),DB::raw('DATE_FORMAT(reservasi.created_at,"%Y-%m-%d %H:%i:%s") as dibuat'),'name','customerdata.no_polisi','promo.alt','promo.penjelasan','job_sbe.km')
             ->where('reservasi.deleted','0')
             ->whereIn('segmen', [1, 3]))
             ->filter(function ($data) use ($request) {
@@ -245,7 +251,7 @@ class ReservasiDataController extends Controller
             leftJoin('users','users.id','reservasi.IDUser')
             ->leftJoin('customerdata','customerdata.vincode','users.nomor_rangka')
             ->leftJoin('aksesoris','aksesoris.ID','reservasi.IDParent')
-            ->select('reservasi.*',DB::raw('DATE_FORMAT(reservasi.tanggal,"%d %M %Y") as tglbuat'),'name','customerdata.no_polisi','aksesoris.alt','aksesoris.penjelasan')
+            ->select('reservasi.*',DB::raw('DATE_FORMAT(reservasi.tanggal,"%d %M %Y") as tglbuat'),DB::raw('DATE_FORMAT(reservasi.created_at,"%Y-%m-%d %H:%i:%s") as dibuat'),'customerdata.nama_pelanggan','customerdata.phone1','customerdata.no_polisi','aksesoris.alt','aksesoris.penjelasan')
             ->where('reservasi.deleted','0')
             ->where('segmen',4))
             ->filter(function ($data) use ($request) {
@@ -277,8 +283,6 @@ class ReservasiDataController extends Controller
             })
             ->addColumn('kolom_keempat', function($data) use($data_user){
                 $kolom = "Pembelian Aksesoris: ".$data->alt;
-                $kolom .= "<br>";
-                $kolom .= "Catatan: ".$data->keterangan;
                 return $kolom;
             })
             ->addColumn('kolom_kelima', function($data) use($data_user){

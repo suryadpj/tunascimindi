@@ -196,7 +196,7 @@ $(document).ready(function(){
         lengthMenu : [[10, 25, 50, -1], [10, 25, 50, "All"]],
         serverSide: true,
         dom: '<"html5buttons">Brtipl',
-        "order": [[ 1, "desc" ]],
+        "order": [[ 2, "asc" ]],
         buttons : [
                     {extend: 'pdf', title:'Data Cost Control DISA ', "action": newexportaction},
                     {extend: 'excel', title: 'Data Cost Control DISA', "action": newexportaction},
@@ -401,36 +401,37 @@ $(document).ready(function(){
                         {
                             html += data.errors[count] + ', ';
                         }
-                        html += '</div>';
-                        iziToast.error({
-                            title: 'Gagal',
-                            // timeout: 20000,
-                            message: html,
-                            animateInside: true,
-                            pauseOnHover: true,
-                            close: true,
-                            position: 'topCenter',
-                        });
+                        swal.fire({
+                            icon: 'warning',
+                            title: 'Data gagal disimpan',
+                            text: html
+                        })
 
-                        $('#action_button').html('Save Data').attr('disabled', false);
+                        $('#action_button').html('Save changes').attr('disabled', false);
+                    }
+                    if(data.duplicate)
+                    {
+                        swal.fire({
+                            icon: 'warning',
+                            title: 'Data gagal disimpan',
+                            text: html
+                        })
+
+                        $('#action_button').html('Save changes').attr('disabled', false);
                     }
                     if(data.success)
                     {
                         $('#modal_catatan').modal('hide');
                         $('#sample_form2')[0].reset();
-                        $('.textarea').summernote('reset');
-                        $('#action_button').html('Save Data').attr('disabled', false);
+                        oTable.draw();
+                        $('#action_button').html('Save changes').attr('disabled', false);
 
                         $('#user_table').DataTable().ajax.reload();
-                        iziToast.success({
-                            title: 'Berhasil',
-                            // timeout: 20000,
-                            message: data.success,
-                            animateInside: true,
-                            pauseOnHover: true,
-                            close: true,
-                            position: 'topCenter',
-                        });
+                        swal.fire({
+                            icon: 'success',
+                            title: 'Data berhasil disimpan',
+                            text: data.success
+                        })
                     }
                 },
                 error: function(xhr, status, error) {
@@ -445,64 +446,25 @@ $(document).ready(function(){
     $(document).on('click', '.edit', function(){
         var id = $(this).attr('id');
         $('#form_result').html('');
+        console.log('init')
         $.ajax({
-            url:"dataedukasi"+id,
+            url:"dataedukasi/"+id,
             dataType:"json",
             success:function(html)
             {
-                $('#datepicker').val(html.data.tanggal_pengajuan);
-                $('#datepicker2').val(html.data.periode_penggunaan);
-                $('#nota_dinas').val(html.data.nota_dinas);
-                $('#tanggal_email').val(html.data.tanggal_email);
-                $('#nomor_nd_cabang').val(html.data.nomor_nd_cabang);
-                $('#nilai_po').val(html.data.nota_dinas);
-                $('#nilai_pengiriman').val(html.data.nota_dinas);
-                $('#perihal').val(html.data.perihal);
-
-                $('#nilai').val(html.data.nilai);
-                $('#select2').select2();
-                if(html.data.kategori == 1)
-                {
-                    var newOption = new Option('Nota Dinas', html.data.kategori, true, true);
-                    $('#kategorii').append(newOption).trigger('change');
-                }else if(html.data.kategori == 2)
-                {
-                    var newOption = new Option('Purchase Request', html.data.kategori, true, true);
-                    $('#kategorii').append(newOption).trigger('change');
-                }else if(html.data.kategori == 3)
-                {
-                    var newOption = new Option('Invoice', html.data.kategori, true, true);
-                    $('#kategorii').append(newOption).trigger('change');
-                }
-                if(html.data.IDSegmen > 0)
-                {
-                    var newOption2 = new Option(html.data.namasegmen, html.data.IDSegmen, true, true);
-                    $('#segmen').append(newOption2).trigger('change');
-                }
-                var newOption = new Option(html.data.inisial + ' - ' + html.data.nama_area, html.data.IDArea, true, true);
-                $('#area').append(newOption).trigger('change');
-                if(html.data.IDKontrak > 0)
-                {
-                    if(html.data.nomor_kontrak == "")
-                    {
-                        var newOption = new Option(html.data.project_number + '- Tidak ada nomor kontrak - ' + html.data.keterangan, html.data.IDKontrak, true, true);
-                    }
-                    else
-                    {
-                        var newOption = new Option(html.data.project_number + ' - ' + html.data.nomor_kontrak + ' - ' + html.data.keterangan, html.data.IDKontrak, true, true);
-                    }
-                    $('#kontrak').append(newOption).trigger('change');
-                }
+                console.log('sukses')
+                $('#judul').val(html.data.alt);
+                $('#penjelasan').val(html.data.penjelasan);
                 if(html.data.nama_file != "")
                 {
-                    $('#lampiran').append('<a href="data_file/cost/' + html.data.nama_file + '">' + html.data.nama_file + '</a>');
+                    $('#lampiran').html('<a href="../../' + html.data.img_src + '">' + html.data.img_name + '</a>');
                 }
                 else
                 {
                     $('#lampiran').html('');
                 }
                 $('#hidden_id').val(html.data.ID);
-                $('.modal-title').text("Edit Cost Data");
+                $('.modal-title').text("Edit Media Edukasi");
                 $('#action_button').val("Edit");
                 $('#action').val("Edit");
                 $('#modal_catatan').modal('show');

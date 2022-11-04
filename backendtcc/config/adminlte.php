@@ -385,18 +385,10 @@ return [
             ],
         ],
         [
-            'text'    => 'Media Edukasi',
-            'icon'    => 'fas fa-fw fa-file',
-            'submenu' => [
-                [
-                    'text' => 'Daftar Edukasi',
-                    'url'  => 'dataedukasi',
-                ],
-                // [
-                //     'text' => 'Slider',
-                //     'url'  => 'slider/promo',
-                // ],
-            ],
+            'text'          => 'Media Edukasi',
+            'icon'          => 'fas fa-fw fa-file',
+            'url'           => 'dataedukasi',
+            // 'can'  => 'manage-customer',
         ],
         [
             'text'        => 'Sosial Media',

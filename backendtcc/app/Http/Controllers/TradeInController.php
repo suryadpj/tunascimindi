@@ -26,7 +26,7 @@ class TradeInController extends Controller
             return datatables()->of(DB::table('tradeindata')
             ->leftJoin('users','users.id','tradeindata.IDUser')
             ->leftJoin('customerdata','customerdata.vincode','users.nomor_rangka')
-            ->select('tradeindata.*',DB::raw('DATE_FORMAT(tradeindata.created_at,"%d %M %Y") as tglbuat'),'users.name','users.phone','users.nomor_rangka','customerdata.no_polisi')
+            ->select('tradeindata.*',DB::raw('DATE_FORMAT(tradeindata.created_at,"%d %M %Y") as tglbuat'),DB::raw('DATE_FORMAT(tradeindata.created_at,"%m/%d/%Y %H:%i:%s") as dibuat'),'users.name','users.phone','users.nomor_rangka','customerdata.no_polisi')
             ->where('tradeindata.deleted','0'))
             ->filter(function ($data) use ($request) {
                 if ($request->nomorrangka) {
@@ -60,6 +60,16 @@ class TradeInController extends Controller
                 }
 
             })
+            ->addColumn('kolom_status', function($data) use($data_user){
+                switch($data->status)
+                {
+                    case 1 :  return "Menunggu respon"; break;
+                    case 2 :  return "Dihubungi"; break;
+                    case 3 :  return "Done"; break;
+                    case 4 :  return "Cancel"; break;
+                    default : return "Menunggu respon";
+                }
+            })
             ->addColumn('action', function($data) use($data_user){
                 $button = '<div class="btn-group">';
                     $button .= '<button type="button" name="delete" id="'.$data->ID.'" class="delete btn btn-danger btn-sm"><i title="Rubah Data" class="fas fa-trash"></i></button>';
@@ -89,7 +99,8 @@ class TradeInController extends Controller
     public function store(Request $request)
     {
         $data_user = Auth::user();
-        DB::table('tradeindata')->whereIn('ID',array($request->hidden_id))->update(['status' => $request->statusreservasi,'IDUserFollowUp' => $data_user->id]);
+        $data = explode(',',$request->hidden_id);
+        DB::table('tradeindata')->whereIn('ID',$data)->update(['status' => $request->statustradein,'IDUserFollowUp' => $data_user->id]);
         return response()->json(['success' => 'Data berhasil dirubah.']);
     }
 

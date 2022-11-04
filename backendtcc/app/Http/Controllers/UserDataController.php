@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Hash;
 use Yajra\Datatables\Datatables;
 use Maatwebsite\Excel\Facades\Excel;
 use Validator;
@@ -27,7 +28,7 @@ class UserDataController extends Controller
         {
         return datatables()->of(user::
         leftJoin('customerdata','customerdata.vincode','users.nomor_rangka')
-        ->select('users.*',DB::raw('DATE_FORMAT(users.created_at,"%d %M %Y") as tglbuat'),'customerdata.no_polisi','customerdata.vincode','customerdata.nama_pelanggan','customerdata.phone1','customerdata.domisili','customerdata.unit','customerdata.membership')
+        ->select('users.*',DB::raw('DATE_FORMAT(users.created_at,"%d %M %Y") as tglbuat'),'customerdata.no_polisi','customerdata.vincode','customerdata.nama_pelanggan','customerdata.phone1','customerdata.domisili','customerdata.phone2','customerdata.tahun','customerdata.tanggal_lahir','customerdata.hobi','customerdata.food_drink','customerdata.unit','customerdata.membership')
         ->where('users.deleted',0))
         ->filter(function ($data) use ($request) {
             if ($request->namapelanggan) {
@@ -153,7 +154,7 @@ class UserDataController extends Controller
      */
     public function destroy($id)
     {
-        user::where('id',$id)->update(['deleted' => 1]);
+        user::where('id',$id)->update(['deleted' => 1, 'password' => Hash::make("dihapus")]);
         return response()->json(['success' => 'Data berhasil dihapus.']);
     }
 }

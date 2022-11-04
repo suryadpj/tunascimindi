@@ -42,3 +42,38 @@ The format is based on [Keep a Changelog](https://www.tunastoyotacimindi.co.id),
 ## [1.1.1] - 2022-10-08
 ### Fixed
 - Perbaiki menu reservasi yang tidak bisa digunakan
+
+
+
+## [1.1.2] - 2022-11-04
+## Added
+- Reservasi > Sales :
+    * kolom tanggal input
+    * Keterangan promo sales
+    * Kolom catatan
+- Reservasi > Aksesoris :
+    * Kolom tanggal input
+    * Kolom catatan
+    * Update status
+- Reservasi > Tradein :
+    * kolom tanggal input
+## Fixed
+- Reservasi > Sales :
+    * Kategori promo untuk service 
+    * Jenis kendaraan yang diinginkan baik referensi dan informasi tidak muncul
+    * Judul diganti menjadi Data Reservasi - Sales
+- Reservasi > Tradein :
+    * Update status reservasi
+- Ecatalog > Daftar Ecatalog :
+    * Edit data
+    * Hapus data
+    * Download data
+- Media Edukasi :
+    * Edit data
+    * Hapus data
+- Customer :
+    * Edit data
+
+## Changed
+- Register :
+    * Format data

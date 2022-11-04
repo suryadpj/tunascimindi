@@ -77,11 +77,19 @@
                                 <tr>
                                     <th></th>
                                     <th>No</th>
-                                    <th>Pelanggan</th>
-                                    <th>Nomor HP</th>
-                                    <th>Domisili</th>
-                                    <th>Kendaraan</th>
                                     <th>Membership</th>
+                                    <th>Equipment No.</th>
+                                    <th>Police Reg No.</th>
+                                    <th>Kendaraan</th>
+                                    <th>Tahun Produksi</th>
+                                    <th>Customer Name</th>
+                                    <th>Nomor HP</th>
+                                    <th>Contact Person Phone</th>
+                                    <th>Customer Address</th>
+                                    <th>Email</th>
+                                    <th>Tanggal Lahir</th>
+                                    <th>Food & Drink Favorit</th>
+                                    <th>Interest</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -410,11 +418,19 @@ $(document).ready(function(){
                  return meta.row + meta.settings._iDisplayStart + 1;
                 }
             },
-            {"data":"nama_pelanggan"},
-            {"data":"kolom_kedua"},
-            {"data":"domisili"},
-            {"data":"kolom_ketiga"},
             {"data":"kolom_keempat"},
+            {"data":"vincode"},
+            {"data":"no_polisi"},
+            {"data":"unit"},
+            {"data":"tahun"},
+            {"data":"nama_pelanggan"},
+            {"data":"phone1"},
+            {"data":"phone2"},
+            {"data":"address"},
+            {"data":"email"},
+            {"data":"tanggal_lahir"},
+            {"data":"food_drink"},
+            {"data":"hobi"},
             {"data":"action",orderable: false},
         ],
       'columnDefs': [

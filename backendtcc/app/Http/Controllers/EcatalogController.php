@@ -74,8 +74,7 @@ class EcatalogController extends Controller
             return datatables()->of(DB::table('brosurecatalog')
             ->leftJoin('users','users.ID','brosurecatalog.IDUser')
             ->select('brosurecatalog.*',DB::raw('DATE_FORMAT(brosurecatalog.created_at,"%d %M %Y") as tglbuat'),'users.name')
-            ->where('brosurecatalog.deleted','0')
-            ->OrderBy('brosurecatalog.ID','desc'))
+            ->where('brosurecatalog.deleted','0'))
             ->filter(function ($data) use ($request) {
                 if (!empty($request->has('judul'))) {
                     $data->where('alt', 'like', "%{$request->get('judul')}%");
@@ -97,7 +96,7 @@ class EcatalogController extends Controller
                 $button = '<div class="btn-group">';
                 if($data->img_src != "")
                 {
-                    $button .= '<button type="button" class="btn btn-default"><a style="color:black" href="data_file/dokumen/brosur/'.$data->img_src.'" title="Download"><i title="Download" class="fas fa-download"></i></a></button>';
+                    $button .= '<button type="button" class="btn btn-default"><a style="color:black" href="../../../'.$data->img_src.'" title="Download"><i title="Download" class="fas fa-download"></i></a></button>';
                 }
                     $button .= '<button type="button" name="edit" id="'.$data->ID.'" class="edit btn btn-primary btn-sm"><i title="Rubah Data" class="fas fa-edit"></i></button>';
                     $button .= '<button type="button" name="delete" id="'.$data->ID.'" class="delete btn btn-danger btn-sm"><i title="Rubah Data" class="fas fa-trash"></i></button>';
@@ -240,6 +239,11 @@ class EcatalogController extends Controller
     {
         //
     }
+    public function showbrosur($id)
+    {
+        $data = brosurecatalog::where('ID',$id)->select('*')->first();
+        return response()->json(['data' => $data]);
+    }
 
     /**
      * Show the form for editing the specified resource.
@@ -263,6 +267,52 @@ class EcatalogController extends Controller
     {
         //
     }
+    public function updatebrosur(Request $request)
+    {
+        $messages = [
+            'required' => ':attribute wajib diinput',
+            'min' => ':attribute harus diisi minimal :min karakter',
+            'max' => ':attribute harus diisi maksimal :max karakter',
+            'numeric' => ':attribute harus diisi angka',
+        ];
+        $rules = array(
+            'judul'     =>  'required',
+            'file'      =>  'mimes:pdf|max:102400',
+        );
+
+        $error = Validator::make($request->all(), $rules,$messages);
+
+        if($error->fails())
+        {
+            return response()->json(['errors' => $error->errors()->all()]);
+        }
+
+        $file = $request->file('file');
+        if($file != "")
+        {
+            $nama_file  = $file->getClientOriginalName();
+            // ekstensi file
+            $ekstensi   = $file->getClientOriginalExtension();
+            // isi dengan nama folder tempat kemana file diupload
+            $tujuan_upload = '../../storage/app/public/files/dokumen/ecatalog/';
+            $path = 'storage/app/public/files/dokumen/ecatalog/';
+            $nama_file_uniq = time()."-".$nama_file;
+            // upload file
+            $file->move($tujuan_upload,$nama_file_uniq);
+        }
+
+        $form_data = array(
+            'alt' => $request->judul
+        );
+        if(!empty($file))
+        {
+            $form_data = array_merge($form_data, ['img_src' => $path.$nama_file_uniq,'img_name' => $nama_file_uniq,]);
+        }
+
+        brosurecatalog::where('ID',$request->hidden_id)->update($form_data);
+
+        return response()->json(['success' => 'Data berhasil ditambahkan.']);
+    }
 
     /**
      * Remove the specified resource from storage.
@@ -273,6 +323,11 @@ class EcatalogController extends Controller
     public function destroy($id)
     {
         sliderecatalog::where('ID',$id)->update(['deleted' => 1]);
+        return response()->json(['success' => 'Data berhasil dihapus.']);
+    }
+    public function destroybrosur($id)
+    {
+        brosurecatalog::where('ID',$id)->update(['deleted' => 1]);
         return response()->json(['success' => 'Data berhasil dihapus.']);
     }
 }

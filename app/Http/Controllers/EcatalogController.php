@@ -86,7 +86,7 @@ class EcatalogController extends Controller
             'nomorhp'               =>  $request->nomorhp_referensi,
             'IDParent'              =>  $request->kendaraan,
             'keterangan'            =>  $request->sales_referensi,
-            'status'                =>  0,
+            'status'                =>  1,
             'IDUserEksekusi'        =>  0,
             'deleted'               =>  0,
         );
@@ -120,8 +120,8 @@ class EcatalogController extends Controller
             'IDUser'                =>  $data_user->id,
             'segmen'                =>  6,
             'IDParent'              =>  $request->kendaraan,
-            'keterangan'            =>  $request->keterangan,
-            'status'                =>  0,
+            'keterangan'            =>  $request->keterangan_informasi,
+            'status'                =>  1,
             'IDUserEksekusi'        =>  0,
             'deleted'               =>  0,
         );

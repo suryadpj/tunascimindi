@@ -9,4 +9,5 @@ class brosuredukasi extends Model
 {
     use HasFactory;
     protected $table = 'brosuredukasi';
+    protected $primaryKey = 'ID';
 }

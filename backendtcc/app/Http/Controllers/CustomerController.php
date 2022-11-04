@@ -268,7 +268,7 @@ class CustomerController extends Controller
      */
     public function show($id)
     {
-        $data = customer::find($id)->select('*','1stcome as pertamadatang')->first();
+        $data = customer::where('ID',$id)->select('*','1stcome as pertamadatang')->first();
         return response()->json(['data' => $data]);
     }
 

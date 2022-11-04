@@ -60,10 +60,12 @@
                                 <tr>
                                     <th></th>
                                     <th>No</th>
-                                    <th>User</th>
+                                    <th>Nama</th>
                                     <th>Nomor HP</th>
+                                    <th>Tanggal Input</th>
                                     <th>Kendaraan</th>
                                     <th>Penghitungan</th>
+                                    <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -107,6 +109,8 @@
 @section('js')
 <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
 <script type="text/javascript" src="//gyrocode.github.io/jquery-datatables-checkboxes/1.2.12/js/dataTables.checkboxes.min.js"></script>
+<script type="text/javascript" src="//cdn.datatables.net/plug-ins/1.10.11/sorting/date-eu.js"></script>
+
 <script type="text/javascript">
 $(document).ready(function(){
     $('.select2').select2();
@@ -212,8 +216,10 @@ $(document).ready(function(){
             },
             {"data":"name"},
             {"data":"phone"},
+            {"data":"dibuat"},
             {"data":"kolom_kedua"},
             {"data":"hitung"},
+            {"data":"kolom_status"},
             {"data":"action",orderable: false},
         ],
       'columnDefs': [
@@ -222,7 +228,8 @@ $(document).ready(function(){
             'checkboxes': {
                'selectRow': true
             }
-         }
+         },
+         {"targets":4, "type":"date-euro"}
       ],
       'select': {
          'style': 'multi'

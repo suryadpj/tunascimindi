@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', 'Data Reservasi')
+@section('title', 'Data Reservasi - Sales')
 
 @section('content_header')
-    <h1 class="m-0 text-dark">Reservasi Data - Promo Sales</h1>
+    <h1 class="m-0 text-dark">Data Reservasi - Sales</h1>
 @stop
 
 @section('content')
@@ -60,11 +60,14 @@
                                 <tr>
                                     <th></th>
                                     <th>No</th>
-                                    <th>User</th>
+                                    <th>Nama Pelanggan</th>
+                                    <th>Nomor HP</th>
+                                    <th>Tanggal Input</th>
                                     <th>Kategori</th>
                                     <th>Status</th>
                                     <th>Detail</th>
                                     <th>Keterangan</th>
+                                    <th>Catatan</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -382,11 +385,14 @@ $(document).ready(function(){
                  return meta.row + meta.settings._iDisplayStart + 1;
                 }
             },
-            {"data":"name"},
+            {"data":"nama_pelanggan"},
+            {"data":"phone1"},
+            {"data":"dibuat"},
             {"data":"kolom_kedua"},
             {"data":"kolom_kelima"},
             {"data":"kolom_ketiga"},
             {"data":"kolom_keempat"},
+            {"data":"keterangan"},
             {"data":"action",orderable: false},
         ],
       'columnDefs': [

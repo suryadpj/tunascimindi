@@ -3,7 +3,7 @@
 @section('title', 'Data Reservasi')
 
 @section('content_header')
-    <h1 class="m-0 text-dark">Reservasi Data - Promo Bengkel</h1>
+    <h1 class="m-0 text-dark">Data Reservasi - Bengkel</h1>
 @stop
 
 @section('content')

@@ -11,12 +11,17 @@ use Validator;
 use App\Models\user;
 use App\Models\brosuredukasi;
 
-class MediaEdukasiController extends Controller
+class EdukasiController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth');
     }
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index(request $request)
     {
         $data_user = Auth::user();
@@ -46,7 +51,23 @@ class MediaEdukasiController extends Controller
         return view('mediaedukasi.mediaedukasi');
     }
 
-    public function store(request $request)
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
     {
 
         $messages = [
@@ -100,11 +121,37 @@ class MediaEdukasiController extends Controller
 
         return response()->json(['success' => 'Data berhasil ditambahkan.']);
     }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function show($id)
     {
         $data = brosuredukasi::find($id);
         return response()->json(['data' => $data]);
     }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function update(Request $request)
     {
         $messages = [
@@ -153,6 +200,13 @@ class MediaEdukasiController extends Controller
 
         return response()->json(['success' => 'Data berhasil ditambahkan.']);
     }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function destroy($id)
     {
         brosuredukasi::where('ID',$id)->update(['deleted' => 1]);
