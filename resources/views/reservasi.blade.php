@@ -45,7 +45,7 @@
                                 @switch($a->segmen)
                                     @case(1) {{ $a->alt }} @break
                                     @case(2) {{ $a->keterangan }} @break
-                                    @case(3) {{ number_format($a->km,0) }} KM - {{ $a->job }} @break
+                                    @case(3) {{ number_format($a->km,0) }} KM - {{ $a->job }} <br> Catatan : {{ $a->keterangan }} @break
                                     @case(4) {{ $a->aksesorisp }} @break
                                     @case(7) {{ $a->alt }} @break
                                     @default

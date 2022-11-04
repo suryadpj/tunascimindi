@@ -145,7 +145,56 @@
                 success:function(html)
                 {
                     $('#nomorpkb').html(html.data.pkb_no);
-                    $('#kategoripkb').html(html.data.service_category);
+                    if(html.data.service_category == "107 - GR")
+                    {
+                        $('#kategoripkb').html("General Repair");
+                    }
+                    else if(html.data.service_category == "107 - GR (R)")
+                    {
+                        $('#kategoripkb').html("General Repair");
+                    }
+                    else if(html.data.service_category == "107 - OC")
+                    {
+                        $('#kategoripkb').html("Oil Change");
+                    }
+                    else if(html.data.service_category == "107 - OC (R)")
+                    {
+                        $('#kategoripkb').html("Oil Change");
+                    }
+                    else if(html.data.service_category == "107 - RTJ")
+                    {
+                        $('#kategoripkb').html("Return Job");
+                    }
+                    else if(html.data.service_category == "107 - RTJ (R)")
+                    {
+                        $('#kategoripkb').html("Return Job");
+                    }
+                    else if(html.data.service_category == "107 - SBE")
+                    {
+                        $('#kategoripkb').html("Service Berkala");
+                    }
+                    else if(html.data.service_category == "107 - SBE (R)")
+                    {
+                        $('#kategoripkb').html("Service Berkala");
+                    }else if(html.data.service_category == "107 - SBI")
+                    {
+                        $('#kategoripkb').html("Service Pertama");
+                    }
+                    else if(html.data.service_category == "107 - SBI (R)")
+                    {
+                        $('#kategoripkb').html("Service Pertama");
+                    }else if(html.data.service_category == "107 - TWC")
+                    {
+                        $('#kategoripkb').html("General Repair");
+                    }
+                    else if(html.data.service_category == "107 - TWC (R)")
+                    {
+                        $('#kategoripkb').html("General Repair");
+                    }
+                    else
+                    {
+                        $('#kategoripkb').html(html.data.service_category);
+                    }
                     $('#kilometerpkb').html(html.data.kilometer);
                     $('#deskripsipkb').html(html.data.operation_desc);
                     $('#tanggalpkb').html(html.data.pkb_date);
