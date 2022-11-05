@@ -425,9 +425,23 @@ $(document).ready(function(){
         dom: '<"html5buttons">Brtipl',
         "order": [[ 3, "desc" ]],
         buttons : [
-                    {extend: 'pdf', title:'Data Customer Tunas Toyota Cimindi', "action": newexportaction},
-                    {extend: 'excel', title: 'Data Customer Tunas Toyota Cimindi', "action": newexportaction},
-                    {extend:'print',title: 'Data Customer Tunas Toyota Cimindi'},
+                    {
+                        extend: 'pdf',
+                        title:'Data Customer Tunas Toyota Cimindi',
+                        "action": newexportaction
+                    },
+                    {
+                        extend: 'excel',
+                        title: 'Data Customer Tunas Toyota Cimindi',
+                        "action": newexportaction,
+                        exportOptions: {
+                            columns: [ 1,2, 3]
+                        }
+                    },
+                    {
+                        extend:'print',
+                        title: 'Data Customer Tunas Toyota Cimindi'
+                    },
         ],
         ajax:{
             url: "{{ route('customer.index') }}",
