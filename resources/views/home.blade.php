@@ -161,6 +161,59 @@
             </div>
         </div>
     </div>
+    @if($cr7data)
+        <div class="row mb-3">
+            <div class="col">
+                <h6 class="title">Saran Perbaikan</h6>
+            </div>
+        </div>
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="swiper-container cardswiper">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <div class="card bg-dark bg-gradient">
+                                <div class="card-body">
+                                    <div class="row mb-3">
+                                        <div class="col-auto align-self-center">
+                                            <h2>Saran Perbaikan :</h2>
+                                        </div>
+                                        <div class="col align-self-center text-end">
+                                            {{-- <h2>Saran Perbaikan</h2> --}}
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <h2 class="fw-normal mb-2">
+                                                @if ($cr7data->cr71 != "" && $cr7data->cr72 != "")
+                                                    {{ $cr7data->cr71 }} & {{ $cr7data->cr72 }}
+                                                @elseif($cr7data->cr71 != "" && $cr7data->cr72 == "")
+                                                    {{ $cr7data->cr71 }}
+                                                @elseif($cr7data->cr71 == "" && $cr7data->cr72 != "")
+                                                    {{ $cr7data->cr72 }}
+                                                @else
+
+                                                @endif
+                                            </h2>
+                                            <h2></h2>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col align-self-center text-end daftarssc">
+                                            <p class="small">
+                                                <button class="booknow2 btn btn-success">Book Now</button>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
 
     <!-- menu -->
     <div class="row mb-3">
@@ -395,6 +448,53 @@
         </div>
     </div>
     @endif
+    @if ($cr7data)
+    <div class="modal fade" id="booknowmodal2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="popupsliderlabel">Book Now</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form method="post" id="formbooknow2" class="form-horizontal" enctype="multipart/form-data">
+                    @csrf
+                    <input type="hidden" name="hidden_id2" id="hidden_id2" value="{{ $cr7data->ID }}" />
+                    <div class="modal-body">
+                        <div class="form-group row">
+                            <label for="perihal" class="col-sm-5 col-form-label">Job :<span class="text-danger">*</span></label>
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control-plaintext" name="job_cr7" id="job_cr7" placeholder="Nama" value="{{ $cr7data->cr71 }} - {{ $cr7data->cr72 }}">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="perihal" class="col-sm-5 col-form-label">Tanggal :<span class="text-danger">*</span></label>
+                            <div class="col-sm-7">
+                                <input type="date" class="form-control" name="tanggal_cr7" id="tanggal_cr7">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="perihal" class="col-sm-5 col-form-label">Time :<span class="text-danger">*</span></label>
+                            <div class="col-sm-7">
+                                <input type="time" class="form-control" name="time_cr7" id="time_cr7">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="perihal" class="col-sm-5 col-form-label">Catatan :</label>
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control" name="keterangan_cr7" id="keterangan_cr7" placeholder="Catatan tambahan">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer justify-content-between">
+                        <input type="hidden" name="action2" id="action2" />
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" name="action_button2" value="Add" id="action_button3" class="btn btn-primary">Kirim data</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    @endif
 @endsection
 
 @section('footer')
@@ -460,10 +560,17 @@ $(document).ready(function(){
     })
     $('.booknow').click(function(){
         $('#formbooknow')[0].reset();
-        $('.referensi-title').text("Book Now Form");
+        $('.referensi-title').text("Book Now Form - Service");
         $('#action_button').val("Add");
         $('#action').val("Add");
         $('#booknowmodal').modal('show');
+    });
+    $('.booknow2').click(function(){
+        $('#formbooknow2')[0].reset();
+        $('.referensi-title').text("Book Now Form - CR7");
+        $('#action_button2').val("Add");
+        $('#action2').val("Add");
+        $('#booknowmodal2').modal('show');
     });
     $('.booked').click(function(){
         swal.fire({
@@ -522,7 +629,7 @@ $(document).ready(function(){
                         swal.fire({
                             icon: 'success',
                             title: 'Data berhasil disimpan',
-                            text: 'Data referensi anda akan diteruskan petugas kami untuk dihubungi. Terima kasih'
+                            text: 'Data reservasi anda akan diteruskan petugas kami untuk dihubungi. Terima kasih'
                         })
                     }
                 },
@@ -534,6 +641,72 @@ $(document).ready(function(){
                         text: errorMessage
                     })
                     $('#action_button').html('Save changes').attr('disabled', false);
+                }
+            })
+        }
+    });
+    $('#formbooknow2').on('submit', function(event){
+        event.preventDefault();
+        if($('#action2').val() == 'Add')
+        {
+
+            $.ajax({
+                url:"{{ route('home.cr7booknow') }}",
+                method:"POST",
+                data: new FormData(this),
+                contentType: false,
+                cache:false,
+                processData: false,
+                dataType:"json",
+                beforeSend:function(){
+                    $('#action_button2').html('<i disable class="fa fa-spinner fa-spin"></i>').attr('disabled', true);
+                },
+                success:function(data)
+                {
+                    var html = '';
+                    if(data.errors)
+                    {
+                        html = '';
+                        for(var count = 0; count < data.errors.length; count++)
+                        {
+                            html += data.errors[count] + ', ';
+                        }
+                        swal.fire({
+                            icon: 'warning',
+                            title: 'Data gagal disimpan',
+                            text: html
+                        })
+                        $('#action_button2').html('Save changes').attr('disabled', false);
+                    }
+                    if(data.duplicate)
+                    {
+                        swal.fire({
+                            icon: 'warning',
+                            title: 'Data gagal disimpan',
+                            text: html
+                        })
+                        $('#action_button2').html('Save changes').attr('disabled', false);
+                    }
+                    if(data.success)
+                    {
+                        $('#booknowmodal2').modal('hide');
+                        $('#formbooknow2')[0].reset();
+                        $('#action_button2').html('Save changes').attr('disabled', false);
+                        swal.fire({
+                            icon: 'success',
+                            title: 'Data berhasil disimpan',
+                            text: 'Data reservasi anda akan diteruskan petugas kami untuk dihubungi. Terima kasih'
+                        })
+                    }
+                },
+                error: function(xhr, status, error) {
+                    var errorMessage = xhr.status + ': ' + xhr.statusText
+                    swal.fire({
+                        icon: 'error',
+                        title: 'Data gagal disimpan',
+                        text: errorMessage
+                    })
+                    $('#action_button2').html('Save changes').attr('disabled', false);
                 }
             })
         }

@@ -185,9 +185,10 @@ class ReservasiDataController extends Controller
             ->leftJoin('customerdata','customerdata.vincode','users.nomor_rangka')
             ->leftJoin('promo','promo.ID','reservasi.IDParent')
             ->leftJoin('job_sbe','job_sbe.ID','reservasi.IDParent')
-            ->select('reservasi.*',DB::raw('DATE_FORMAT(reservasi.tanggal,"%d %M %Y") as tglbuat'),DB::raw('DATE_FORMAT(reservasi.created_at,"%Y-%m-%d %H:%i:%s") as dibuat'),'name','customerdata.no_polisi','promo.alt','promo.penjelasan','job_sbe.km')
+            ->leftJoin('cr7data as b','b.ID','reservasi.IDParent')
+            ->select('reservasi.*',DB::raw('DATE_FORMAT(reservasi.tanggal,"%d %M %Y") as tglbuat'),DB::raw('DATE_FORMAT(reservasi.created_at,"%Y-%m-%d %H:%i:%s") as dibuat'),'name','customerdata.no_polisi','promo.alt','promo.penjelasan','job_sbe.km','b.cr71','b.cr72')
             ->where('reservasi.deleted','0')
-            ->whereIn('segmen', [1, 3]))
+            ->whereIn('segmen', [1, 3,8]))
             ->filter(function ($data) use ($request) {
                 // if ($request->nomorrangka) {
                 //     $data->where('nomor_rangka', 'like', "%{$request->get('nomorangka')}%");
@@ -205,6 +206,7 @@ class ReservasiDataController extends Controller
                     case 1 :  return "Promo"; break;
                     case 2 :  return "Tes Drive"; break;
                     case 3 :  return "Booking Service"; break;
+                    case 8 :  return "Booking CR7"; break;
                     default : return "-";
                 }
             })
@@ -220,6 +222,7 @@ class ReservasiDataController extends Controller
                     case 1 :  return $data->alt." <br> ".$data->penjelasan; break;
                     case 2 :  return "Tes Drive"; break;
                     case 3 :  if($data->km == 0) { return "Job : Oil Change"; } else { return "Job KM: ".$data->km; } break;
+                    case 8 :  return $data->cr71." ".$data->cr72; break;
                     default : return "-";
                 }
             })

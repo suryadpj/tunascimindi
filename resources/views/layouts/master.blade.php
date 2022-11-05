@@ -161,7 +161,7 @@
                                     @endif
                                     @if($cr7count > 0)
                                     <div class="col-auto">
-                                        <p>#SARAN PERBAIKAN : {{ $cr7data->keterangan }}</p>
+                                        <p>#SARAN PERBAIKAN : {{ $cr7data->cr71 }}, {{ $cr7data->cr72 }}</p>
                                     </div>
                                     @endif
                                 </div>

@@ -23,6 +23,7 @@ Route::post('pendaftaran', [App\Http\Controllers\NewRegisterController::class, '
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/tcare-info', [App\Http\Controllers\HomeController::class, 'tcare'])->name('tcare-info');
 Route::post('/home/booknow', [App\Http\Controllers\HomeController::class, 'booknow'])->name('home.booknow');
+Route::post('/home/cr7booknow', [App\Http\Controllers\HomeController::class, 'cr7booknow'])->name('home.cr7booknow');
 Route::post('referensi', [App\Http\Controllers\EcatalogController::class, 'referensistore'])->name('ecatalog.referensistore');
 Route::post('informasistore', [App\Http\Controllers\EcatalogController::class, 'informasistore'])->name('ecatalog.informasistore');
 Route::resource('card', App\Http\Controllers\CardController::class);

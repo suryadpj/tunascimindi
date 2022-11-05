@@ -22,9 +22,10 @@ class ReservasiController extends Controller
                     ->leftjoin('promo','promo.ID','reservasi.IDParent')
                     ->leftjoin('aksesoris','aksesoris.ID','reservasi.IDParent')
                     ->leftJoin('job_sbe as a','a.ID','reservasi.IDParent')
-                    ->select('reservasi.*','promo.alt','aksesoris.alt as aksesorisp','a.km','a.job',DB::raw('DATE_FORMAT(reservasi.tanggal,"%d %M %Y") as tgl'))
+                    ->leftJoin('cr7data as b','b.ID','reservasi.IDParent')
+                    ->select('reservasi.*','promo.alt','aksesoris.alt as aksesorisp','a.km','a.job',DB::raw('DATE_FORMAT(reservasi.tanggal,"%d %M %Y") as tgl'),'b.cr71','b.cr72')
                     ->where('reservasi.IDUser',$data_user->id)
-                    ->whereIn('reservasi.segmen',['1','2','3','4','7'])
+                    ->whereIn('reservasi.segmen',['1','2','3','4','7','8'])
                     ->where('reservasi.deleted',0)
                     ->orderBy('reservasi.tanggal','desc')->get();
         $profil = DB::table('customerdata')

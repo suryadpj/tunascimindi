@@ -162,4 +162,44 @@ class HomeController extends Controller
 
         return response()->json(['success' => 'Data berhasil ditambahkan.']);
     }
+    public function cr7booknow(request $request)
+    {
+        $messages = [
+            'required' => ':attribute wajib diinput',
+            'min' => ':attribute harus diisi minimal :min karakter',
+            'max' => ':attribute harus diisi maksimal :max karakter',
+            'numeric' => ':attribute harus diisi angka',
+        ];
+        $rules = array(
+            'tanggal_cr7'   =>  'required',
+            'time_cr7'     =>  'required',
+            'job_cr7'     =>  'required',
+            'hidden_id2'     =>  'required',
+        );
+
+        $error = Validator::make($request->all(), $rules,$messages);
+
+        if($error->fails())
+        {
+            return response()->json(['errors' => $error->errors()->all()]);
+        }
+
+        $data_user = Auth::user();
+
+        $form_data = array(
+            'IDUser'            =>  $data_user->id,
+            'segmen'            =>  8,
+            'IDParent'          =>  $request->hidden_id2,
+            'tanggal'           =>  $request->tanggal_cr7,
+            'waktu'             =>  $request->time_cr7,
+            'keterangan'        =>  $request->keterangan_cr7,
+            'status'            =>  1,
+            'IDUserEksekusi'    =>  0,
+            'deleted'           =>  0,
+        );
+
+        DB::table('reservasi')->insert($form_data);
+
+        return response()->json(['success' => 'Data berhasil ditambahkan.']);
+    }
 }

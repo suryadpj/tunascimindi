@@ -19,6 +19,7 @@
                                 @case(3)<div class="avatar avatar-40 alert-info text-info rounded-circle"><i class="bi bi-bookmark-check size-20"></i></div> @break
                                 @case(4)<div class="avatar avatar-40 alert-info text-info rounded-circle"><i class="bi bi-bookmark-check size-20"></i></div> @break
                                 @case(7)<div class="avatar avatar-40 alert-success text-success rounded-circle"><i class="bi bi-percent size-20"></i></div> @break
+                                @case(8)<div class="avatar avatar-40 alert-info text-info rounded-circle"><i class="bi bi-bookmark-check size-20"></i></div> @break
                             @endswitch
                         </div>
                         <div class="col align-self-center ps-0">
@@ -29,6 +30,7 @@
                                     @case(3) Booking Service @break
                                     @case(4) Pembelian Aksesoris @break
                                     @case(7) Promo @break
+                                    @case(8) Booking CR7 @break
                                     @default
                                 @endswitch
                             </p>
@@ -38,6 +40,7 @@
                                     @case(2) {{ $a->tgl }} @break
                                     @case(3) {{ $a->tgl }} - {{ $a->waktu }} @break
                                     @case(7) {{ $a->tgl }} - {{ $a->waktu }} @break
+                                    @case(8) {{ $a->tgl }} - {{ $a->waktu }} @break
                                     @default
                                 @endswitch
                             </p>
@@ -48,6 +51,7 @@
                                     @case(3) {{ number_format($a->km,0) }} KM - {{ $a->job }} <br> Catatan : {{ $a->keterangan }} @break
                                     @case(4) {{ $a->aksesorisp }} @break
                                     @case(7) {{ $a->alt }} @break
+                                    @case(8) {{ $a->cr71 }} - {{ $a->cr72 }} @break
                                     @default
                                 @endswitch
                             </p>
