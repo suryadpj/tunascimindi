@@ -428,15 +428,12 @@ $(document).ready(function(){
                     {
                         extend: 'pdf',
                         title:'Data Customer Tunas Toyota Cimindi',
-                        "action": newexportaction
+                        // "action": newexportaction
                     },
                     {
                         extend: 'excel',
                         title: 'Data Customer Tunas Toyota Cimindi',
                         "action": newexportaction,
-                        exportOptions: {
-                            columns: [ 1,2, 3]
-                        }
                     },
                     {
                         extend:'print',
