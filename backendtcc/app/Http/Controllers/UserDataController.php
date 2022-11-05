@@ -28,7 +28,7 @@ class UserDataController extends Controller
         {
         return datatables()->of(user::
         leftJoin('customerdata','customerdata.vincode','users.nomor_rangka')
-        ->select('users.*',DB::raw('DATE_FORMAT(users.created_at,"%d %M %Y") as tglbuat'),'customerdata.no_polisi','customerdata.vincode','customerdata.nama_pelanggan','customerdata.phone1','customerdata.domisili','customerdata.phone2','customerdata.tahun','customerdata.tanggal_lahir','customerdata.hobi','customerdata.food_drink','customerdata.unit','customerdata.membership')
+        ->select('users.*',DB::raw('DATE_FORMAT(users.created_at,"%d %M %Y") as tglbuat'),'customerdata.ID as idcustomer','customerdata.no_polisi','customerdata.vincode','customerdata.nama_pelanggan','customerdata.phone1','customerdata.domisili','customerdata.phone2','customerdata.tahun','customerdata.tanggal_lahir','customerdata.hobi','customerdata.food_drink','customerdata.unit','customerdata.membership')
         ->where('users.deleted',0))
         ->filter(function ($data) use ($request) {
             if ($request->namapelanggan) {
@@ -81,7 +81,7 @@ class UserDataController extends Controller
         })
         ->addColumn('action', function($data) use($data_user){
             $button = '<div class="btn-group">';
-                $button .= '<button type="button" name="edit" id="'.$data->id.'" class="edit btn btn-info btn-sm"><i title="Rubah Data" class="fas fa-pen-to-square"></i></button>';
+                $button .= '<button type="button" name="edit" id="'.$data->idcustomer.'" class="edit btn btn-info btn-sm"><i title="Rubah Data" class="fas fa-pen-to-square"></i></button>';
                 $button .= '&nbsp';
                 $button .= '<button type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-sm"><i title="Hapus Data" class="fas fa-trash"></i></button>';
             return $button;})
@@ -154,7 +154,8 @@ class UserDataController extends Controller
      */
     public function destroy($id)
     {
-        user::where('id',$id)->update(['deleted' => 1, 'password' => Hash::make("dihapus")]);
+        $res=User::where('id',$id)->delete();
+        // user::where('id',$id)->update(['deleted' => 1, 'password' => Hash::make("dihapus")]);
         return response()->json(['success' => 'Data berhasil dihapus.']);
     }
 }

@@ -77,3 +77,13 @@ The format is based on [Keep a Changelog](https://www.tunastoyotacimindi.co.id),
 ## Changed
 - Register :
     * Format data
+
+## [1.1.3] - 2022-11-05
+
+## Fixed
+- Aksesoris > Slider :
+    * Hapus data
+- Customer :
+    * Salah link data saat edit
+- Master data :
+    * error saat download

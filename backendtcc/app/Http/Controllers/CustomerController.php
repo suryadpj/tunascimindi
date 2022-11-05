@@ -27,8 +27,8 @@ class CustomerController extends Controller
         $data_user = Auth::user();
         if(request()->ajax())
         {
-            if($data_user->admin == 1 || $data_user->admin == 0)
-            {
+            // if($data_user->admin == 1 || $data_user->admin == 0)
+            // {
                 return datatables()->of(customer::
                 leftJoin('users','users.id','customerdata.IDUser')
                 ->select('customerdata.*',DB::raw('DATE_FORMAT(customerdata.created_at,"%d %M %Y") as tglbuat'),'users.name')
@@ -90,63 +90,63 @@ class CustomerController extends Controller
                     return $button;})
                 ->rawColumns(['action','kolom_kedua','kolom_ketiga','kolom_keempat'])
                 ->make(true);
-            }
-            elseif($data_user->admin == 2)
-            {
-                return datatables()->of(customer::
-                leftJoin('users','users.id','customerdata.IDUser')
-                ->select('customerdata.*',DB::raw('DATE_FORMAT(customerdata.created_at,"%d %M %Y") as tglbuat'),'users.name')
-                ->where('customerdata.deleted','0')
-                ->where('customerdata.IDSales',$data_user->id))
-                ->filter(function ($data) use ($request) {
-                    if ($request->namapelanggan) {
-                        $data->where('nama_pelanggan', 'like', "%{$request->get('namapelanggan')}%");
-                    }
-                    if ($request->nomorrangka) {
-                        $data->where('vincode', 'like', "%{$request->get('nomorrangka')}%");
-                    }
-                    if ($request->domisili) {
-                        $data->where('domisili', 'like', "%{$request->get('domisili')}%");
-                    }
-                    if ($request->kendaraan) {
-                        $data->where('unit', 'like', "%{$request->get('kendaraan')}%");
-                    }
-                    if ($request->membership) {
-                        $data->where('membership', '=', $request->get('membership'));
-                    }
-                })
-                ->addColumn('kolom_kedua', function($data) use($data_user){
-                    $kolom = $data->phone1;
-                    if($data->phone2 != 0)
-                    {
-                        $kolom .= "<br>";
-                        $kolom .= $data->phone2;
-                    }
-                    return $kolom;
-                })
-                ->addColumn('kolom_ketiga', function($data) use($data_user){
-                    $kolom = $data->unit;
-                    $kolom .= " ";
-                    $kolom .= $data->tahun;
-                    return $kolom;
-                })
-                ->addColumn('kolom_keempat', function($data) use($data_user){
-                    switch($data->membership)
-                    {
-                        case 0 : return "New Member"; break;
-                        case 1 : return "Platinum"; break;
-                        case 2 : return "Gold"; break;
-                        case 3 : return "Silver"; break;
-                        case 4 : return "Bronze"; break;
-                        case 5 : return "New Member"; break;
-                    }
-                })
-                ->addColumn('action', function($data) use($data_user){
-                    $button = '<div class="btn-group">';
-                        $button .= '<button type="button" name="delete" id="'.$data->ID.'" class="delete btn btn-danger btn-sm"><i title="Rubah Data" class="fas fa-trash"></i></button>';
-                    return $button;})
-                ->rawColumns(['action','kolom_kedua','kolom_ketiga','kolom_keempat'])
-                ->make(true);}
+            // }
+            // elseif($data_user->admin == 2)
+            // {
+            //     return datatables()->of(customer::
+            //     leftJoin('users','users.id','customerdata.IDUser')
+            //     ->select('customerdata.*',DB::raw('DATE_FORMAT(customerdata.created_at,"%d %M %Y") as tglbuat'),'users.name')
+            //     ->where('customerdata.deleted','0')
+            //     ->where('customerdata.IDSales',$data_user->id))
+            //     ->filter(function ($data) use ($request) {
+            //         if ($request->namapelanggan) {
+            //             $data->where('nama_pelanggan', 'like', "%{$request->get('namapelanggan')}%");
+            //         }
+            //         if ($request->nomorrangka) {
+            //             $data->where('vincode', 'like', "%{$request->get('nomorrangka')}%");
+            //         }
+            //         if ($request->domisili) {
+            //             $data->where('domisili', 'like', "%{$request->get('domisili')}%");
+            //         }
+            //         if ($request->kendaraan) {
+            //             $data->where('unit', 'like', "%{$request->get('kendaraan')}%");
+            //         }
+            //         if ($request->membership) {
+            //             $data->where('membership', '=', $request->get('membership'));
+            //         }
+            //     })
+            //     ->addColumn('kolom_kedua', function($data) use($data_user){
+            //         $kolom = $data->phone1;
+            //         if($data->phone2 != 0)
+            //         {
+            //             $kolom .= "<br>";
+            //             $kolom .= $data->phone2;
+            //         }
+            //         return $kolom;
+            //     })
+            //     ->addColumn('kolom_ketiga', function($data) use($data_user){
+            //         $kolom = $data->unit;
+            //         $kolom .= " ";
+            //         $kolom .= $data->tahun;
+            //         return $kolom;
+            //     })
+            //     ->addColumn('kolom_keempat', function($data) use($data_user){
+            //         switch($data->membership)
+            //         {
+            //             case 0 : return "New Member"; break;
+            //             case 1 : return "Platinum"; break;
+            //             case 2 : return "Gold"; break;
+            //             case 3 : return "Silver"; break;
+            //             case 4 : return "Bronze"; break;
+            //             case 5 : return "New Member"; break;
+            //         }
+            //     })
+            //     ->addColumn('action', function($data) use($data_user){
+            //         $button = '<div class="btn-group">';
+            //             $button .= '<button type="button" name="delete" id="'.$data->ID.'" class="delete btn btn-danger btn-sm"><i title="Rubah Data" class="fas fa-trash"></i></button>';
+            //         return $button;})
+            //     ->rawColumns(['action','kolom_kedua','kolom_ketiga','kolom_keempat'])
+            //     ->make(true);}
         }
         return view('customer.customerdata',['user' => $data_user]);
     }

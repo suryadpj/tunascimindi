@@ -51,7 +51,7 @@ class AksesorisController extends Controller
                 $button = '<div class="btn-group">';
                 if($data->img_src != "")
                 {
-                    $button .= '<button type="button" class="btn btn-default"><a style="color:black" href="data_file/slider/aksesoris/'.$data->img_src.'" title="Download"><i title="Download" class="fas fa-download"></i></a></button>';
+                    $button .= '<button type="button" class="btn btn-default"><a style="color:black" href="../../../'.$data->img_src.'" title="Download"><i title="Download" class="fas fa-download"></i></a></button>';
                 }
                     $button .= '<button type="button" name="edit" id="'.$data->ID.'" class="edit btn btn-primary btn-sm"><i title="Rubah Data" class="fas fa-edit"></i></button>';
                     $button .= '<button type="button" name="delete" id="'.$data->ID.'" class="delete btn btn-danger btn-sm"><i title="Rubah Data" class="fas fa-trash"></i></button>';
@@ -298,6 +298,11 @@ class AksesorisController extends Controller
     public function destroy($id)
     {
         aksesoris::where('ID',$id)->update(['deleted' => 1]);
+        return response()->json(['success' => 'Data berhasil dihapus.']);
+    }
+    public function destroyslider($id)
+    {
+        slideraksesoris::where('ID',$id)->update(['deleted' => 1]);
         return response()->json(['success' => 'Data berhasil dihapus.']);
     }
 }

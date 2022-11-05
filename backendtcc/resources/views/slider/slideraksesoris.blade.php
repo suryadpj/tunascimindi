@@ -526,7 +526,7 @@ $(document).ready(function(){
                 var id = $(this).attr('id');
                 $.ajax({
                     type: "DELETE",
-                    url: "slider/aksesoris/"+id,
+                    url: "../slider/aksesoris/delete/"+id,
                     dataType: 'JSON',
                     data:{
                         'id': id,

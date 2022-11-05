@@ -62,6 +62,7 @@ Route::post('/dataaksesoris', [AksesorisController::class, 'storeaksesoris'])->n
 Route::get('/dataaksesoris/{id}', [AksesorisController::class, 'showaksesoris'])->name('dataaksesoris.show');
 Route::post('/dataaksesoris/update', [AksesorisController::class, 'editaksesoris'])->name('dataaksesoris.updated');
 Route::delete('/dataaksesoris/{id}', [AksesorisController::class, 'destroy'])->name('dataaksesoris.destroy');
+Route::delete('/slider/aksesoris/delete/{id}', [AksesorisController::class, 'destroyslider'])->name('dataaksesoris.destroyslider');
 Route::post('/slider/aksesoris/update', [AksesorisController::class, 'updateslider'])->name('aksesorisslider.updated');
 
 Route::post('/ecatalog/brosur/store', [EcatalogController::class, 'storebrosur'])->name('ecatalog.storebrosur');
