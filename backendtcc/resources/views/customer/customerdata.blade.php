@@ -485,6 +485,7 @@ $(document).ready(function(){
         dt.one('preXhr', function (e, s, data) {
             // Just this once, load all data from the server...
             data.start = 0;
+            // data.length = 2147483647;
             data.length = 2147483647;
             dt.one('preDraw', function (e, settings) {
                 // Call the original action function

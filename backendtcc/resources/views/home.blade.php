@@ -11,7 +11,7 @@
     <div class="col-lg-3 col-6">
         <div class="small-box bg-info">
             <div class="inner">
-                <h1>33764</h1>
+                <h1>{{ $user }}</h1>
                 <p>Total Database</p>
             </div>
             <div class="icon">
@@ -23,7 +23,7 @@
     <div class="col-lg-3 col-6">
         <div class="small-box bg-success">
             <div class="inner">
-                <h1>165</h1>
+                <h1>{{ $logincount }}</h1>
                 <p>Total Data Login</p>
             </div>
             <div class="icon">
@@ -128,40 +128,61 @@
             <div class="card-body">
                 <table class="table table-bordered">
                     <tr>
-                        <th>Oktober</th>
+                        <th>November</th>
                         <th>Booking</th>
                         <th>Konfirmasi</th>
                     </tr>
+                    @foreach ($hitungreserv as $a)
                     <tr>
+                        <td>
+                            @switch($a->segmen)
+                                @case(1) Promo Bengkel @break
+                                @case(2) Tes Drive @break
+                                @case(3) Booking Service @break
+                                @case(4) Aksesoris @break
+                                @case(5) Referensi @break
+                                @case(6) Informasi Unit @break
+                                @case(7) Promo Sales @break
+                                @case(8) Booking CR7 @break
+
+                                @default
+
+                            @endswitch
+                        </td>
+                        <td>{{ $a->booking }}</td>
+                        <td>{{ $a->konfirmasi }}</td>
+                    </tr>
+                    @endforeach
+                    {{-- <tr>
                         <td>Booking Service</td>
-                        <td>48</td>
-                        <td>48</td>
+                        <td>25</td>
+                        <td>25</td>
                     </tr>
                     <tr>
                         <td>Booking CR7</td>
-                        <td>16</td>
+                        <td>7</td>
                         <td>7</td>
                     </tr>
                     <tr>
                         <td>Aksesoris</td>
-                        <td>9</td>
-                        <td>5</td>
+                        <td>2</td>
+                        <td>1</td>
                     </tr>
                     <tr>
                         <td>Unit baru</td>
-                        <td>11</td>
+                        <td>9</td>
                         <td>9</td>
                     </tr>
                     <tr>
                         <td>Trade in</td>
-                        <td>2</td>
-                        <td>2</td>
+                        <td>4</td>
+                        <td>4</td>
                     </tr>
                     <tr>
                         <td>Referensi</td>
-                        <td>3</td>
                         <td>2</td>
-                    </tr>
+                        <td>2</td>
+                    </tr> --}}
                 </table>
             </div>
         </div>
@@ -189,7 +210,7 @@
             labels: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21'],
             datasets: [{
                 type: 'line',
-                data: [9, 11, 5, 8, 15, 16, 6, 4, 7, 9, 12, 15, 5, 6, 8, 13, 17, 4, 5, 6, 9],
+                data: [9, 11, 5, 8, 15, 16, 6, 4, 7, 9, 12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                 backgroundColor: 'transparent',
                 borderColor: '#007bff',
                 pointBorderColor: '#007bff',
@@ -271,7 +292,7 @@
         "data": {
             "labels": ["Gold", "Silver", "Bronze"],
             "datasets": [{
-                "data": [10, 33, 57],
+                "data": [{{ $hitungsegmen->gold }}, {{ $hitungsegmen->silver }}, {{ $hitungsegmen->bronze }}],
                 "fill": false,
                 "backgroundColor": ["rgb(59,60,54)", "rgb(255,215,0)", "rgb(192,192,192)", "rgb(205,127,50)"],
                 // "borderColor": ["rgb(255, 99, 132)", "rgb(255, 159, 64)", "rgb(255, 205, 86)", "rgb(75, 192, 192)", "rgb(54, 162, 235)"],
@@ -283,9 +304,9 @@
     var compositionChart = new Chart($compositionChart, {
         type: 'doughnut',
         "data": {
-            "labels": ["Punctual", "Active", "passive", "Inactive"],
+            "labels": ["Aktif", "Inactive", "Loyal", "New", "Pasif"],
             "datasets": [{
-                "data": [55, 25, 15, 5],
+                "data": [{{ $hitungsegmen->aktif }}, {{ $hitungsegmen->inactive }}, {{ $hitungsegmen->loyal }}, {{ $hitungsegmen->new }}, {{ $hitungsegmen->pasif }}],
                 "fill": false,
                 "backgroundColor": ["rgb(59,60,54)", "rgb(255,215,0)", "rgb(192,192,192)", "rgb(205,127,50)"],
                 // "borderColor": ["rgb(255, 99, 132)", "rgb(255, 159, 64)", "rgb(255, 205, 86)", "rgb(75, 192, 192)", "rgb(54, 162, 235)"],
