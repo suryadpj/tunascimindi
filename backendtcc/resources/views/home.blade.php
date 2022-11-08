@@ -24,7 +24,7 @@
         <div class="small-box bg-success">
             <div class="inner">
                 <h1>{{ $logincount }}</h1>
-                <p>Total Data Login</p>
+                <p>Total Data Logins</p>
             </div>
             <div class="icon">
                 <i class="ion ion-stats-bars"></i>
