@@ -240,7 +240,7 @@
                         <li class="nav-item">
                             <a class="nav-link {{{ (Request::is('tradein') ? 'active' : '') }}} " href="tradein" tabindex="-1">
                                 <div class="avatar avatar-40 rounded icon"><i class="bi bi-journal-code"></i></div>
-                                <div class="col">Trade-in</div>
+                                <div class="col">TRUST</div>
                                 <div class="arrow"><i class="bi bi-chevron-right"></i></div>
                             </a>
                         </li>
