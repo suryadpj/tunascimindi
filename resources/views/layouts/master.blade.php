@@ -195,12 +195,12 @@
                                         <div class="col">History</div>
                                         <div class="arrow"><i class="bi bi-chevron-right"></i></div>
                                     </a></li>
-                                <li><a class="dropdown-item nav-link {{{ (Request::is('aksesoris') ? 'active' : '') }}} " href="aksesoris">
+                                {{-- <li><a class="dropdown-item nav-link {{{ (Request::is('aksesoris') ? 'active' : '') }}} " href="aksesoris">
                                             <div class="avatar avatar-40 rounded icon"><i class="bi bi-play-fill"></i>
                                             </div>
                                             <div class="col">Accessories</div>
                                             <div class="arrow"><i class="bi bi-chevron-right"></i></div>
-                                        </a></li>
+                                        </a></li> --}}
                                 <li><a class="dropdown-item nav-link {{{ (Request::is('promo') ? 'active' : '') }}} " href="promo">
                                                 <div class="avatar avatar-40 rounded icon"><i class="bi bi-play-fill"></i>
                                                 </div>
@@ -241,6 +241,13 @@
                             <a class="nav-link {{{ (Request::is('tradein') ? 'active' : '') }}} " href="tradein" tabindex="-1">
                                 <div class="avatar avatar-40 rounded icon"><i class="bi bi-journal-code"></i></div>
                                 <div class="col">TRUST</div>
+                                <div class="arrow"><i class="bi bi-chevron-right"></i></div>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{{ (Request::is('aksesoris') ? 'active' : '') }}} " href="aksesoris" tabindex="-1">
+                                <div class="avatar avatar-40 rounded icon"><i class="bi bi-bag-plus"></i></div>
+                                <div class="col">TCO</div>
                                 <div class="arrow"><i class="bi bi-chevron-right"></i></div>
                             </a>
                         </li>
