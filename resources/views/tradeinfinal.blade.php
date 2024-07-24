@@ -1,6 +1,6 @@
 @php
-    $pricemin = number_format($price->harga-15000000,0);
-    $pricemax = number_format($price->harga+15000000,0);
+    $pricemin = number_format($price->harga_min,0);
+    $pricemax = number_format($price->harga_max,0);
 @endphp
 <br>
 <br>
