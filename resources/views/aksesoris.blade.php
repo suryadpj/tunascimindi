@@ -80,7 +80,7 @@
                                         {{-- <button href="" class="download btn btn-primary text-end" title="Rekomendasi" data-toggle="tooltip" data-placement="left" title="Tooltip on left"><i class="bi bi-download" title="Rekomendasi"></i></butt> --}}
                                     </div>
                                     <div class="col align-self-center text-end">
-                                        <button onclick="window.location.href='{{ $a->link }}';target='_blank';" class="download btn btn-primary text-end" title="Rekomendasi" data-toggle="tooltip" data-placement="left" title="Tooltip on left"><i class="bi bi-download" title="Rekomendasi"></i></button>
+                                        <button onclick="window.location.href='../{{ $a->link }}';target='_blank';" class="download btn btn-primary text-end" title="Rekomendasi" data-toggle="tooltip" data-placement="left" title="Tooltip on left"><i class="bi bi-download" title="Rekomendasi"></i></button>
                                         <button type="button" class="booknow btn btn-primary text-end" id="{{ $a->ID }}">Beli</button>
                                     </div>
                                 </div>
