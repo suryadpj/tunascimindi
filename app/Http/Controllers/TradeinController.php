@@ -36,27 +36,33 @@ class TradeinController extends Controller
         return view('tradein',['brosur' => $segmen_brosur,'datae' => $data,'profil' => $profil,'lastservice' => $lastservice,'lastservicecount' => $lastservicecount,'cr7data' => $cr7data,'cr7count' => $cr7count]);
     }
 
-    public function model()
+    public function merk()
     {
-        $model = DB::table('tradeincar')->select('model')->where('deleted',0)->groupby('model')->get();
+        $merk = DB::table('tradeincar')->select('merk')->where('deleted',0)->groupby('merk')->get();
+        return view('merk',['merk' => $merk]);
+    }
+
+    public function model($id)
+    {
+        $model = DB::table('tradeincar')->select('merk','model')->where('merk',$id)->where('deleted',0)->groupby('merk','model')->get();
         return view('tradeinmodel2',['model' => $model]);
     }
-    public function year($id)
+    public function year($id,$id2)
     {
-        $year = DB::table('tradeincar')->select('model','tahun')->where('deleted',0)->where('model',$id)->groupby('model','tahun')->get();
-        $yearone = DB::table('tradeincar')->select('model','tahun')->where('deleted',0)->where('model',$id)->groupby('model','tahun')->first();
+        $year = DB::table('tradeincar')->select('merk','model','tahun')->where('deleted',0)->where('merk',$id)->where('model',$id2)->groupby('merk','model','tahun')->get();
+        $yearone = DB::table('tradeincar')->select('merk','model','tahun')->where('deleted',0)->where('merk',$id)->where('model',$id2)->groupby('merk','model','tahun')->first();
         return view('tradeinyear',['year' => $year,'yearone' => $yearone]);
     }
-    public function variants($id,$id2)
+    public function variants($id,$id2,$id3)
     {
-        $variants = DB::table('tradeincar')->select('model','tahun','type')->where('deleted',0)->where('model',$id)->where('tahun',$id2)->groupby('model','tahun','type')->get();
-        $variantsone = DB::table('tradeincar')->select('model','tahun','type')->where('deleted',0)->where('model',$id)->where('tahun',$id2)->groupby('model','tahun','type')->first();
+        $variants = DB::table('tradeincar')->select('merk','model','tahun','type')->where('deleted',0)->where('merk',$id)->where('model',$id2)->where('tahun',$id3)->groupby('merk','model','tahun','type')->get();
+        $variantsone = DB::table('tradeincar')->select('merk','model','tahun','type')->where('deleted',0)->where('merk',$id)->where('model',$id2)->where('tahun',$id3)->groupby('merk','model','tahun','type')->first();
         return view('tradeinvariants',['variants' => $variants,'variantsone' => $variantsone]);
     }
-    public function transmisi($id,$id2,$id3)
+    public function transmisi($id,$id2,$id3,$id4)
     {
-        $transmisi = DB::table('tradeincar')->select('model','tahun','type','transmisi')->where('deleted',0)->where('model',$id)->where('tahun',$id2)->where('type',$id3)->groupby('model','tahun','type','transmisi')->get();
-        $transmisione = DB::table('tradeincar')->select('model','tahun','type','transmisi')->where('deleted',0)->where('model',$id)->where('tahun',$id2)->where('type',$id3)->groupby('model','tahun','type','transmisi')->first();
+        $transmisi = DB::table('tradeincar')->select('merk','model','tahun','type','transmisi')->where('deleted',0)->where('merk',$id)->where('model',$id2)->where('tahun',$id3)->where('type',$id4)->groupby('merk','model','tahun','type','transmisi')->get();
+        $transmisione = DB::table('tradeincar')->select('merk','model','tahun','type','transmisi')->where('deleted',0)->where('merk',$id)->where('model',$id2)->where('tahun',$id3)->where('type',$id4)->groupby('merk','model','tahun','type','transmisi')->first();
         return view('tradeintransmisi',['transmisi' => $transmisi,'transmisione' => $transmisione]);
     }
     public function detail($id,$id2,$id3,$id4)
@@ -97,6 +103,7 @@ class TradeinController extends Controller
             'numeric' => ':attribute harus diisi angka',
         ];
         $rules = array(
+            'merk'        =>  'required',
             'model'        =>  'required',
             'year'     =>  'required',
             'variant'             =>  'required',
@@ -114,6 +121,7 @@ class TradeinController extends Controller
 
         $form_data = array(
             'IDUser'                =>  $data_user->id,
+            'merk'        =>  $request->merk,
             'model'        =>  $request->model,
             'year'     =>  $request->year,
             'varian'              =>  $request->variant,
@@ -124,7 +132,7 @@ class TradeinController extends Controller
 
         DB::table('tradeindata')->insert($form_data);
 
-        $harga = DB::table('tradeincar')->where('model',$request->model)->where('tahun',$request->year)->where('type',$request->variant)->where('transmisi',$request->transmition)->first();
+        $harga = DB::table('tradeincar')->where('merk',$request->merk)->where('model',$request->model)->where('tahun',$request->year)->where('type',$request->variant)->where('transmisi',$request->transmition)->first();
 
         return response()->json(['success' => $harga->ID]);
     }

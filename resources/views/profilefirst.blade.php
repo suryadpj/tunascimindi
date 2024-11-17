@@ -75,7 +75,7 @@
     </div>
     <div class="modal-footer">
         <input type="hidden" name="action" id="action" />
-        <button type="button" class="btn btn-default" data-bs-dismiss="modal">Skip</button>
+        <a href="skipregistrasi/{{ $datae->vincode }}" class="btn btn-default" data-bs-dismiss="modal">Skip</a>
         <button type="submit" name="action_button" value="Add" id="action_button" class="btn btn-primary">Save Data</button>
     </div>
 </form>

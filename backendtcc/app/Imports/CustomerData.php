@@ -25,7 +25,7 @@ class CustomerData implements ToModel, WithStartRow, WithCalculatedFormulas
         $data_user = Auth::user();
 
         //define membership
-        switch($row['19'])
+        switch($row['18'])
         {
             case "PLATINUM" : $membership=1; break;
             case "GOLD" : $membership=2; break;
@@ -36,7 +36,7 @@ class CustomerData implements ToModel, WithStartRow, WithCalculatedFormulas
         }
 
         //define status
-        switch($row['18'])
+        switch($row['17'])
         {
             case "Inactive" : $statuse = 2; break;
             case "Loyal" : $statuse = 3; break;
@@ -46,8 +46,9 @@ class CustomerData implements ToModel, WithStartRow, WithCalculatedFormulas
             default : $statuse = 4;
         }
         //define empty date
-        if($row['13'] == "" || isset($row['13'])) {$tglssc = NULL; } else {$tglssc = $row['13']; }
-        if($row['14'] == "" || isset($row['14'])) {$tglstnk = NULL; } else {$tglstnk = $row['14']; }
+        if($row['6'] == "" || isset($row['6'])) {$tglssc = NULL; } else {$tgllahir = $row['6']; }
+        if($row['12'] == "" || isset($row['13'])) {$tglssc = NULL; } else {$tglssc = $row['13']; }
+        if($row['13'] == "" || isset($row['14'])) {$tglstnk = NULL; } else {$tglstnk = $row['14']; }
 
         return new customer([
             'IDUser'                    => $data_user->id,
@@ -56,16 +57,16 @@ class CustomerData implements ToModel, WithStartRow, WithCalculatedFormulas
             'nama_pelanggan'            => $row['3'],
             'phone1'                    => $row['4'],
             'phone2'                    => $row['5'],
-            'tanggal_lahir'             => isset($row['6']) ? $row['6'] : '0000-00-00',
+            'tanggal_lahir'             => $tgllahir,
             'domisili'                  => $row['7'],
             'hobi'                      => $row['8'],
             'food_drink'                => $row['9']." - ".$row['10'],
-            'terlibat_ssc'              => $row['12'],
+            'terlibat_ssc'              => $row['11'],
             'tanggal_pengerjaan_ssc'    => $tglssc,
             'masa_berlaku_stnk'         => $tglstnk,
-            'unit'                      => $row['15'],
-            'tahun'                     => $row['16'],
-            '1stcome'                   => $row['17'],
+            'unit'                      => $row['14'],
+            'tahun'                     => $row['15'],
+            '1stcome'                   => $row['16'],
             'status'                    => $statuse,
             'membership'                => $membership,
         ]);

@@ -1,6 +1,6 @@
 <div id="form-1" class="">
     <center>
-    <h4 class="py-3">Model Mobil</h4>
+    <h4 class="py-3">Merk Mobil</h4>
         <div class="m-3 ">
             <div class="input-group">
                 <input name="keywords" class="search-form" type="text"
@@ -17,9 +17,9 @@
             </div>
         </div>
         <div class="row py-3 px-4 px-lg-3 justify-content-center">
-            @foreach ($model as $m)
-                <div class="col-md-3 col-4 py-2 px-xl-3 px-lg-1 px-3 car-model-options">
-                    <button id="form-2-{{ $m->model }}" onclick="OnOptionClick(this)" data-merk="{{ $m->merk }}" data-model="{{ $m->model }}" type="button" class="btn btn-primary btn-style btn-frm-2 btn-form-2"><b>{{ $m->model }}</b></button>
+            @foreach ($merk as $m)
+                <div class="col-md-3 col-4 py-2 px-xl-3 px-lg-1 px-3 car-merk-options">
+                    <button id="form-1-{{ $m->merk }}" onclick="OnOptionClick(this)" data-merk="{{ $m->merk }}" type="button" class="btn btn-primary btn-style btn-frm-2 btn-form-2"><b>{{ $m->merk }}</b></button>
                 </div>
             @endforeach
         </div>
@@ -33,7 +33,7 @@
 
     function OnChangeSearchCarModel(el) {
         var searchCarModelValue = el.value;
-        var carModelOptions = document.querySelectorAll('.car-model-options');
+        var carModelOptions = document.querySelectorAll('.car-merk-options');
 
         if(searchCarModelValue != null) {
             for (let index = 0; index < carModelOptions.length; index++) {

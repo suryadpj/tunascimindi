@@ -34,11 +34,22 @@ Route::resource('history', App\Http\Controllers\HistoryController::class);
 Route::resource('ecatalog', App\Http\Controllers\EcatalogController::class);
 Route::resource('aksesoris', App\Http\Controllers\AksesoriController::class);
 Route::resource('tradein', App\Http\Controllers\TradeinController::class);
-Route::get('tradein/models/list', [App\Http\Controllers\TradeinController::class, 'model'])->name('tradein.model');
-Route::get('tradein/models/{id}/years', [App\Http\Controllers\TradeinController::class, 'year'])->name('tradein.year');
-Route::get('tradein/models/{id}/years/{id2}/variants', [App\Http\Controllers\TradeinController::class, 'variants'])->name('tradein.variants');
-Route::get('tradein/models/{id}/years/{id2}/variants/{id3}/transmisi', [App\Http\Controllers\TradeinController::class, 'transmisi'])->name('tradein.transmisi');
+
+Route::get('tradein/merk/list', [App\Http\Controllers\TradeinController::class, 'merk'])->name('tradein.merk');
+Route::get('tradein/merk/{id}/models', [App\Http\Controllers\TradeinController::class, 'model'])->name('tradein.model');
+Route::get('tradein/merk/{id}/models/{id2}/years', [App\Http\Controllers\TradeinController::class, 'year'])->name('tradein.year');
+Route::get('tradein/merk/{id}/models/{id2}/years/{id3}/variants', [App\Http\Controllers\TradeinController::class, 'variants'])->name('tradein.variants');
+Route::get('tradein/merk/{id}/models/{id2}/years/{id3}/variants/{id4}/transmisi', [App\Http\Controllers\TradeinController::class, 'transmisi'])->name('tradein.transmisi');
 Route::get('tradein/final/{id}', [App\Http\Controllers\TradeinController::class, 'tradeinfinal'])->name('tradein.final');
+
+
+// Route::get('tradein/models/list', [App\Http\Controllers\TradeinController::class, 'model'])->name('tradein.model');
+// Route::get('tradein/models/{id}/years', [App\Http\Controllers\TradeinController::class, 'year'])->name('tradein.year');
+// Route::get('tradein/models/{id}/years/{id2}/variants', [App\Http\Controllers\TradeinController::class, 'variants'])->name('tradein.variants');
+// Route::get('tradein/models/{id}/years/{id2}/variants/{id3}/transmisi', [App\Http\Controllers\TradeinController::class, 'transmisi'])->name('tradein.transmisi');
+// Route::get('tradein/final/{id}', [App\Http\Controllers\TradeinController::class, 'tradeinfinal'])->name('tradein.final');
+
+
 Route::post('tradeinspesial', [App\Http\Controllers\TradeinController::class, 'tradeinspesial'])->name('tradeinspesial');
 Route::resource('promo', App\Http\Controllers\PromoController::class);
 Route::get('promosales', [App\Http\Controllers\PromoController::class, 'indexsales'])->name('promo.sales');

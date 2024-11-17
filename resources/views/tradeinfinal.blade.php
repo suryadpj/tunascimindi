@@ -5,7 +5,7 @@
 <br>
 <br>
 <div class="col">
-    <h2 class=""><b>Toyota {{ $price->model }}</b></h2>
+    <h2 class=""><b> {{ $price->merk }} {{ $price->model }}</b></h2>
     <h3 class="">
         {{ $price->type }} -
         @if ($price->transmisi == 1)
